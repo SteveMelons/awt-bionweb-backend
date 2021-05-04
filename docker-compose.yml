@@ -1,0 +1,38 @@
+services:
+  node:
+    image: node:16-alpine
+    working_dir: /home/node/app
+    environment:
+      - PORT=4000
+    volumes:
+      - ./:/home/node/app
+    networks:
+      - bionweb-backend
+    ports:
+      - 4000:4000
+    command: "npm run dev"
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:4
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - bionweb-backend
+
+  redis:
+    image: redis:6-alpine
+    volumes:
+      - redis-data:/data
+    networks:
+      - bionweb-backend
+
+volumes:
+  mongo-data:
+  redis-data:
+
+networks:
+  bionweb-backend:
+    name: bionweb-backend
