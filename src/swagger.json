@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AWT BioNWeb Project API",
+    "description": "API for the Advanced Web Technologies Project of the BioNWeb group.",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:4000",
+      "description": "local dev environment"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Hello World!",
+        "responses": {
+          "200": {
+            "description": "UserId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Logs in the user.",
+        "description": "Logs in the user using username or email and password."
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ services:
     working_dir: /home/node/app
     environment:
       - PORT=4000
+      - SESSION_SECRET=uiyHB^&*Cg^&*F#^doy8bxyzGFC^
+      - REDIS_URL=redis:6379
     volumes:
       - ./:/home/node/app
     networks:
