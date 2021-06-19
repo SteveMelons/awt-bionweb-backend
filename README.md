@@ -23,13 +23,7 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
    docker-compose up -d
    ```
 
-4. Go into the frontend directory and start watch command
-
-   ```
-   npm run watch
-   ```
-
-5. Open your browser to localhost
+4. Open your browser to localhost
 
 ### Happy Coding! 🏆
 
