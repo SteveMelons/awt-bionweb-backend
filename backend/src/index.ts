@@ -1,7 +1,5 @@
 import "dotenv-safe/config"; //checks if all necessary env variables from .env.example have been provided
 import express from "express";
-import { readFileSync } from "node:fs";
-import https from "https";
 import session from "express-session";
 import Redis from "ioredis";
 import connectRedis from "connect-redis";
@@ -21,10 +19,6 @@ import argon2 from "argon2";
 
 (async () => {
   /* --- CONFIGURATION --- */
-  // read key and cert for https
-  const key = readFileSync("./key.pem");
-  const cert = readFileSync("./cert.pem");
-
   // setup mongodb with mikroorm
   let em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>;
   try {
@@ -164,7 +158,7 @@ import argon2 from "argon2";
   });
 
   /* --- START LISTENING --- */
-  https.createServer({ key, cert }, app).listen(process.env.PORT, () => {
+  app.listen(process.env.PORT, () => {
     console.info("server started listening on port " + process.env.PORT);
   });
 })();
