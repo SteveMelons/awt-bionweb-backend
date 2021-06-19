@@ -2,7 +2,17 @@
 
 Advanced Web Technologies SS21 group project backend for group BioNWeb.
 
-## ⚡ HOW TO GET STARTED ⚡
+# 💎 WHAT IT IS
+
+...
+
+# 🔨 HOW IT WORKS
+
+## Architecture
+
+...
+
+# ⚡ HOW TO GET STARTED CODING
 
 1. Install Docker on your machine
 2. Clone the repo using SSH
@@ -18,18 +28,16 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
    ```
 
 3. Launch the docker containers using docker-compose
-
    ```
    docker-compose up -d
    ```
-
 4. Open your browser to localhost
 
-### Happy Coding! 🏆
+Happy Coding! 🏆
 
-## ✨TIPS AND TRICKS ✨
+# ✨TIPS AND TRICKS
 
-### Useful Commands
+## Useful Commands
 
 - Check all running docker containers
 
@@ -44,3 +52,11 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
   ```
 
   For example with the **node-backend** and **node-frontend** container
+
+# 📓 INFO
+
+## SSL
+
+The project is setup to use SSL encryption using https.
+
+Certificates for [awt-bionweb.ddns.net](https://awt-bionweb.ddns.net/) have been issued by [Let's Encypt](https://letsencrypt.org/) and are auto-renewed using [certbot](https://certbot.eff.org/).
