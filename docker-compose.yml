@@ -27,6 +27,8 @@ services:
     environment:
       - PORT=4000
       - SESSION_SECRET=uiyHB^&*Cg^&*F#^doy8bxyzGFC^
+      - MONGO_URL=mongodb://mongo:27017
+      - DB_NAME=awt_project
       - REDIS_URL=redis:6379
     volumes:
       - ./backend:/home/node/app
