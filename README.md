@@ -1,4 +1,4 @@
-# awt-bionweb-backend
+# AWT BioNWeb Project
 
 Advanced Web Technologies SS21 group project backend for group BioNWeb.
 
@@ -8,13 +8,13 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
 2. Clone the repo using SSH
 
    ```
-   git clone git@github.com:SteveMelons/awt-bionweb-backend.git
+   git clone git@github.com:SteveMelons/awt-bionweb-project.git
    ```
 
    or using HTTPS if you don't have SSH configured on your machine
 
    ```
-   git clone https://github.com/SteveMelons/awt-bionweb-backend.git
+   git clone https://github.com/SteveMelons/awt-bionweb-project.git
    ```
 
 3. Launch the docker containers using docker-compose
@@ -22,6 +22,14 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
    ```
    docker-compose up -d
    ```
+
+4. Go into the frontend directory and start watch command
+
+   ```
+   npm run watch
+   ```
+
+5. Open your browser to localhost
 
 ### Happy Coding! 🏆
 

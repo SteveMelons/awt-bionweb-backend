@@ -1,5 +1,5 @@
 {
-  "name": "awt-bionweb-backend",
+  "name": "awt-bionweb-project",
   "version": "1.0.0",
   "description": "Advanced Web Technologies SS21 group project backend for group BioNWeb.",
   "scripts": {
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SteveMelons/awt-bionweb-backend.git"
+    "url": "git+https://github.com/SteveMelons/awt-bionweb-project.git"
   },
   "bugs": {
-    "url": "https://github.com/SteveMelons/awt-bionweb-backend/issues"
+    "url": "https://github.com/SteveMelons/awt-bionweb-project/issues"
   },
-  "homepage": "https://github.com/SteveMelons/awt-bionweb-backend#readme",
+  "homepage": "https://github.com/SteveMelons/awt-bionweb-project#readme",
   "devDependencies": {
     "@types/connect-redis": "^0.0.16",
     "@types/cors": "^2.8.10",
