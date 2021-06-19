@@ -43,4 +43,4 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
   docker logs --follow <CONTAINER ID>
   ```
 
-  For example with the **node** container
+  For example with the **node-backend** and **node-frontend** container
