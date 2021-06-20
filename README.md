@@ -20,7 +20,7 @@ Another container is running certbot which continously checks the validity of th
 
 ## Routes/Routing
 
-Nginx is configured to forward each request based on the incomming URL.
+Nginx is configured to forward each request based on the URL.
 
 - `/api/` Gets forwarded to the backend NodeJS server.
 - `/` Gets forwarded directly to the React frontend.
