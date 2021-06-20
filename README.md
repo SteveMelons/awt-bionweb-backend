@@ -12,6 +12,13 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
 
 ...
 
+## Routes/Routing
+
+Nginx is configured to forward each request based on the URL.
+
+- `/api/` Gets forwarded to the backend NodeJS server.
+- `/` Gets forwarded to the React frontend.
+
 # ⚡ HOW TO GET STARTED CODING
 
 1. Install Docker on your machine.
