@@ -5,7 +5,9 @@
   "scripts": {
     "watch-ts": "tsc -w",
     "watch-js": "nodemon --watch dist dist/index.js",
-    "dev": "concurrently -n TS-Compiler,Node \"npm run watch-ts\" \"npm run watch-js\""
+    "dev": "concurrently -n TS-Compiler,Node \"npm run watch-ts\" \"npm run watch-js\"",
+    "build": "tsc",
+    "start": "node dist/index"
   },
   "repository": {
     "type": "git",

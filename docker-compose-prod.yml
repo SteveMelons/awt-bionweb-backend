@@ -10,6 +10,15 @@ services:
     ports:
       - 80:80
       - 443:443
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   node-backend:
     image: node:16-alpine
@@ -21,24 +30,13 @@ services:
       - MONGO_URL=mongodb://mongo:27017
       - DB_NAME=awt_project
       - REDIS_URL=redis:6379
+      - NODE_ENV=production
     volumes:
       - ./backend:/home/node/app
-    command: "npm run dev"
+    command: "npm start"
     depends_on:
       - mongo
       - redis
-
-  node-frontend:
-    image: node:16-alpine
-    restart: unless-stopped
-    working_dir: /home/node/app
-    volumes:
-      - ./frontend:/home/node/app
-    command: "npm run dev"
-    ports:
-      - 35729:35729
-    depends_on:
-      - node-backend
 
   mongo:
     image: mongo:4
