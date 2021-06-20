@@ -14,24 +14,19 @@ Advanced Web Technologies SS21 group project backend for group BioNWeb.
 
 # ⚡ HOW TO GET STARTED CODING
 
-1. Install Docker on your machine
-2. Clone the repo using SSH
+1. Install Docker on your machine.
+2. Fork and clone the repository https://github.com/SteveMelons/awt-bionweb-project.
 
-   ```
-   git clone git@github.com:SteveMelons/awt-bionweb-project.git
-   ```
+   If you have never contributed to a project before or just need to refresh your memory, check out https://github.com/firstcontributions/first-contributions.
 
-   or using HTTPS if you don't have SSH configured on your machine
-
-   ```
-   git clone https://github.com/SteveMelons/awt-bionweb-project.git
-   ```
-
-3. Launch the docker containers using docker-compose
+3. After you have forked and cloned the repo, launch the docker containers using docker-compose.
    ```
    docker-compose up -d
    ```
-4. Open your browser to localhost
+4. Open your browser to https://localhost.
+5. Now you can create a new branch, start coding, commit your work and then finally make a pull request from your forked repo.
+
+   Again, if you need some help check out https://github.com/firstcontributions/first-contributions.
 
 Happy Coding! 🏆
 
@@ -39,19 +34,19 @@ Happy Coding! 🏆
 
 ## Useful Commands
 
-- Check all running docker containers
+- Check all running docker containers.
 
   ```
   docker ps
   ```
 
-- Follow logs of a container
+- Follow logs of a container.
 
   ```
   docker logs --follow <CONTAINER ID>
   ```
 
-  For example with the **node-backend** and **node-frontend** container
+  For example with the **node-backend** and **node-frontend** container.
 
 # 📓 INFO
 
