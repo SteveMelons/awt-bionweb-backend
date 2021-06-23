@@ -4,8 +4,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
       - ./frontend/build:/data/www
     ports:
       - 80:80
@@ -23,7 +21,7 @@ services:
       - REDIS_URL=redis:6379
     volumes:
       - ./backend:/home/node/app
-    command: "npm run dev"
+    command: sh -c "npm i && npm run dev"
     depends_on:
       - mongo
       - redis
@@ -34,7 +32,7 @@ services:
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
-    command: "npm run dev"
+    command: sh -c "npm i && npm run dev"
     ports:
       - 35729:35729
     depends_on:

@@ -80,7 +80,8 @@ import argon2 from "argon2";
 
   /* --- ROUTES --- */
   app.get("/", (req, res) => {
-    return res.send("UserId: " + req.session.userId);
+    return res.send("Hello World from Express and Node!");
+    // return res.send("UserId: " + req.session.userId);
   });
 
   app.post("/register", async (req, res) => {
