@@ -16,6 +16,7 @@ import {
 } from "@mikro-orm/core";
 import { User } from "./entities/User";
 import argon2 from "argon2";
+import {router} from './routes/router';
 
 (async () => {
   /* --- CONFIGURATION --- */
@@ -151,6 +152,7 @@ import argon2 from "argon2";
 
     return res.send(true);
   });
+  app.use('/', router);
 
   app.get("/users", async (_req, res) => {
     const users = await em.find(User, {});
