@@ -4,7 +4,7 @@ import session from "express-session";
 import Redis from "ioredis";
 import connectRedis from "connect-redis";
 import cors from "cors";
-import { SESSION_COOKIE_NAME } from "./constants";
+import { SESSION_COOKIE_NAME, __prod__ } from "./constants";
 import microConfig from "./mikro-orm.config";
 import {
   Connection,
@@ -64,7 +64,7 @@ import { getRouter } from "./router";
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
         httpOnly: true,
-        secure: true,
+        secure: __prod__,
         sameSite: "lax",
       },
     })

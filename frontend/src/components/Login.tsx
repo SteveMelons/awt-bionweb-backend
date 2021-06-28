@@ -5,6 +5,7 @@ import { TextField } from "formik-material-ui";
 import { AccountCircle, Lock } from "@material-ui/icons";
 import { login } from "../api";
 import { matchFieldErrors } from "../utils/matchFieldErrors";
+import { useHistory } from "react-router-dom";
 
 interface LoginProps {}
 
@@ -15,6 +16,8 @@ interface FormValues {
 
 const Login: React.FC<LoginProps> = ({}) => {
   const initialFormValues: FormValues = { usernameOrEmail: "", password: "" };
+
+  const history = useHistory();
 
   return (
     <>
@@ -32,7 +35,8 @@ const Login: React.FC<LoginProps> = ({}) => {
             const errors = matchFieldErrors(res.data.errors);
             setErrors(errors);
           } else {
-            console.log(res.data.id);
+            history.push("/");
+            history.go(0);
           }
         }}
       >

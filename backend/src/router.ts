@@ -16,6 +16,14 @@ export const getRouter = (
     // return res.send("UserId: " + req.session.userId);
   });
 
+  router.get("/me", (req, res) => {
+    if (req.session.userId) {
+      res.send({ id: req.session.userId });
+    } else {
+      res.send();
+    }
+  });
+
   router.post("/register", async (req, res) => {
     const username: string = req.body.username;
     const email: string = req.body.email;
@@ -31,7 +39,14 @@ export const getRouter = (
       await em.persistAndFlush(user);
     } catch (err) {
       if (err.code === 11000) {
-        return res.send("username or email already taken");
+        return res.send({
+          errors: [
+            {
+              field: Object.entries(err.keyValue)[0][0],
+              msg: "already taken",
+            },
+          ],
+        });
       }
     }
 
