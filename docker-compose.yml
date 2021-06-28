@@ -7,7 +7,6 @@ services:
       - ./frontend/build:/data/www
     ports:
       - 80:80
-      - 443:443
 
   node-backend:
     image: node:16-alpine
