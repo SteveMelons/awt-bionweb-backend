@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import MLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -33,7 +34,9 @@ const Header: React.FC<HeaderProps> = ({}) => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" className={classes.title}>
-                Studect
+                <MLink href="/" color="inherit" underline = "none">
+                  Studect
+                </MLink>
               </Typography>
               <Button  component={Link} to="/login" color="inherit" >
                 Login
