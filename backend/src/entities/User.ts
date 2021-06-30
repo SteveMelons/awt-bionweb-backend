@@ -22,4 +22,25 @@ export class User {
 
   @Property()
   password: string;
+  
+  @Property()
+  mobile?: string;
+
+  @Property()
+  studyProgram?: string;
+
+  @Property()
+  preferences?: string[];
+
+  @Property()
+  skills?: string[];
+
+  @Property()
+  bio?: string;
+
+  @Property()
+  creationDate: Date = new Date();
+
+  @Property({ onUpdate: () => new Date() })
+  updatedAt?: Date = new Date();
 }

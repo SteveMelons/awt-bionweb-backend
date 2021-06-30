@@ -147,7 +147,7 @@ export const getRouter = (
     return res.send(users);
   });
 
-  router.get("/user/update", (req, res, next) => {
+  router.post("/user/update", (req, res, next) => {
     res.send("update student");
   });
 
