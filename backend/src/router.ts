@@ -97,7 +97,7 @@ export const getRouter = (
         errors: [
           {
             field: "usernameOrEmail",
-            msg: "user not found",
+            msg: "User not found",
           },
         ],
       });
@@ -112,7 +112,7 @@ export const getRouter = (
         errors: [
           {
             field: "password",
-            msg: "invalid password",
+            msg: "Invalid password",
           },
         ],
       });
