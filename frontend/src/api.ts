@@ -1,6 +1,7 @@
 import axios from "axios";
 import useAxios, { Options } from "axios-hooks";
 import { FieldError } from "./types/errors";
+import { User } from "./types/User";
 
 const axiosApi = axios.create({
   baseURL: "/api/",
@@ -44,8 +45,12 @@ const useApi = <TRes, TErr = any>({
 
 /* API ROUTES */
 
-export const useGetHelloWorld = () => {
-  return useApi<string, string>({ method: "GET", url: "/" });
+export const useGetUserById = (id: string) => {
+  return useApi<User, void>({ method: "GET", url: `/user/${id}` });
+};
+
+export const useGetUser = () => {
+  return useApi<User, void>({ method: "GET", url: "/user" });
 };
 
 export const useMe = () => {
