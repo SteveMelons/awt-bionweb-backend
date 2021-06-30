@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../img/logo-white.png";
 import { logout, useMe } from "../api";
-import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+import { AppBar, Toolbar, Button, Box } from "@material-ui/core";
 
 interface HeaderProps {}
 
@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  text: {
+    fontSize: "1em",
+    margin: "0 1em",
   },
 }));
 
@@ -26,21 +30,36 @@ const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Box className={classes.title}>
           <Link to="/">
             <img src={logo} height="80" />
           </Link>
-        </Typography>
-        <Button component={Link} to="/favorites" color="inherit">
+        </Box>
+        <Button
+          className={classes.text}
+          component={Link}
+          to="/favorites"
+          color="inherit"
+        >
           Favorites
         </Button>
         {/* not logged in */}
         {!data?.id && !loading && (
           <>
-            <Button component={Link} to="/login" color="inherit">
+            <Button
+              className={classes.text}
+              component={Link}
+              to="/login"
+              color="inherit"
+            >
               Login
             </Button>
-            <Button component={Link} to="/register" color="inherit">
+            <Button
+              className={classes.text}
+              component={Link}
+              to="/register"
+              color="inherit"
+            >
               Register
             </Button>
           </>
@@ -48,16 +67,23 @@ const Header: React.FC<HeaderProps> = ({}) => {
         {/* logged in */}
         {data?.id && (
           <>
-            <Button component={Link} to="/profile" color="inherit">
+            <Button
+              className={classes.text}
+              component={Link}
+              to="/profile"
+              color="inherit"
+            >
               Profile
             </Button>
             <Button
+              variant="contained"
+              color="secondary"
+              className={classes.text}
               onClick={() => {
                 logout();
                 history.push("/");
                 history.go(0);
               }}
-              color="inherit"
             >
               Logout
             </Button>
