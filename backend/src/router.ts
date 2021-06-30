@@ -3,6 +3,12 @@ import express from "express";
 import { SESSION_COOKIE_NAME } from "./constants";
 import { User } from "./entities/User";
 import argon2 from "argon2";
+import { IdFieldResponse, IdResponse } from "./types/responses";
+import {
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from "./validation";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -17,42 +23,64 @@ export const getRouter = (
   });
 
   router.get("/me", (req, res) => {
+    let response: IdResponse = {};
+
     if (req.session.userId) {
-      res.send({ id: req.session.userId });
-    } else {
-      res.send();
+      response.id = req.session.userId;
     }
+
+    res.send(response);
   });
 
   router.post("/register", async (req, res) => {
+    // setup response object
+    let response: IdFieldResponse = { errors: [] };
+
+    // get form values
     const username: string = req.body.username;
     const email: string = req.body.email;
     const password: string = req.body.password;
 
+    // input validation
+    let err = await validateUsername(username);
+    if (err) response.errors.push(err);
+    err = await validateEmail(email);
+    if (err) response.errors.push(err);
+    err = await validatePassword(password);
+    if (err) response.errors.push(err);
+
+    // if there are validation errors send response
+    if (response.errors.length > 0) return res.send(response);
+
+    // hash password
     const hashedPassword = await argon2.hash(password);
+
+    // create user object
     const user = em.create(User, {
       username,
       email,
       password: hashedPassword,
     });
+
+    // try to add user
     try {
       await em.persistAndFlush(user);
     } catch (err) {
       if (err.code === 11000) {
-        return res.send({
-          errors: [
-            {
-              field: Object.entries(err.keyValue)[0][0],
-              msg: "already taken",
-            },
-          ],
+        response.errors.push({
+          field: Object.entries(err.keyValue)[0][0],
+          msg: "Already taken",
         });
+        return res.send(response);
       }
     }
 
+    response.id = user.id;
+
+    // login
     req.session.userId = user.id;
 
-    return res.send(user);
+    return res.send(response);
   });
 
   router.post("/login", async (req, res) => {
