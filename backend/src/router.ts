@@ -9,7 +9,7 @@ import {
   validatePassword,
   validateUsername,
 } from "./validation";
-import { formResponseUser } from "./utils/formResponse";
+import { filterUser } from "./utils/filterEntity";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -17,11 +17,6 @@ export const getRouter = (
   var router = express.Router();
 
   /* ROUTES */
-
-  router.get("/", (req, res) => {
-    return res.send("Hello World from Express and Node!");
-    // return res.send("UserId: " + req.session.userId);
-  });
 
   router.get("/me", (req, res) => {
     let response: IdResponse = {};
@@ -108,6 +103,8 @@ export const getRouter = (
       });
     }
 
+    // em.populate(user, "password");
+
     const valid = await argon2.verify(user.password, password);
     if (!valid) {
       // passwor incorrect
@@ -143,7 +140,10 @@ export const getRouter = (
   });
 
   router.get("/users", async (_req, res) => {
-    let response = await em.find(User, {}, formResponseUser(em));
+    const users = await em.find(User, {});
+
+    // filter users
+    const response = users.map((user) => filterUser(user));
 
     return res.send(response);
   });
@@ -178,8 +178,38 @@ export const getRouter = (
     res.send("delete student");
   });
 
-  router.get("/user/profile/:id", (req, res) => {
-    res.send(`profile of student with id ${req.params.id}`);
+  router.get("/user", async (req, res) => {
+    const id = req.session.userId;
+
+    if (!id) {
+      return res.send();
+    }
+
+    const user = await em.findOne(User, { id });
+
+    if (!user) {
+      return res.send();
+    }
+
+    // filter user
+    const response = filterUser(user);
+
+    return res.send(response);
+  });
+
+  router.get("/user/:id", async (req, res) => {
+    const id = req.params.id;
+
+    const user = await em.findOne(User, { id });
+
+    if (!user) {
+      return res.send();
+    }
+
+    // filter user
+    const response = filterUser(user);
+
+    return res.send(response);
   });
 
   router.get("/students/matches", (req, res) => {
