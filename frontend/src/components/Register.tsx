@@ -35,7 +35,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           const res = await register(values);
           setSubmitting(false);
-          if (res.data.errors) {
+          if (res.data.errors.length > 0) {
             const errors = matchFieldErrors(res.data.errors);
             setErrors(errors);
           } else {
