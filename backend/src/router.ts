@@ -9,6 +9,7 @@ import {
   validatePassword,
   validateUsername,
 } from "./validation";
+import { formResponseUser } from "./utils/formResponse";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -142,41 +143,63 @@ export const getRouter = (
   });
 
   router.get("/users", async (_req, res) => {
-    const users = await em.find(User, {});
+    let response = await em.find(User, {}, formResponseUser(em));
 
-    return res.send(users);
+    return res.send(response);
   });
 
-  router.post("/user/update", (req, res, next) => {
-    res.send("update student");
+  router.post("/user/update", async (req, res) => {
+    // get currently logged in user's id
+    const id = req.session.userId;
+
+    // find user
+    const user = await em.findOne(User, { id });
+
+    // check if user exists
+    if (!user) {
+      return res.send(false);
+    }
+
+    // get data from body
+    const skills = req.body.skills;
+    const studyProgram = req.body.studyProgram;
+
+    // update user
+    user.skills = skills;
+    user.studyProgram = studyProgram;
+
+    // update database
+    em.persistAndFlush(user);
+
+    return res.send(true);
   });
 
-  router.get("/user/delete", (req, res, next) => {
+  router.get("/user/delete", (req, res) => {
     res.send("delete student");
   });
 
-  router.get("/user/profile/:id", (req, res, next) => {
+  router.get("/user/profile/:id", (req, res) => {
     res.send(`profile of student with id ${req.params.id}`);
   });
 
-  router.get("/students/matches", (req, res, next) => {
+  router.get("/students/matches", (req, res) => {
     res.send("matches");
   });
 
-  router.get("/students/:filters", (req, res, next) => {
+  router.get("/students/:filters", (req, res) => {
     //TODO to specify which filters do we need
     res.send("filterd students");
   });
 
-  router.get("/favorites", (req, res, next) => {
+  router.get("/favorites", (req, res) => {
     res.send("favorite");
   });
 
-  router.get("/favorites/add", (req, res, next) => {
+  router.get("/favorites/add", (req, res) => {
     res.send("add favorite");
   });
 
-  router.get("/favorites/remove/:id", (req, res, next) => {
+  router.get("/favorites/remove/:id", (req, res) => {
     res.send(`favorite with id ${req.params.id} will be removed`);
   });
 
