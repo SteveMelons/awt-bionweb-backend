@@ -6,6 +6,8 @@ import { AccountCircle, Lock } from "@material-ui/icons";
 import { login } from "../api";
 import { matchFieldErrors } from "../utils/matchFieldErrors";
 import { useHistory } from "react-router-dom";
+import * as Yup from "yup";
+import { validateUsername } from "../utils/validation";
 
 interface LoginProps {}
 
@@ -23,11 +25,10 @@ const Login: React.FC<LoginProps> = ({}) => {
     <>
       <Formik
         initialValues={initialFormValues}
-        validate={(values) => {
-          const errors: Partial<FormValues> = {};
-          // errors.usernameOrEmail = "somef sdcjandjsvg";
-          return errors;
-        }}
+        validationSchema={Yup.object().shape({
+          usernameOrEmail: Yup.string().required("Required"),
+          password: Yup.string().required("Required"),
+        })}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           const res = await login(values);
           setSubmitting(false);

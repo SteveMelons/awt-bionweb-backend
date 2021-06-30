@@ -6,6 +6,12 @@ import { AccountCircle, Email, Lock } from "@material-ui/icons";
 import { register } from "../api";
 import { matchFieldErrors } from "../utils/matchFieldErrors";
 import { useHistory } from "react-router-dom";
+import {
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from "../utils/validation";
+import * as Yup from "yup";
 
 interface RegisterProps {}
 
@@ -28,10 +34,11 @@ const Register: React.FC<RegisterProps> = ({}) => {
     <>
       <Formik
         initialValues={initialFormValues}
-        validate={(values) => {
-          const errors: Partial<FormValues> = {};
-          return errors;
-        }}
+        validationSchema={Yup.object().shape({
+          username: validateUsername(),
+          email: validateEmail(),
+          password: validatePassword(),
+        })}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           const res = await register(values);
           setSubmitting(false);
