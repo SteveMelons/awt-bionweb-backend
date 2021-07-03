@@ -35,14 +35,6 @@ const Header: React.FC<HeaderProps> = ({}) => {
             <img src={logo} height="80" />
           </Link>
         </Box>
-        <Button
-          className={classes.text}
-          component={Link}
-          to="/favorites"
-          color="inherit"
-        >
-          Favorites
-        </Button>
         {/* not logged in */}
         {!data?.id && !loading && (
           <>
@@ -67,6 +59,14 @@ const Header: React.FC<HeaderProps> = ({}) => {
         {/* logged in */}
         {data?.id && (
           <>
+            <Button
+              className={classes.text}
+              component={Link}
+              to="/favorites"
+              color="inherit"
+            >
+              Favorites
+            </Button>
             <Button
               className={classes.text}
               component={Link}

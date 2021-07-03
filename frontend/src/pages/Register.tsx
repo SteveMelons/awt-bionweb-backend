@@ -55,7 +55,6 @@ const Register: React.FC<RegisterProps> = ({}) => {
         <h1>Loading...</h1>
       ) : data?.id ? (
         (() => {
-          console.log(data);
           history.push("/");
           history.go(0);
         })()

@@ -31,7 +31,7 @@ services:
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
-    command: sh -c "npm i && npm run dev"
+    command: npm run dev
     ports:
       - 35729:35729
     depends_on:
