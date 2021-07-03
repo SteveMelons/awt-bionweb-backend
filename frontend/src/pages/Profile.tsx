@@ -16,7 +16,6 @@ const Profile: React.FC<ProfileProps> = ({}) => {
         <h1>Loading...</h1>
       ) : !meData?.id ? (
         (() => {
-          console.log(meData);
           history.push("/");
           history.go(0);
         })()

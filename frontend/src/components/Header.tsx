@@ -76,8 +76,8 @@ const Header: React.FC<HeaderProps> = ({}) => {
               Profile
             </Button>
             <Button
-              variant="contained"
-              color="secondary"
+              variant="outlined"
+              color="inherit"
               className={classes.text}
               onClick={() => {
                 logout();
