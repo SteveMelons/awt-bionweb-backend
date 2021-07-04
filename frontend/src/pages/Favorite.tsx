@@ -23,7 +23,7 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
         })()
       ) : (
         <>
-          <Typography variant="h3">Favorites</Typography>
+          <Typography variant="h4">Favorites</Typography>
           {!favoritesLoading &&
             favoritesData?.map((favorite) => (
               <StudectCard key={favorite.id} user={favorite} />

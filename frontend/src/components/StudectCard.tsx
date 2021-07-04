@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
     },
     title: {
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: "bold",
     },
     subtitle: {
-      fontSize: 11,
+      fontSize: 14,
       textAlign: "left",
     },
     pos: {
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: theme.spacing(10),
     },
     listItemText: {
-      fontSize: 10,
+      fontSize: 14,
       padding: 0,
       margin: 0,
     },
@@ -94,22 +94,20 @@ const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
               Looking for students in:
             </Typography>
 
-            <div>
-              <List>
-                {user.preferences?.map((preference) => (
-                  <ListItem button>
-                    <ListItemText
-                      className={classes.listItemText}
-                      primary={
-                        <Typography className={classes.listItemText}>
-                          {preference}
-                        </Typography>
-                      }
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </div>
+            <List>
+              {user.preferences?.map((preference) => (
+                <ListItem button>
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary={
+                      <Typography className={classes.listItemText}>
+                        {preference}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
           </Grid>
           {/* Right Column Avatar */}
           <Grid
@@ -130,10 +128,9 @@ const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
           <Grid item xs={12}>
             <Typography className={classes.subtitle}>
               <Box style={{ fontWeight: "bold", display: "inline" }}>
-                {user.username}
+                {user.username}{" "}
               </Box>
               - {user.email}
-              <Star className={classes.starIcon} />
             </Typography>
           </Grid>
         </Grid>
