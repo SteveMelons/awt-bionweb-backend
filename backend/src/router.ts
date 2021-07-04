@@ -1,4 +1,9 @@
-import { EntityManager, IDatabaseDriver, Connection } from "@mikro-orm/core";
+import {
+  EntityManager,
+  IDatabaseDriver,
+  Connection,
+  Reference,
+} from "@mikro-orm/core";
 import express from "express";
 import { SESSION_COOKIE_NAME } from "./constants";
 import { User } from "./entities/User";
@@ -9,7 +14,7 @@ import {
   validatePassword,
   validateUsername,
 } from "./validation";
-import { filterUser, filterUserF } from "./utils/filterEntity";
+import { filterUser, filterUserFavorite } from "./utils/filterEntity";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -181,10 +186,10 @@ export const getRouter = (
   });
 
   router.get("/user/delete", async (req, res) => {
-    let user = await em.findOne(User, {id :req.session.userId});
+    let user = await em.findOne(User, { id: req.session.userId });
 
-    if (!user)  {
-      return res.send(false)
+    if (!user) {
+      return res.send(false);
     }
 
     em.remove(user).flush();
@@ -236,52 +241,51 @@ export const getRouter = (
 
   router.get("/favorites", async (req, res) => {
     let userId = req.session.userId;
-    let user = await em.findOne(User, {id: userId});
+    let user = await em.findOne(User, { id: userId });
     let response = [];
-    if(!user){
+    if (!user) {
       return res.send(false);
     }
 
     //filter favotites
-    for(let fav of user.favorites!){
-      response.push(fav)
+    for (let fav of user.favorites) {
+      response.push(fav);
     }
-    response = response.map(fav => filterUserF(fav));
+
+    response = response.map((fav) => filterUserFavorite(fav));
 
     return res.send(response);
   });
 
-  router.get("/favorites/add", async (req, res) => {
+  router.post("/favorites/add", async (req, res) => {
     let favoriteId = req.body.favoriteId;
     let userId = req.session.userId;
 
-    let favorite = await em.findOne(User, {id: favoriteId});
-    let user = await em.findOne(User, {id: userId});
+    let favorite = await em.findOne(User, { id: favoriteId });
+    let user = await em.findOne(User, { id: userId });
 
-    if (!user || !favorite){
+    if (!user || !favorite) {
       return res.send(false);
     }
 
-    await user.favorites!.init();
-    user.favorites!.add(favorite)
-    em.persistAndFlush(user); //TODO this line doesn't work, the is no persisted to the database
+    user.favorites.add(favorite);
+    em.persistAndFlush(user);
     return res.send(true);
   });
 
-  router.get("/favorites/remove/:id", async (req, res) => {
+  router.delete("/favorites/remove/:id", async (req, res) => {
     let favoriteId = req.params.id;
     let userId = req.session.userId;
 
-    let favorite = await em.findOne(User, {id: favoriteId});
-    let user = await em.findOne(User, {id: userId});
+    let favorite = await em.findOne(User, { id: favoriteId });
+    let user = await em.findOne(User, { id: userId });
 
-     if (!user || !favorite){
+    if (!user || !favorite) {
       return res.send(false);
     }
-    
-    await user.favorites!.init();
-    user.favorites!.remove(favorite)
-    em.persistAndFlush(user); //TODO this line doesn't work, the is no persisted to the database
+
+    user.favorites.remove(favorite);
+    em.persistAndFlush(user);
     return res.send(true);
   });
 

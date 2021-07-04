@@ -1,7 +1,7 @@
 import {
   Collection,
   Entity,
-  OneToMany,
+  ManyToMany,
   PrimaryKey,
   Property,
   SerializedPrimaryKey,
@@ -24,7 +24,7 @@ export class User {
 
   @Property()
   password: string;
-  
+
   @Property()
   mobile?: string;
 
@@ -40,8 +40,8 @@ export class User {
   @Property()
   bio?: string;
 
-  @OneToMany(() => User, user => user)
-  favorites? = new Collection<User>(this);
+  @ManyToMany(() => User)
+  favorites = new Collection<User>(this);
 
   @Property()
   creationDate: Date = new Date();
