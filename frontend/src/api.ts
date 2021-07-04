@@ -1,7 +1,7 @@
 import axios from "axios";
 import useAxios, { Options } from "axios-hooks";
 import { FieldError } from "./types/errors";
-import { User } from "./types/User";
+import { Me, User } from "./types/User";
 
 const axiosApi = axios.create({
   baseURL: "/api/",
@@ -46,11 +46,15 @@ const useApi = <TRes, TErr = any>({
 /* API ROUTES */
 
 export const useGetUserById = (id: string) => {
-  return useApi<User, void>({ method: "GET", url: `/user/${id}` });
+  return useApi<Me, void>({ method: "GET", url: `/user/${id}` });
 };
 
 export const useGetUser = () => {
-  return useApi<User, void>({ method: "GET", url: "/user" });
+  return useApi<Me, void>({ method: "GET", url: "/user" });
+};
+
+export const useGetFavorites = () => {
+  return useApi<User[], void>({ method: "GET", url: "/favorites" });
 };
 
 export const useMe = () => {

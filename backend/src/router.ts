@@ -241,7 +241,7 @@ export const getRouter = (
 
   router.get("/favorites", async (req, res) => {
     let userId = req.session.userId;
-    let user = await em.findOne(User, { id: userId });
+    let user = await em.findOne(User, { id: userId }, ["favorites"]);
     let response = [];
     if (!user) {
       return res.send(false);

@@ -1,11 +1,15 @@
+import { Box, Typography } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useMe } from "../api";
+import { useGetFavorites, useMe } from "../api";
+import StudectCard from "../components/StudectCard";
 
 interface FavoriteProps {}
 
 const Favorite: React.FC<FavoriteProps> = ({}) => {
   const [{ data: meData, loading: meLoading }] = useMe();
+  const [{ data: favoritesData, loading: favoritesLoading }] =
+    useGetFavorites();
   const history = useHistory();
 
   return (
@@ -18,7 +22,13 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
           history.go(0);
         })()
       ) : (
-        <h1>Favorites!</h1>
+        <>
+          <Typography variant="h3">Favorites</Typography>
+          {!favoritesLoading &&
+            favoritesData?.map((favorite) => (
+              <StudectCard key={favorite.id} user={favorite} />
+            ))}
+        </>
       )}
     </>
   );
