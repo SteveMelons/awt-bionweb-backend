@@ -8,9 +8,9 @@ export const theme = createMuiTheme({
       dark: "#004c95",
     },
     secondary: {
-      main: "#c66b1c",
-      light: "#fe9a4b",
-      dark: "#903f00",
+      main: "#e53b3f",
+      light: "#ff716a",
+      dark: "#ac0018",
     },
   },
 });
