@@ -9,7 +9,7 @@ import {
   validatePassword,
   validateUsername,
 } from "./validation";
-import { filterUser } from "./utils/filterEntity";
+import { filterUser, filterUserF } from "./utils/filterEntity";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -163,10 +163,16 @@ export const getRouter = (
     // get data from body
     const skills = req.body.skills;
     const studyProgram = req.body.studyProgram;
+    const mobile = req.body.mobile;
+    const preferences = req.body.preferences;
+    const bio = req.body.bio;
 
     // update user
     user.skills = skills;
     user.studyProgram = studyProgram;
+    user.mobile = mobile;
+    user.preferences = preferences;
+    user.bio = bio;
 
     // update database
     em.persistAndFlush(user);
@@ -174,8 +180,15 @@ export const getRouter = (
     return res.send(true);
   });
 
-  router.get("/user/delete", (req, res) => {
-    res.send("delete student");
+  router.get("/user/delete", async (req, res) => {
+    let user = await em.findOne(User, {id :req.session.userId});
+
+    if (!user)  {
+      return res.send(false)
+    }
+
+    em.remove(user).flush();
+    return res.send(true);
   });
 
   router.get("/user", async (req, res) => {
@@ -221,16 +234,55 @@ export const getRouter = (
     res.send("filterd students");
   });
 
-  router.get("/favorites", (req, res) => {
-    res.send("favorite");
+  router.get("/favorites", async (req, res) => {
+    let userId = req.session.userId;
+    let user = await em.findOne(User, {id: userId});
+    let response = [];
+    if(!user){
+      return res.send(false);
+    }
+
+    //filter favotites
+    for(let fav of user.favorites!){
+      response.push(fav)
+    }
+    response = response.map(fav => filterUserF(fav));
+
+    return res.send(response);
   });
 
-  router.get("/favorites/add", (req, res) => {
-    res.send("add favorite");
+  router.get("/favorites/add", async (req, res) => {
+    let favoriteId = req.body.favoriteId;
+    let userId = req.session.userId;
+
+    let favorite = await em.findOne(User, {id: favoriteId});
+    let user = await em.findOne(User, {id: userId});
+
+    if (!user || !favorite){
+      return res.send(false);
+    }
+
+    await user.favorites!.init();
+    user.favorites!.add(favorite)
+    em.persistAndFlush(user); //TODO this line doesn't work, the is no persisted to the database
+    return res.send(true);
   });
 
-  router.get("/favorites/remove/:id", (req, res) => {
-    res.send(`favorite with id ${req.params.id} will be removed`);
+  router.get("/favorites/remove/:id", async (req, res) => {
+    let favoriteId = req.params.id;
+    let userId = req.session.userId;
+
+    let favorite = await em.findOne(User, {id: favoriteId});
+    let user = await em.findOne(User, {id: userId});
+
+     if (!user || !favorite){
+      return res.send(false);
+    }
+    
+    await user.favorites!.init();
+    user.favorites!.remove(favorite)
+    em.persistAndFlush(user); //TODO this line doesn't work, the is no persisted to the database
+    return res.send(true);
   });
 
   return router;

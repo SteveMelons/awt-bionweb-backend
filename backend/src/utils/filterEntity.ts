@@ -6,3 +6,10 @@ export const filterUser = (user: User) => {
 
   return res;
 };
+
+export const filterUserF = (user: User) => {
+  const { _id, updatedAt, password, favorites, ...res } = user;
+  res.id = user._id as any as string;
+
+  return res;
+};
