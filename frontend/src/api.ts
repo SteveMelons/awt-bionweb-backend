@@ -57,6 +57,10 @@ export const useGetFavorites = () => {
   return useApi<User[], void>({ method: "GET", url: "/favorites" });
 };
 
+export const useGetUsers = () => {
+  return useApi<User[], void>({ method: "GET", url: "/users" });
+};
+
 export const useMe = () => {
   return useApi<IdRes | null>({ method: "GET", url: "/me" });
 };

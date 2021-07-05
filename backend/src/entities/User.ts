@@ -23,10 +23,19 @@ export class User {
   email: string;
 
   @Property()
+  name: string;
+
+  @Property()
+  avatar: string;
+
+  @Property()
   password: string;
 
   @Property()
   mobile?: string;
+
+  @Property()
+  university?: string;
 
   @Property()
   studyProgram?: string;

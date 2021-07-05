@@ -74,7 +74,6 @@ interface StudectCardProps {
 
 const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
   const classes = useStyles();
-  const avatar_url = "https://www.cl.cam.ac.uk/~ga384/profile.jpg";
 
   return (
     <Card className={classes.root}>
@@ -96,15 +95,10 @@ const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
 
             <List>
               {user.preferences?.map((preference) => (
-                <ListItem button>
-                  <ListItemText
-                    className={classes.listItemText}
-                    primary={
-                      <Typography className={classes.listItemText}>
-                        {preference}
-                      </Typography>
-                    }
-                  />
+                <ListItem button key={preference}>
+                  <ListItemText className={classes.listItemText}>
+                    {preference}
+                  </ListItemText>
                 </ListItem>
               ))}
             </List>
@@ -118,7 +112,7 @@ const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
             justify="center"
           >
             <Avatar
-              src={avatar_url}
+              src={user.avatar}
               className={classes.avatar}
               alt="Osman Tasdelen"
             />
@@ -127,9 +121,9 @@ const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
           {/* Footer */}
           <Grid item xs={12}>
             <Typography className={classes.subtitle}>
-              <Box style={{ fontWeight: "bold", display: "inline" }}>
+              <span style={{ fontWeight: "bold", display: "inline" }}>
                 {user.username}{" "}
-              </Box>
+              </span>
               - {user.email}
             </Typography>
           </Grid>

@@ -78,8 +78,6 @@ const Profile: React.FC<ProfileProps> = ({}) => {
   const history = useHistory();
 
   const classes = useStyles();
-  const avatar_url =
-    "http://www.kopfbunt.de/wp-content/uploads/2008/08/20080812_kopfbunt_portrait_bt.jpg";
 
   return (
     <>
@@ -102,7 +100,7 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                 {/* Header image */}
                 <Grid className={classes.gridAvatar} item xs={12}>
                   <Avatar
-                    src={avatar_url}
+                    src={userData.avatar}
                     className={classes.avatar}
                     alt="Osman Tasdelen"
                   />

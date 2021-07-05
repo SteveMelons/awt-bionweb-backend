@@ -1,8 +1,11 @@
 export interface Me {
   id: string;
   username: string;
+  name: string;
+  avatar: string;
   email: string;
   mobile?: string;
+  university?: string;
   studyProgram?: string;
   preferences?: string[];
   skills?: string[];
@@ -14,8 +17,11 @@ export interface Me {
 export interface User {
   id: string;
   username: string;
+  name: string;
+  avatar: string;
   email: string;
   mobile?: string;
+  university?: string;
   studyProgram?: string;
   preferences?: string[];
   skills?: string[];

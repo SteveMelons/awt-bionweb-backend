@@ -1,12 +1,29 @@
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useMe } from "../api";
+import { useGetUsers, useMe } from "../api";
+import StudectCard from "../components/StudectCard";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    grid: {
+      width: "90%",
+      margin: "2em auto",
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(25em, 1fr))",
+      gap: "1em",
+    },
+  })
+);
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = ({}) => {
   const [{ data: meData, loading: meLoading }] = useMe();
+  const [{ data: usersData, loading: usersLoading }] = useGetUsers();
   const history = useHistory();
+
+  const classes = useStyles();
 
   return (
     <>
@@ -19,7 +36,10 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
           history.go(0);
         })()
       ) : (
-        <h1>Dashboard/Home</h1>
+        <div className={classes.grid}>
+          {!usersLoading &&
+            usersData?.map((user) => <StudectCard key={user.id} user={user} />)}
+        </div>
       )}
     </>
   );
