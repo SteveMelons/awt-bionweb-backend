@@ -1,7 +1,8 @@
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useGetUsers, useMe } from "../api";
+import { addFavorite, useGetUsers, useMe } from "../api";
+import Search from "../components/Search";
 import StudectCard from "../components/StudectCard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,10 +37,21 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
           history.go(0);
         })()
       ) : (
-        <div className={classes.grid}>
-          {!usersLoading &&
-            usersData?.map((user) => <StudectCard key={user.id} user={user} />)}
-        </div>
+        <>
+          <Search />
+          <div className={classes.grid}>
+            {!usersLoading &&
+              usersData?.map((user) => (
+                <StudectCard
+                  key={user.id}
+                  user={user}
+                  onClickFavorite={async (id) => {
+                    const res = await addFavorite({ favoriteId: id });
+                  }}
+                />
+              ))}
+          </div>
+        </>
       )}
     </>
   );

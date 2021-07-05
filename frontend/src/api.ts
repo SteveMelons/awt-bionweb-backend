@@ -34,6 +34,10 @@ interface RegisterArgs {
   password: string;
 }
 
+interface AddFavoriteArgs {
+  favoriteId: string;
+}
+
 const useApi = <TRes, TErr = any>({
   method,
   url,
@@ -75,4 +79,12 @@ export const logout = () => {
 
 export const register = (args: RegisterArgs) => {
   return axiosApi.post<LoginRes>("/register", args);
+};
+
+export const addFavorite = (args: AddFavoriteArgs) => {
+  return axiosApi.post<boolean>("/favorites/add", args);
+};
+
+export const removeFavorite = (args: AddFavoriteArgs) => {
+  return axiosApi.delete<boolean>(`/favorites/remove/${args.favoriteId}`);
 };

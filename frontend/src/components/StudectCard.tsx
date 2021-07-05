@@ -12,8 +12,9 @@ import {
   ListItemText,
   Avatar,
   Box,
+  IconButton,
 } from "@material-ui/core";
-import { Star } from "@material-ui/icons";
+import { Star, StarBorderSharp } from "@material-ui/icons";
 import React from "react";
 import { User } from "../types/User";
 
@@ -70,9 +71,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface StudectCardProps {
   user: User;
+  onClickFavorite: (id: string) => void;
 }
 
-const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
+const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
   const classes = useStyles();
 
   return (
@@ -127,6 +129,13 @@ const StudectCard: React.FC<StudectCardProps> = ({ user }) => {
               - {user.email}
             </Typography>
           </Grid>
+          <IconButton
+            onClick={() => {
+              onClickFavorite(user.id);
+            }}
+          >
+            <StarBorderSharp />
+          </IconButton>
         </Grid>
       </CardContent>
     </Card>

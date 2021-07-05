@@ -28,9 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       margin: theme.spacing(1),
-      padding: theme.spacing(10),
       paddingTop: "100px",
-      // backgroundColor: theme.palette.secondary.light,
       display: "flex",
       alignItems: "center",
       justifyCntent: "center",
@@ -133,17 +131,58 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                   <Typography variant="h5">Details</Typography>
 
                   <List>
-                    <ListItem>Username: {userData.username}</ListItem>
-                    <ListItem>Bio: {userData.bio}</ListItem>
                     <ListItem>
-                      Joined:{" "}
-                      {new Date(userData.creationDate).toLocaleDateString()}
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>Username: </span>{" "}
+                        {userData.username}
+                      </Typography>
                     </ListItem>
-                    <ListItem>Email: {userData.email}</ListItem>
-                    <ListItem>Mobile: {userData.mobile}</ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>Name: </span>{" "}
+                        {userData.name}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>Bio: </span>{" "}
+                        {userData.bio}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>Joined: </span>{" "}
+                        {new Date(userData.creationDate).toLocaleDateString()}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>Email: </span>{" "}
+                        {userData.email}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>Mobile: </span>{" "}
+                        {userData.mobile}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>University: </span>{" "}
+                        {userData.university}
+                      </Typography>
+                    </ListItem>
                     {/* <ListItem>Preferences: {userData.preferences}</ListItem> */}
                     {/* <ListItem>Skills: {userData.skills}</ListItem> */}
-                    <ListItem>Study Program: {userData.studyProgram}</ListItem>
+                    <ListItem>
+                      <Typography>
+                        <span style={{ fontWeight: "bold" }}>
+                          Study Program:{" "}
+                        </span>{" "}
+                        {userData.studyProgram}
+                      </Typography>
+                    </ListItem>
                   </List>
                 </Grid>
 
