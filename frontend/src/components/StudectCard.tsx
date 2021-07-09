@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
     },
     avatar: {
-      width: theme.spacing(10),
+      width: theme.spacing(100),
       height: theme.spacing(10),
     },
     listItemText: {

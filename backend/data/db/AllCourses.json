@@ -1,0 +1,400 @@
+[
+    {
+        "name":"Grundlegende Programmiertechniken"
+    },
+    {
+        "name":"Logik"
+    },
+    {
+        "name":"Modellierung"
+    },
+
+    {
+        "name":"Grundlagen der technischen Informatik"
+    },
+    {
+        "name":"Diskrete Mathematik 1"
+    },
+    {
+        "name":"Fortgeschrittene Programmiertechniken"
+    },
+    {
+        "name":"Datenstrukturen und Algorithmen"
+    },
+    {
+        "name":"Automaten und Formale Sprachen"
+    },
+    {
+        "name":"Mathematik für Informatiker 1"
+    },
+    {
+        "name":"Rechnernetze und Kommunikationssysteme"
+    },
+    {
+        "name":"Berechenbarkeit und Komplexität"
+    },
+    {
+        "name":"Software-Technik"
+    },
+    {
+        "name":"Software-Technik - Praktikum"
+    },
+    {
+        "name":"Wahrscheinlichkeitsrechnung und Statistik"
+    },
+    {
+        "name":"Sicherheit in Kommunikationsnetzen"
+    },
+    {
+        "name":"Rechnerarchitektur"
+    },
+    {
+        "name":"Programmierparadigmen"
+    },
+    {
+        "name":"Betriebssysteme"
+    },
+    {
+        "name":"Datenbanken"
+    },
+    {
+        "name":"Datenbanken - Praktikum"
+    },
+    {
+        "name":"Digitale Medien"
+    },
+
+    {
+        "name":"Electronic Business"
+    },
+    {
+        "name":"Grundlagen der Bildverarbeitung"
+    },
+    {
+        "name":"Grundlagen der künstlichen Intelligenz"
+    },
+    {
+        "name":"Internet-Suchmaschinen"
+    },
+    {
+        "name":"Internet-Technologie & Web Engineering"
+    },
+    {
+        "name":"Programmieren in C"
+    },
+    {
+        "name":"Multimedia Systeme"
+    },
+    {
+        "name":"Mensch-Computer-Interkation"
+    },
+    {
+        "name":"Modellbildung und Simulation"
+    },
+    {
+        "name":"Sprachtechnologie"
+    },
+    {
+        "name":"Embedded Systems"
+    },
+    {
+        "name":"Diskrete Mathematik 2"
+    },
+    {
+        "name":"Statistik 1: Einführung in die Methodenlehre"
+    },
+    {
+        "name":"Statistik 2: Inferenzstatistik"
+    },
+    {
+        "name":"Mathematik für Informatiker 2"
+    },
+    {
+        "name":"Numerical Mathematics"
+    },
+    {
+        "name":"Elektrotechnik"
+    },
+    {
+        "name":"Allgemeine Psychologie: Emotion und Motivation"
+    },
+    {
+        "name":"Physk für Informatiker 1"
+    },
+    {
+        "name":"Advanced Web Technologies"
+    },
+    {
+        "name":"Advanced Image Synthesis"
+    },
+    {
+        "name":"Cloud, Web & Mobile"
+    }, 
+    {
+        "name":"Cognitive Robot Systems"
+    },
+    {
+        "name":"Computer / Robot Vision"
+    },
+    {
+        "name":"Computer Graphics"
+    },
+    {
+        "name":"Digital Games Research"
+    },
+    {
+        "name":"Electronic Communities and Social Networks"
+    },
+    {
+        "name":"Entwicklung sicherer Software"
+    },
+    {
+        "name":"Formale Aspekte der Software-Sicherheit und Kryptographie"
+    },
+    {
+        "name":"Game Architecture and Design"
+    },
+    {
+        "name":"Gestaltung interaktiver Lehr-/Lern-Systeme"
+    },
+    {
+        "name":"Information Engineering"
+    },
+    {
+        "name":"Information Mining"
+    },
+    {
+        "name":"Information Retrieval"
+    },
+    {
+        "name":"Interaktive Systeme"
+    },
+    {
+        "name":"Learning Analytics"
+    },
+    {
+        "name":"Modellierung nebenläufiger Systeme"
+    },
+    {
+        "name":"Natürlichsprachliche Mensch-Computer-Interaktion"
+    },
+    {
+        "name":"Neuroinformatik und Organic Computing"
+    },
+    {
+        "name":"Peer-to-Peer Systeme"
+    },
+    {
+        "name":"Pervasive Computing"
+    },
+    {
+        "name":"Recommender Systeme"
+    },
+    {
+        "name":"Scientific Visualization"
+    },
+    {
+        "name":"Sensor Networks"
+    },
+    {
+        "name":"Test und Zuverlässigkeit digitaler Systeme"
+    },
+    {
+        "name":"Wissensbasierte Systeme"
+    },
+    {
+        "name":"Advanced Numerical Methods"
+    },
+    {
+        "name":"Bioinformatics"
+    },
+    {
+        "name":"Codierungstheorie"
+    },
+    {
+        "name":"Diskrete Optimierung"
+    },
+    {
+        "name":"Grundlagen der Kommunikationspsychologie"
+    },
+    {
+        "name":"Informationssysteme der Logistik"
+    },
+    {
+        "name":"Kognitive technische Systeme"
+    },
+    {
+        "name":"Medienpsychologie"
+    },
+    {
+        "name":"Modellierung von Logistiksystemen"
+    },
+    {
+        "name":"Optimierung I"
+    },
+    {
+        "name":"Optische Netze"
+    },
+    {
+        "name":"Optische Signalverarbeitung"
+    },
+    {
+        "name":"Optoelektronik (P)"
+    },
+    {
+        "name":"Rechnergestützte Netzanalysen"
+    },
+    {
+        "name":"Sensorik und Aktuatorik"
+    },
+    {
+        "name":"Sozialpsychologie"
+    },
+    {
+        "name":"Compilerbau"
+    },
+    {
+        "name":"Distributed Systems"
+    },
+    {
+        "name":"Formale Spezifikation von Software-Systemen"
+    },
+    {
+        "name":"Internet of Things: Protocols and System Software"
+    },
+    {
+        "name":"Modellierung, Analyse, Verifikation"
+    },
+    {
+        "name":"Muster- und komponentenbasierte Software-Entwicklung"
+    },
+    {
+        "name":"Fundamentals of Computer Engineering 1"
+    },
+    {
+        "name":"Fundamentals of Computer Engineering 1 Lab"
+    },
+    {
+        "name":"Mathematics I1"
+    },
+    {
+        "name":"Measurement Technology"
+    },
+    {
+        "name":"Mechanics I1"
+    },
+    {
+        "name":"Network Analysis"
+    },
+    {
+        "name":"Fundamentals of Programming"
+    },
+    {
+        "name":"Fundamentals of Programming Lab"
+    },
+    {
+        "name":"Logical Design of Digital Systems"
+    },
+    {
+        "name":"Logical Design of Digital Systems Lab"
+    },
+    {
+        "name":"Mathematics I2"
+    },
+    {
+        "name":"Physics"
+    },
+    {
+        "name":"Physics Lab"
+    },
+    {
+        "name":"Static and Stationary Fields"
+    },
+    {
+        "name":"Betriebswirtschaft für Ingenieure"
+    },
+    {
+        "name":"Discrete Mathematics"
+    },
+    {
+        "name":"Objektorientierte Programmierung"
+    },
+    {
+        "name":"Objektorientierte Programmierung Praktikum"
+    },
+    {
+        "name":"Rechnernetze und Kommunikationssysteme"
+    },
+    {
+        "name":"Wahrscheinlichkeitsrechnung und Statistik"
+    },
+    {
+        "name":"Wissenschaftliches Arbeiten"
+    },
+    {
+        "name":"Computer Based Engineering Mathematics"
+    },
+    {
+        "name":"Computer Based Engineering Mathematics Lab Project"
+    },
+    {
+        "name":"Grundlagen der künstlichen Intelligenz"
+    },
+    {
+        "name":"Internet-Technologie und Web Engineering"
+    },
+    {
+        "name":"Nachrichtentechnik"
+    },
+    {
+        "name":"Operating Systems and Computer Networks"
+    },
+    {
+        "name":"Rechnerarchitektur"
+    },
+    {
+        "name":"Regelungstechnik EIT"
+    },
+    {
+        "name":"Grundlagen der Elektronik"
+    },
+    {
+        "name":"Regelungstechnik EIT Praktikum"
+    },
+    {
+        "name":"Computer Networks Lab"
+    },
+    {
+        "name":"Mobilkommunikationstechnik"
+    },
+    {
+        "name":"Sicherheit in Kommunikationsnetzen"
+    },
+
+    {
+        "name":"Automaten und formale Sprachen"
+    },
+   
+    {
+        "name":"Datenstrukturen und Algorithmen"
+    },
+
+    {
+        "name":"Betriebssysteme"
+    },
+    {
+        "name":"Datenbanken"
+    },
+    {
+        "name":"Datenbanken Praktikum"
+    },
+    {
+        "name":"Modellierung"
+    },
+    {
+        "name":"Softwaretechnik"
+    },
+    {
+        "name":"Softwaretechnik Praktikum"
+    }
+]

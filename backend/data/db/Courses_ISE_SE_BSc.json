@@ -1,0 +1,105 @@
+[
+    {
+        "name":"Fundamentals of Computer Engineering 1"
+    },
+    {
+        "name":"Fundamentals of Computer Engineering 1 Lab"
+    },
+    {
+        "name":"Mathematics I1"
+    },
+    {
+        "name":"Measurement Technology"
+    },
+    {
+        "name":"Mechanics I1"
+    },
+    {
+        "name":"Network Analysis"
+    },
+    {
+        "name":"Fundamentals of Programming"
+    },
+    {
+        "name":"Fundamentals of Programming Lab"
+    },
+    {
+        "name":"Logical Design of Digital Systems"
+    },
+    {
+        "name":"Logical Design of Digital Systems Lab"
+    },
+    {
+        "name":"Mathematics I2"
+    },
+    {
+        "name":"Physics"
+    },
+    {
+        "name":"Physics Lab"
+    },
+    {
+        "name":"Static and Stationary Fields"
+    },
+    {
+        "name":"Betriebswirtschaft für Ingenieure"
+    },
+    {
+        "name":"Discrete Mathematics"
+    },
+    {
+        "name":"Objektorientierte Programmierung"
+    },
+    {
+        "name":"Objektorientierte Programmierung Praktikum"
+    },
+    {
+        "name":"Rechnernetze und Kommunikationssysteme"
+    },
+    {
+        "name":"Wahrscheinlichkeitsrechnung und Statistik"
+    },
+    {
+        "name":"Wissenschaftliches Arbeiten"
+    },
+
+    {
+        "name":"Automaten und formale Sprachen"
+    },
+    {
+        "name":"Computer Based Engineering Mathematics"
+    },
+    {
+        "name":"Computer Based Engineering Mathematics Lab Project"
+    },
+    {
+        "name":"Datenstrukturen und Algorithmen"
+    },
+    {
+        "name":"Rechnerarchitektur"
+    },
+    {
+        "name":"Regelungstechnik EIT"
+    },
+    {
+        "name":"Betriebssysteme"
+    },
+    {
+        "name":"Datenbanken"
+    },
+    {
+        "name":"Datenbanken Praktikum"
+    },
+    {
+        "name":"Modellierung"
+    },
+    {
+        "name":"Softwaretechnik"
+    },
+    {
+        "name":"Softwaretechnik Praktikum"
+    },
+    {
+        "name":"Sicherheit in Kommunikationsnetzen"
+    }
+]

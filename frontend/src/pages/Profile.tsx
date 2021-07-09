@@ -20,9 +20,10 @@ import {
   CardActions,
   IconButton,
 } from "@material-ui/core";
-import { Favorite, Mail, Share } from "@material-ui/icons";
+import { Favorite, Mail, Share, SignalWifi4BarLockSharp } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import { useGetUser, useMe } from "../api";
+import { sortAndDeduplicateDiagnostics } from "typescript";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,23 +48,34 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
     },
     avatar: {
-      marginTop: "-50px",
-      position: "absolute",
-      width: theme.spacing(16),
-      height: theme.spacing(16),
-      border: "3px solid",
-      borderColor: theme.palette.secondary.light,
+      marginBottom: "-135px",
+      marginRight: "70%",
+      borderRadius: "25px",
+      position: "relative",
+      width: theme.spacing(18),
+      height: theme.spacing(20),
+      background: "linear-gradient(60deg, #1e78c8, #07b39b)",
+      //border: "3px solid",
+      //borderColor: theme.palette.primary.light,
     },
     table: {
-      marginTop: "50px",
+      position: "relative",
+      marginBottom: "45px",
+      marginLeft: "35%",
       width: "100%",
       maxWidth: "20em",
+      border: "2px solid linear-gradient()",
+      borderRadius: "15px",
+      
     },
     grid: {
+      marginTop: "0px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      
     },
+  
   })
 );
 
@@ -110,9 +122,9 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell align="center">Favorited</TableCell>
-                          <TableCell align="center">Contacted</TableCell>
-                          <TableCell align="center">Shared</TableCell>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "17px"}}> Favorites </TableCell>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "17px"}} align="center">Contacted</TableCell>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "17px"}} align="center">Shared</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -231,3 +243,4 @@ const Profile: React.FC<ProfileProps> = ({}) => {
 };
 
 export default Profile;
+

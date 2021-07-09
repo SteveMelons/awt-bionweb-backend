@@ -1,0 +1,150 @@
+[
+    {
+        "name":"Advanced Web Technologies"
+    },
+    {
+        "name":"Advanced Image Synthesis"
+    },
+    {
+        "name":"Cloud, Web & Mobile"
+    }, 
+    {
+        "name":"Cognitive Robot Systems"
+    },
+    {
+        "name":"Computer / Robot Vision"
+    },
+    {
+        "name":"Computer Graphics"
+    },
+    {
+        "name":"Digital Games Research"
+    },
+    {
+        "name":"Electronic Communities and Social Networks"
+    },
+    {
+        "name":"Entwicklung sicherer Software"
+    },
+    {
+        "name":"Formale Aspekte der Software-Sicherheit und Kryptographie"
+    },
+    {
+        "name":"Game Architecture and Design"
+    },
+    {
+        "name":"Gestaltung interaktiver Lehr-/Lern-Systeme"
+    },
+    {
+        "name":"Information Engineering"
+    },
+    {
+        "name":"Information Mining"
+    },
+    {
+        "name":"Information Retrieval"
+    },
+    {
+        "name":"Interaktive Systeme"
+    },
+    {
+        "name":"Learning Analytics"
+    },
+    {
+        "name":"Modellierung nebenläufiger Systeme"
+    },
+    {
+        "name":"Natürlichsprachliche Mensch-Computer-Interaktion"
+    },
+    {
+        "name":"Neuroinformatik und Organic Computing"
+    },
+    {
+        "name":"Peer-to-Peer Systeme"
+    },
+    {
+        "name":"Pervasive Computing"
+    },
+    {
+        "name":"Recommender Systeme"
+    },
+    {
+        "name":"Scientific Visualization"
+    },
+    {
+        "name":"Sensor Networks"
+    },
+    {
+        "name":"Test und Zuverlässigkeit digitaler Systeme"
+    },
+    {
+        "name":"Wissensbasierte Systeme"
+    },
+    {
+        "name":"Advanced Numerical Methods"
+    },
+    {
+        "name":"Bioinformatics"
+    },
+    {
+        "name":"Codierungstheorie"
+    },
+    {
+        "name":"Diskrete Optimierung"
+    },
+    {
+        "name":"Grundlagen der Kommunikationspsychologie"
+    },
+    {
+        "name":"Informationssysteme der Logistik"
+    },
+    {
+        "name":"Kognitive technische Systeme"
+    },
+    {
+        "name":"Medienpsychologie"
+    },
+    {
+        "name":"Modellierung von Logistiksystemen"
+    },
+    {
+        "name":"Optimierung I"
+    },
+    {
+        "name":"Optische Netze"
+    },
+    {
+        "name":"Optische Signalverarbeitung"
+    },
+    {
+        "name":"Optoelektronik (P)"
+    },
+    {
+        "name":"Rechnergestützte Netzanalysen"
+    },
+    {
+        "name":"Sensorik und Aktuatorik"
+    },
+    {
+        "name":"Sozialpsychologie"
+    },
+    {
+        "name":"Compilerbau"
+    },
+    {
+        "name":"Distributed Systems"
+    },
+    {
+        "name":"Formale Spezifikation von Software-Systemen"
+    },
+    {
+        "name":"Internet of Things: Protocols and System Software"
+    },
+    {
+        "name":"Modellierung, Analyse, Verifikation"
+    },
+    {
+        "name":"Muster- und komponentenbasierte Software-Entwicklung"
+    }
+
+]
