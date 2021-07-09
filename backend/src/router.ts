@@ -1,3 +1,8 @@
+import { StudyProgram } from './entities/studyProgram';
+import { Course } from './entities/course';
+import { Language } from './entities/language';
+import { University } from './entities/university';
+import { Preference } from './entities/preference';
 import {
   EntityManager,
   IDatabaseDriver,
