@@ -1,12 +1,7 @@
-import { StudyProgram } from './studyProgram';
-import { Course } from './course';
-import { Language } from './language';
-import { Preference } from './preference';
 import {
   Collection,
   Entity,
   ManyToMany,
-  ManyToOne,
   PrimaryKey,
   Property,
   SerializedPrimaryKey,

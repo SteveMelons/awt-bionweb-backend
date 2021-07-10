@@ -1,9 +1,3 @@
-import { Star } from '@material-ui/icons';
-import { StudyProgram } from './entities/studyProgram';
-import { Course } from './entities/course';
-import { Language } from './entities/language';
-import { University } from './entities/university';
-import { Preference } from './entities/preference';
 import {
   EntityManager,
   IDatabaseDriver,
@@ -160,7 +154,7 @@ export const getRouter = (
 
   router.post("/user/update", async (req, res) => {
     // get currently logged in user's id
-    const id = '60e0d58b5864a90152b5f8d4'// req.session.userId;
+    const id = req.session.userId;
 
     // find user
     const user = await em.findOne(User, { id });
