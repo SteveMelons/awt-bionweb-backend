@@ -1,3 +1,4 @@
+import { StudyProgram } from './studyProgram';
 import { Course } from './course';
 import { Language } from './language';
 import { Preference } from './preference';
@@ -5,7 +6,7 @@ import {
   Collection,
   Entity,
   ManyToMany,
-  OneToMany,
+  ManyToOne,
   PrimaryKey,
   Property,
   SerializedPrimaryKey,
@@ -44,17 +45,17 @@ export class User {
   @Property()
   studyProgram?: string;
 
-  @ManyToMany(() => Preference)
-  preferences? = new Collection<Preference>(this);
+  @Property()
+  preferences? : string[];
 
-  @ManyToMany(() => Preference)
-  skills? = new Collection<Preference>(this);
+  @Property()
+  skills?: string[];
 
-  @ManyToMany(() => Language)
-  langeuages? = new Collection<Language>(this);
+  @Property()
+  languages?: string[];
 
-  @ManyToMany(() => Course)
-  courses? = new Collection<Course>(this);
+  @Property()
+  courses?: string[];
 
   @Property()
   bio?: string;
