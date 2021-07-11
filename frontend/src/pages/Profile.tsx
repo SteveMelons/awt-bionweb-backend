@@ -1,4 +1,5 @@
 import React from "react";
+import { Container, Row, Col } from 'reactstrap';
 import {
   makeStyles,
   Theme,
@@ -20,7 +21,7 @@ import {
   CardActions,
   IconButton,
 } from "@material-ui/core";
-import { Favorite, Mail, Share, SignalWifi4BarLockSharp } from "@material-ui/icons";
+import { Favorite, FormatBoldTwoTone, Mail, Share, SignalWifi4BarLockSharp } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import { useGetUser, useMe } from "../api";
 import { sortAndDeduplicateDiagnostics } from "typescript";
@@ -32,9 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: "100px",
       display: "flex",
       alignItems: "center",
-      justifyCntent: "center",
+      justifyContent: "center",
       width: "100%",
       flexDirection: "column",
+     
     },
     card: {
       width: "75%",
@@ -47,32 +49,80 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       justifyContent: "center",
     },
+
     avatar: {
-      marginBottom: "-135px",
-      marginRight: "70%",
-      borderRadius: "25px",
-      position: "relative",
-      width: theme.spacing(18),
-      height: theme.spacing(20),
-      background: "linear-gradient(60deg, #1e78c8, #07b39b)",
+      position: "absolute",
+      width: theme.spacing(22),
+      height: theme.spacing(23),
+      
+      transform: "translateY(-25px)",
+      background: "linear-gradient(60deg, #1e78c8, #07b39b)",  
       //border: "3px solid",
       //borderColor: theme.palette.primary.light,
+      
     },
+    gridTopTable:{
+      alignItems: "left",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "right",
+      //to add space 
+      marginTop: "180px",
+      marginBottom: "40px"
+    },
+    toptable: {
+      position: "relative",
+      border: "2px solid",
+      borderColor: " #f1c40f"
+      
+    },
+
+    gridTable:{
+      alignItems: "left",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "right",
+  
+    },
+
     table: {
       position: "relative",
-      marginBottom: "45px",
-      marginLeft: "35%",
+      //marginLeft: "35%",
       width: "100%",
-      maxWidth: "20em",
+      maxWidth: "40em",
       border: "2px solid linear-gradient()",
       borderRadius: "15px",
       
     },
+  
+    space:{
+
+      marginTop: theme.spacing(0),
+
+    },
+    info:{
+      position: "relative",
+      marginTop: theme.spacing(0),
+      fontSize: 18,
+      fontFamily: "sans-serif",
+     
+      transform: "translateY(120px)",
+      //marginLeft: "35%",
+      
+    },
+    general: {
+      marginTop: "5px",
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "left",
+      
+    },
+
     grid: {
       marginTop: "0px",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
+      alignItems: "left",
       
     },
   
@@ -106,9 +156,8 @@ const Profile: React.FC<ProfileProps> = ({}) => {
         <div className={classes.root}>
           <Card className={classes.card}>
             <CardContent>
-              <Grid container spacing={3}>
                 {/* Header image */}
-                <Grid className={classes.gridAvatar} item xs={12}>
+                <Grid className={classes.gridAvatar} item xs={12}  >
                   <Avatar
                     src={userData.avatar}
                     className={classes.avatar}
@@ -116,90 +165,154 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                   />
                 </Grid>
 
-                {/* Header actions */}
-                <Grid className={classes.grid} item xs={12}>
-                  <TableContainer component={Paper} className={classes.table}>
+                
+                <Grid container spacing={0}>
+
+                <Grid className={classes.general} item xs={12} sm={6} md={4}>
+                  <Container component={Paper} className={classes.info} >
+                        <span style={{ fontWeight: 600, color: "#1e78c8", fontSize:18}}> Username: </span> {userData.username} 
+                        
+                  </Container>
+                </Grid>
+
+                <Grid className={classes.general} item xs={12} sm={6} md={4}>
+                  <Container component={Paper} className={classes.info} >
+                        
+                        <span style={{ fontWeight: 600, color: "#1e78c8", fontSize:18 }}> Name: </span>{userData.name} Erbil, Furkan
+                  </Container>
+                </Grid>
+
+                <Grid className={classes.general} item xs={12}  md={4}>
+                  <Container component={Paper} className={classes.info} >           
+                       <span style={{ fontWeight: 600, color: "#1e78c8", fontSize:18}}> Bio: </span>{userData.bio} Sports, Movies, Programming 
+                  </Container>
+                </Grid>
+                </Grid>
+
+
+                <Grid container spacing={3}>
+                
+          
+                <Grid className={classes.gridTopTable} item xs={12}>
+                  <TableContainer component={Paper} className={classes.toptable}>
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "17px"}}> Favorites </TableCell>
-                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "17px"}} align="center">Contacted</TableCell>
-                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "17px"}} align="center">Shared</TableCell>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "20px", color: "#1e78c8"}}align="center"> Favorites </TableCell>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "20px", color: "#1e78c8"}} align="center">Contacted</TableCell>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "20px", color: "#1e78c8"}} align="center">Shared</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell align="center">291</TableCell>
-                          <TableCell align="center">422</TableCell>
-                          <TableCell align="center">31</TableCell>
+                        <TableRow >
+                          <TableCell style={{fontWeight:"medium", fontStyle: "Times", fontSize: "18px"}}align="center">291</TableCell>
+                          <TableCell style={{fontWeight:"medium", fontStyle: "Times", fontSize: "18px"}}align="center">422</TableCell>
+                          <TableCell style={{fontWeight:"medium", fontStyle: "Times", fontSize: "18px"}}align="center">31</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
                   </TableContainer>
                 </Grid>
 
-                {/* Left column */}
-                <Grid className={classes.grid} item xs={6}>
-                  <Typography variant="h5">Details</Typography>
 
-                  <List>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>Username: </span>{" "}
-                        {userData.username}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>Name: </span>{" "}
-                        {userData.name}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>Bio: </span>{" "}
-                        {userData.bio}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>Joined: </span>{" "}
-                        {new Date(userData.creationDate).toLocaleDateString()}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>Email: </span>{" "}
-                        {userData.email}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>Mobile: </span>{" "}
-                        {userData.mobile}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>University: </span>{" "}
-                        {userData.university}
-                      </Typography>
-                    </ListItem>
-                    {/* <ListItem>Preferences: {userData.preferences}</ListItem> */}
-                    {/* <ListItem>Skills: {userData.skills}</ListItem> */}
-                    <ListItem>
-                      <Typography>
-                        <span style={{ fontWeight: "bold" }}>
-                          Study Program:{" "}
-                        </span>{" "}
-                        {userData.studyProgram}
-                      </Typography>
-                    </ListItem>
-                  </List>
+                {/* Details */}
+                
+                <Grid className={classes.gridTable} item xs={12}>
+                  <Typography variant="h5">Details</Typography>
                 </Grid>
+              
+                <Grid className={classes.grid} item xs= {12} sm={6} md = {4}>
+               
+               
+                    <TableContainer component={Paper} className={classes.table}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "15px" }} align = "center"> Joined </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center">{new Date(userData.creationDate).toLocaleDateString()}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                      </Table>
+                      </TableContainer>
+
+              </Grid>
+
+              <Grid className={classes.grid} item xs= {12} sm={6} md = {4}>
+                     <TableContainer component={Paper} className={classes.table}>
+                     <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "15px" }} align = "center"> E-Mail </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center">{userData.email}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                    </TableContainer>
+          
+                </Grid>
+                
+                <Grid className={classes.grid} item xs= {12} sm={6} md = {4}>
+                    <TableContainer component={Paper} className={classes.table}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "15px" }} align = "center"> Mobile </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center">{userData.mobile}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                    </TableContainer>
+                  </Grid>
+
+                  <Grid className={classes.grid} item xs= {12} sm={6} md = {4}>
+                    <TableContainer component={Paper} className={classes.table}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "15px" }} align = "center"> University </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center">{userData.university}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                    </TableContainer>
+                  </Grid>
+
+                  <Grid className={classes.grid} item xs= {12} sm={6} md = {4}>
+                    <TableContainer component={Paper} className={classes.table}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{fontWeight:"bold", fontStyle: "Times", fontSize: "15px" }} align = "center"> Study Program </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center">{userData.studyProgram}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                    </TableContainer>
+                  </Grid>
+ 
 
                 {/* Right column */}
-                <Grid className={classes.grid} item xs={6}>
+                <Grid className={classes.grid} item xs={12}>
                   <Typography variant="h5">Skills</Typography>
 
                   <List>
@@ -233,7 +346,8 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                     </IconButton>
                   </CardActions>
                 </Grid>
-              </Grid>
+         
+             </Grid>
             </CardContent>
           </Card>
         </div>
