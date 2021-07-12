@@ -205,9 +205,9 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                       </TableHead>
                       <TableBody>
                         <TableRow >
-                          <TableCell style={{fontWeight:"medium", fontStyle: "Times", fontSize: "18px"}}align="center">291</TableCell>
-                          <TableCell style={{fontWeight:"medium", fontStyle: "Times", fontSize: "18px"}}align="center">422</TableCell>
-                          <TableCell style={{fontWeight:"medium", fontStyle: "Times", fontSize: "18px"}}align="center">31</TableCell>
+                          <TableCell style={{ fontStyle: "Times", fontSize: "18px"}}align="center">291</TableCell>
+                          <TableCell style={{ fontStyle: "Times", fontSize: "18px"}}align="center">422</TableCell>
+                          <TableCell style={{ fontStyle: "Times", fontSize: "18px"}}align="center">31</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>

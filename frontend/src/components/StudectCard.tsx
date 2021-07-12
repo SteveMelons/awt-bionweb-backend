@@ -15,8 +15,11 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Star, StarBorderSharp } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import { User } from "../types/User";
+
+var colors = Array("#00a717", "#1e78c8",  "#9300a7", " #a7003f"," #d76c00", " #009b8b" );
+ 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       margin: theme.spacing(1),
       padding: theme.spacing(1),
-      backgroundColor: theme.palette.background.paper,
+      //random color picker
+      backgroundColor: colors[Math.floor(Math.random()*colors.length)],
+      borderRadius: "15px",
     },
     title: {
       fontSize: 16,
@@ -52,8 +57,8 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
     },
     avatar: {
-      width: theme.spacing(10),
-      height: theme.spacing(10),
+      width: theme.spacing(12),
+      height: theme.spacing(12),
     },
     listItemText: {
       fontSize: 14,
@@ -83,22 +88,24 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
         <Grid container spacing={3}>
           {/* Left Column */}
           <Grid item xs={6}>
-            <Typography className={classes.subtitle}>Study Program:</Typography>
-
-            <Typography className={classes.title}>
-              {user.studyProgram}
+            <Typography className={classes.subtitle}>
+              <span style={{ fontWeight: 500, color: "white"}}>Study Program: </span>
             </Typography>
 
-            <Divider />
+            <Typography className={classes.title}>
+              <span style={{ fontWeight: 600, color: "white"}}>{user.studyProgram}</span>
+            </Typography>
+
+            <Divider style={{ backgroundColor: "white"}}/>
 
             <Typography className={classes.subtitle}>
-              Looking for students in:
+              <span style={{ fontWeight: 500, color: "white"}}>Looking for students in: </span>
             </Typography>
 
             <List>
               {user.preferences?.map((preference) => (
                 <ListItem button key={preference}>
-                  <ListItemText className={classes.listItemText}>
+                  <ListItemText className={classes.listItemText} style={{ fontWeight: 600, color: "#f1c40f"}}>
                     {preference}
                   </ListItemText>
                 </ListItem>
@@ -122,10 +129,10 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
 
           {/* Footer */}
           <Grid item xs={12}>
-            <Typography className={classes.subtitle}>
-              <span style={{ fontWeight: "bold", display: "inline" }}>
+            <Typography className={classes.subtitle} style={{ color: "white", fontWeight: 500}}>
+              <span style={{ color: "white", fontWeight: "bold", display: "inline" }}>
                 {user.username}{" "}
-              </span>
+              </span >
               - {user.email}
             </Typography>
           </Grid>
