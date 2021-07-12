@@ -1,8 +1,4 @@
-import {
-  EntityManager,
-  IDatabaseDriver,
-  Connection,
-} from "@mikro-orm/core";
+import { EntityManager, IDatabaseDriver, Connection } from "@mikro-orm/core";
 import express from "express";
 import { SESSION_COOKIE_NAME } from "./constants";
 import { User } from "./entities/User";
@@ -13,7 +9,12 @@ import {
   validatePassword,
   validateUsername,
 } from "./validation";
-import { filterUser, filterUserFavorite, filterNullInput } from "./utils/filterEntity";
+import {
+  filterUser,
+  filterUserFavorite,
+  filterNullInput,
+} from "./utils/filterEntity";
+import { UpdateUserArgs } from "./types/args";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -165,20 +166,22 @@ export const getRouter = (
     }
 
     // get data from body
-    let userInput = {
-      skills : req.body.skills,
-      studyProgram : req.body.studyProgram,
-      mobile : req.body.mobile,
-      preferences : req.body.preferences,
-      bio : req.body.bio,
-      languages : req.body.languages,
-      courses : req.body.courses
-    }
+    let userInput: UpdateUserArgs = {
+      skills: req.body.skills,
+      studyProgram: req.body.studyProgram,
+      mobile: req.body.mobile,
+      preferences: req.body.preferences,
+      bio: req.body.bio,
+      languages: req.body.languages,
+      courses: req.body.courses,
+    };
 
-    const filteredInput = filterNullInput(userInput);
+    const notNullProps = filterNullInput(userInput);
 
     // update user
-    filteredInput.map(prop => user[prop] = userInput[prop])
+    notNullProps.foreach(
+      (prop: any) => ((user as any)[prop] = (userInput as any)[prop])
+    );
 
     // update database
     em.persistAndFlush(user);

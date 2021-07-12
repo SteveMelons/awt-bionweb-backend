@@ -1,4 +1,5 @@
 import { User } from "../entities/User";
+import { UpdateUserArgs } from "../types/args";
 
 export const filterUser = (user: User) => {
   const { _id, updatedAt, password, ...res } = user;
@@ -14,13 +15,12 @@ export const filterUserFavorite = (user: User) => {
   return res;
 };
 
-export const filterNullInput = (user: any) => {
+export const filterNullInput = (user: UpdateUserArgs) => {
   let notNullProps: any = [];
-  for (let prop in user){
-    if (Array.isArray(user[prop]) && user[prop].length == 0) continue;
-    if (user[prop] != null ){
+  for (let prop in user) {
+    if ((user as any)[prop] !== (null || undefined)) {
       notNullProps.push(prop);
     }
   }
   return notNullProps;
-}
+};
