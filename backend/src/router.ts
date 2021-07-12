@@ -2,7 +2,6 @@ import {
   EntityManager,
   IDatabaseDriver,
   Connection,
-  Reference,
 } from "@mikro-orm/core";
 import express from "express";
 import { SESSION_COOKIE_NAME } from "./constants";
@@ -14,7 +13,7 @@ import {
   validatePassword,
   validateUsername,
 } from "./validation";
-import { filterUser, filterUserFavorite } from "./utils/filterEntity";
+import { filterUser, filterUserFavorite, filterNullInput } from "./utils/filterEntity";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -166,18 +165,20 @@ export const getRouter = (
     }
 
     // get data from body
-    const skills = req.body.skills;
-    const studyProgram = req.body.studyProgram;
-    const mobile = req.body.mobile;
-    const preferences = req.body.preferences;
-    const bio = req.body.bio;
+    let userInput = {
+      skills : req.body.skills,
+      studyProgram : req.body.studyProgram,
+      mobile : req.body.mobile,
+      preferences : req.body.preferences,
+      bio : req.body.bio,
+      languages : req.body.languages,
+      courses : req.body.courses
+    }
+
+    const filteredInput = filterNullInput(userInput);
 
     // update user
-    user.skills = skills;
-    user.studyProgram = studyProgram;
-    user.mobile = mobile;
-    user.preferences = preferences;
-    user.bio = bio;
+    filteredInput.map(prop => user[prop] = userInput[prop])
 
     // update database
     em.persistAndFlush(user);

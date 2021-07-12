@@ -47,6 +47,12 @@ export class User {
   skills?: string[];
 
   @Property()
+  languages?: string[];
+
+  @Property()
+  courses?: string[];
+
+  @Property()
   bio?: string;
 
   @ManyToMany(() => User)

@@ -13,3 +13,14 @@ export const filterUserFavorite = (user: User) => {
 
   return res;
 };
+
+export const filterNullInput = (user: any) => {
+  let notNullProps: any = [];
+  for (let prop in user){
+    if (Array.isArray(user[prop]) && user[prop].length == 0) continue;
+    if (user[prop] != null ){
+      notNullProps.push(prop);
+    }
+  }
+  return notNullProps;
+}
