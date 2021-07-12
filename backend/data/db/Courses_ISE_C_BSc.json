@@ -1,0 +1,105 @@
+[
+    {
+        "name":"Fundamentals of Computer Engineering 1"
+    },
+    {
+        "name":"Fundamentals of Computer Engineering 1 Lab"
+    },
+    {
+        "name":"Mathematics I1"
+    },
+    {
+        "name":"Measurement Technology"
+    },
+    {
+        "name":"Mechanics I1"
+    },
+    {
+        "name":"Network Analysis"
+    },
+    {
+        "name":"Fundamentals of Programming"
+    },
+    {
+        "name":"Fundamentals of Programming Lab"
+    },
+    {
+        "name":"Logical Design of Digital Systems"
+    },
+    {
+        "name":"Logical Design of Digital Systems Lab"
+    },
+    {
+        "name":"Mathematics I2"
+    },
+    {
+        "name":"Physics"
+    },
+    {
+        "name":"Physics Lab"
+    },
+    {
+        "name":"Static and Stationary Fields"
+    },
+    {
+        "name":"Betriebswirtschaft für Ingenieure"
+    },
+    {
+        "name":"Discrete Mathematics"
+    },
+    {
+        "name":"Objektorientierte Programmierung"
+    },
+    {
+        "name":"Objektorientierte Programmierung Praktikum"
+    },
+    {
+        "name":"Rechnernetze und Kommunikationssysteme"
+    },
+    {
+        "name":"Wahrscheinlichkeitsrechnung und Statistik"
+    },
+    {
+        "name":"Wissenschaftliches Arbeiten"
+    },
+    {
+        "name":"Computer Based Engineering Mathematics"
+    },
+    {
+        "name":"Computer Based Engineering Mathematics Lab Project"
+    },
+    {
+        "name":"Grundlagen der künstlichen Intelligenz"
+    },
+    {
+        "name":"Internet-Technologie und Web Engineering"
+    },
+    {
+        "name":"Nachrichtentechnik"
+    },
+    {
+        "name":"Operating Systems and Computer Networks"
+    },
+    {
+        "name":"Rechnerarchitektur"
+    },
+    {
+        "name":"Regelungstechnik EIT"
+    },
+    {
+        "name":"Grundlagen der Elektronik"
+    },
+    {
+        "name":"Regelungstechnik EIT Praktikum"
+    },
+    {
+        "name":"Computer Networks Lab"
+    },
+    {
+        "name":"Mobilkommunikationstechnik"
+    },
+    {
+        "name":"Sicherheit in Kommunikationsnetzen"
+    }
+
+]

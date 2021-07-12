@@ -1,6 +1,7 @@
 import {
   Box,
   createStyles,
+  Grid,
   makeStyles,
   Theme,
   Typography,
@@ -19,6 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateColumns: "repeat(auto-fit, minmax(25em, 1fr))",
       gap: "1em",
     },
+    head:{
+      position: "relative",
+      right: "9.5%",
+      bottom: "-20px"
+      
+    }
   })
 );
 
@@ -43,7 +50,11 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
         })()
       ) : (
         <>
-          <Typography variant="h4">Favorites</Typography>
+          <Typography variant="h4" className={classes.head}>
+            <span style={{ color: "#1e78c8"}}>
+              Favorites
+            </span>
+            </Typography>
           <div className={classes.grid}>
             {!favoritesLoading &&
               favoritesData?.map((favorite, i) => (

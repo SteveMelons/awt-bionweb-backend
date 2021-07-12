@@ -1,0 +1,125 @@
+[
+    {
+        "name":"Grundlegende Programmiertechniken"
+    },
+    {
+        "name":"Logik"
+    },
+    {
+        "name":"Modellierung"
+    },
+
+    {
+        "name":"Grundlagen der technischen Informatik"
+    },
+    {
+        "name":"Diskrete Mathematik 1"
+    },
+    {
+        "name":"Fortgeschrittene Programmiertechniken"
+    },
+    {
+        "name":"Datenstrukturen und Algorithmen"
+    },
+    {
+        "name":"Automaten und Formale Sprachen"
+    },
+    {
+        "name":"Mathematik für Informatiker 1"
+    },
+    {
+        "name":"Rechnernetze und Kommunikationssysteme"
+    },
+    {
+        "name":"Berechenbarkeit und Komplexität"
+    },
+    {
+        "name":"Software-Technik"
+    },
+    {
+        "name":"Software-Technik - Praktikum"
+    },
+    {
+        "name":"Wahrscheinlichkeitsrechnung und Statistik"
+    },
+    {
+        "name":"Sicherheit in Kommunikationsnetzen"
+    },
+    {
+        "name":"Rechnerarchitektur"
+    },
+    {
+        "name":"Programmierparadigmen"
+    },
+    {
+        "name":"Betriebssysteme"
+    },
+    {
+        "name":"Datenbanken"
+    },
+    {
+        "name":"Datenbanken - Praktikum"
+    },
+    {
+        "name":"Digitale Medien"
+    },
+
+    {
+        "name":"Electronic Business"
+    },
+    {
+        "name":"Grundlagen der Bildverarbeitung"
+    },
+    {
+        "name":"Grundlagen der künstlichen Intelligenz"
+    },
+    {
+        "name":"Internet-Suchmaschinen"
+    },
+    {
+        "name":"Internet-Technologie & Web Engineering"
+    },
+    {
+        "name":"Programmieren in C"
+    },
+    {
+        "name":"Multimedia Systeme"
+    },
+    {
+        "name":"Mensch-Computer-Interkation"
+    },
+    {
+        "name":"Modellbildung und Simulation"
+    },
+    {
+        "name":"Sprachtechnologie"
+    },
+    {
+        "name":"Embedded Systems"
+    },
+    {
+        "name":"Diskrete Mathematik 2"
+    },
+    {
+        "name":"Statistik 1: Einführung in die Methodenlehre"
+    },
+    {
+        "name":"Statistik 2: Inferenzstatistik"
+    },
+    {
+        "name":"Mathematik für Informatiker 2"
+    },
+    {
+        "name":"Numerical Mathematics"
+    },
+    {
+        "name":"Elektrotechnik"
+    },
+    {
+        "name":"Allgemeine Psychologie: Emotion und Motivation"
+    },
+    {
+        "name":"Physk für Informatiker 1"
+    }
+
+]
