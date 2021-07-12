@@ -41,7 +41,7 @@ export class User {
   studyProgram?: string;
 
   @Property()
-  preferences? : string[];
+  preferences?: string[];
 
   @Property()
   skills?: string[];
