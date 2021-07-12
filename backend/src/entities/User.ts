@@ -2,11 +2,17 @@ import {
   Collection,
   Entity,
   ManyToMany,
+  ManyToOne,
   PrimaryKey,
   Property,
   SerializedPrimaryKey,
 } from "@mikro-orm/core";
 import { ObjectId } from "@mikro-orm/mongodb";
+import { Course } from "./Course";
+import { Language } from "./Language";
+import { Preference } from "./Preference";
+import { StudyProgram } from "./StudyProgram";
+import { University } from "./University";
 
 @Entity()
 export class User {
@@ -34,23 +40,23 @@ export class User {
   @Property()
   mobile?: string;
 
-  @Property()
-  university?: string;
+  @ManyToOne()
+  university?: University;
 
-  @Property()
-  studyProgram?: string;
+  @ManyToOne()
+  studyProgram?: StudyProgram;
 
-  @Property()
-  preferences?: string[];
+  @ManyToMany(() => Preference)
+  preferences = new Collection<Preference>(this);
 
-  @Property()
-  skills?: string[];
+  @ManyToMany(() => Preference)
+  skills = new Collection<Preference>(this);
 
-  @Property()
-  languages?: string[];
+  @ManyToMany(() => Language)
+  languages = new Collection<Language>(this);
 
-  @Property()
-  courses?: string[];
+  @ManyToMany(() => Course)
+  courses = new Collection<Course>(this);
 
   @Property()
   bio?: string;
