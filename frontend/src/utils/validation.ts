@@ -1,5 +1,9 @@
 import * as Yup from "yup";
 
+export const validateName = () => {
+  return Yup.string().min(3, "Minimum of 3 characters").required("Required");
+};
+
 export const validateUsername = () => {
   return Yup.string()
     .min(3, "Minimum of 3 characters")

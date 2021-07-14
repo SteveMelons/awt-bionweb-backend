@@ -6,6 +6,7 @@ import argon2 from "argon2";
 import { IdFieldResponse, IdResponse } from "./types/responses";
 import {
   validateEmail,
+  validateName,
   validatePassword,
   validateUsername,
 } from "./validation";
@@ -38,12 +39,15 @@ export const getRouter = (
     let response: IdFieldResponse = { errors: [] };
 
     // get form values
+    const name: string = req.body.name;
     const username: string = req.body.username;
     const email: string = req.body.email;
     const password: string = req.body.password;
 
     // input validation
-    let err = await validateUsername(username);
+    let err = await validateName(name);
+    if (err) response.errors.push(err);
+    err = await validateUsername(username);
     if (err) response.errors.push(err);
     err = await validateEmail(email);
     if (err) response.errors.push(err);
@@ -58,6 +62,7 @@ export const getRouter = (
 
     // create user object
     const user = em.create(User, {
+      name,
       username,
       email,
       password: hashedPassword,

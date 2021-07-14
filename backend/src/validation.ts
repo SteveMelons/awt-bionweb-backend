@@ -1,6 +1,22 @@
 import { FieldError } from "./types/errors";
 import * as Yup from "yup";
 
+export const validateName = async (
+  username: string
+): Promise<FieldError | null> => {
+  const schema = Yup.string()
+    .min(3, "Minimum of 3 characters")
+    .required("Required");
+
+  try {
+    await schema.validate(username);
+  } catch (error) {
+    return { field: "username", msg: error.message };
+  }
+
+  return null;
+};
+
 export const validateUsername = async (
   username: string
 ): Promise<FieldError | null> => {

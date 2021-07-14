@@ -10,12 +10,20 @@ import {
   Typography,
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
-import { AccountCircle, Email, Lock, LockOutlined } from "@material-ui/icons";
+import {
+  AccountCircle,
+  Email,
+  Lock,
+  LockOutlined,
+  TextFields,
+  TextFieldsRounded,
+} from "@material-ui/icons";
 import { register, useMe } from "../api";
 import { matchFieldErrors } from "../utils/matchFieldErrors";
 import { Link, useHistory } from "react-router-dom";
 import {
   validateEmail,
+  validateName,
   validatePassword,
   validateUsername,
 } from "../utils/validation";
@@ -24,9 +32,11 @@ import * as Yup from "yup";
 interface RegisterProps {}
 
 interface FormValues {
+  name: string;
   username: string;
   email: string;
   password: string;
+  passwordRepeat: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -44,9 +54,11 @@ const Register: React.FC<RegisterProps> = ({}) => {
   const classes = useStyles();
 
   const initialFormValues: FormValues = {
+    name: "",
     username: "",
     email: "",
     password: "",
+    passwordRepeat: "",
   };
 
   return (
@@ -69,12 +81,18 @@ const Register: React.FC<RegisterProps> = ({}) => {
           <Formik
             initialValues={initialFormValues}
             validationSchema={Yup.object().shape({
+              name: validateName(),
               username: validateUsername(),
               email: validateEmail(),
               password: validatePassword(),
+              passwordRepeat: Yup.string().oneOf(
+                [Yup.ref("password"), null],
+                "Passwords must match"
+              ),
             })}
             onSubmit={async (values, { setSubmitting, setErrors }) => {
-              const res = await register(values);
+              const { passwordRepeat, ...args } = values;
+              const res = await register(args);
               setSubmitting(false);
               if (res.data.errors.length > 0) {
                 const errors = matchFieldErrors(res.data.errors);
@@ -88,6 +106,23 @@ const Register: React.FC<RegisterProps> = ({}) => {
             {({ isSubmitting }) => (
               <Form style={{ width: "100%", maxWidth: "30em" }}>
                 <Box mx="1em" display="flex" flexDirection="column">
+                  <Box mt="1em" display="flex" flexDirection="column">
+                    <Field
+                      component={TextField}
+                      type="text"
+                      name="name"
+                      label="Full Name"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <TextFieldsRounded />
+                          </InputAdornment>
+                        ),
+                        fullWidth: true,
+                      }}
+                    />
+                  </Box>
                   <Box mt="1em" display="flex" flexDirection="column">
                     <Field
                       component={TextField}
@@ -128,6 +163,22 @@ const Register: React.FC<RegisterProps> = ({}) => {
                       type="password"
                       name="password"
                       label="Password"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Lock />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                  <Box mt="1em" display="flex" flexDirection="column">
+                    <Field
+                      component={TextField}
+                      type="password"
+                      name="passwordRepeat"
+                      label="Repeat Password"
                       variant="outlined"
                       InputProps={{
                         startAdornment: (
