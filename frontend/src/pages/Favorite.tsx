@@ -1,14 +1,8 @@
-import {
-  Box,
-  createStyles,
-  Grid,
-  makeStyles,
-  Theme,
-  Typography,
-} from "@material-ui/core";
+import { Theme, Typography } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { removeFavorite, useGetFavorites, useMe } from "../api";
+import { makeStyles, createStyles } from "@material-ui/styles";
 import StudectCard from "../components/StudectCard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,12 +14,11 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateColumns: "repeat(auto-fit, minmax(25em, 1fr))",
       gap: "1em",
     },
-    head:{
+    head: {
       position: "relative",
       right: "9.5%",
-      bottom: "-20px"
-      
-    }
+      bottom: "-20px",
+    },
   })
 );
 
@@ -51,10 +44,8 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
       ) : (
         <>
           <Typography variant="h4" className={classes.head}>
-            <span style={{ color: "#1e78c8"}}>
-              Favorites
-            </span>
-            </Typography>
+            <span style={{ color: "#1e78c8" }}>Favorites</span>
+          </Typography>
           <div className={classes.grid}>
             {!favoritesLoading &&
               favoritesData?.map((favorite, i) => (

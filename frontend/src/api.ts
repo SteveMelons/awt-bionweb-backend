@@ -39,6 +39,19 @@ interface AddFavoriteArgs {
   favoriteId: string;
 }
 
+export interface FiltersInterface {
+  courses: BasicEntity[];
+  languages: BasicEntity[];
+  preferences: BasicEntity[];
+  studyprograms: BasicEntity[];
+  universities: BasicEntity[];
+}
+
+export interface BasicEntity {
+  id: string;
+  name: string;
+}
+
 const useApi = <TRes, TErr = any>({
   method,
   url,
@@ -66,12 +79,36 @@ export const useGetUsers = () => {
   return useApi<User[], void>({ method: "GET", url: "/users" });
 };
 
+export const useGetFilters = () => {
+  return useApi<FiltersInterface, void>({ method: "GET", url: "/filters" });
+};
+
 export const useMe = () => {
   return useApi<IdRes | null>({ method: "GET", url: "/me" });
 };
 
 export const login = (args: LoginArgs) => {
   return axiosApi.post<LoginRes>("/login", args);
+};
+
+export const getStudyprograms = () => {
+  return axiosApi.get<BasicEntity[]>("/studyprograms");
+};
+
+export const getUniversities = () => {
+  return axiosApi.get<BasicEntity[]>("/universities");
+};
+
+export const getLanguages = () => {
+  return axiosApi.get<BasicEntity[]>("/languages");
+};
+
+export const getCourses = () => {
+  return axiosApi.get<BasicEntity[]>("/courses");
+};
+
+export const getPreferences = () => {
+  return axiosApi.get<BasicEntity[]>("/preferences");
 };
 
 export const logout = () => {

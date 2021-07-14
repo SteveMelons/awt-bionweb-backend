@@ -1,33 +1,36 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
 import {
   Avatar,
   Box,
   Button,
+  IconButton,
   InputAdornment,
   LinearProgress,
-  makeStyles,
+  TextField,
+  Theme,
   Typography,
 } from "@material-ui/core";
-import { TextField } from "formik-material-ui";
 import {
   AccountCircle,
   Email,
   Lock,
   LockOutlined,
-  TextFields,
   TextFieldsRounded,
+  Visibility,
+  VisibilityOff,
 } from "@material-ui/icons";
+import { createStyles, makeStyles } from "@material-ui/styles";
+import { Field, Form, Formik } from "formik";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import * as Yup from "yup";
 import { register, useMe } from "../api";
 import { matchFieldErrors } from "../utils/matchFieldErrors";
-import { Link, useHistory } from "react-router-dom";
 import {
   validateEmail,
   validateName,
   validatePassword,
   validateUsername,
 } from "../utils/validation";
-import * as Yup from "yup";
 
 interface RegisterProps {}
 
@@ -39,19 +42,32 @@ interface FormValues {
   passwordRepeat: string;
 }
 
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    marginTop: "2em",
-    backgroundColor: theme.palette.secondary.main,
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      margin: theme.spacing(1),
+      marginTop: "2em",
+      backgroundColor: theme.palette.secondary.main,
+    },
+  })
+);
 
 const Register: React.FC<RegisterProps> = ({}) => {
   const [{ data, loading }] = useMe();
   const history = useHistory();
 
   const classes = useStyles();
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setPasswordVisible((prev) => !prev);
+  };
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
 
   const initialFormValues: FormValues = {
     name: "",
@@ -103,90 +119,149 @@ const Register: React.FC<RegisterProps> = ({}) => {
               }
             }}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, handleChange, handleBlur, values, errors }) => (
               <Form style={{ width: "100%", maxWidth: "30em" }}>
                 <Box mx="1em" display="flex" flexDirection="column">
                   <Box mt="1em" display="flex" flexDirection="column">
-                    <Field
-                      component={TextField}
+                    <TextField
                       type="text"
                       name="name"
+                      autoComplete="name"
                       label="Full Name"
                       variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.name}
+                      error={errors.name ? true : false}
+                      helperText={errors.name}
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
                             <TextFieldsRounded />
                           </InputAdornment>
                         ),
-                        fullWidth: true,
                       }}
+                      fullWidth
                     />
                   </Box>
                   <Box mt="1em" display="flex" flexDirection="column">
-                    <Field
-                      component={TextField}
+                    <TextField
                       type="text"
                       name="username"
+                      autoComplete="off"
                       label="Username"
                       variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.username}
+                      error={errors.username ? true : false}
+                      helperText={errors.username}
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
                             <AccountCircle />
                           </InputAdornment>
                         ),
-                        fullWidth: true,
                       }}
+                      fullWidth
                     />
                   </Box>
                   <Box mt="1em" display="flex" flexDirection="column">
-                    <Field
-                      component={TextField}
+                    <TextField
                       type="text"
                       name="email"
+                      autoComplete="email"
                       label="Email"
                       variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                      error={errors.email ? true : false}
+                      helperText={errors.email}
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
                             <Email />
                           </InputAdornment>
                         ),
-                        fullWidth: true,
                       }}
+                      fullWidth
                     />
                   </Box>
                   <Box mt="1em" display="flex" flexDirection="column">
-                    <Field
-                      component={TextField}
-                      type="password"
+                    <TextField
+                      type={passwordVisible ? "text" : "password"}
                       name="password"
                       label="Password"
+                      autoComplete="new-password"
                       variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                      error={errors.password ? true : false}
+                      helperText={errors.password}
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
                             <Lock />
                           </InputAdornment>
                         ),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {passwordVisible ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
                       }}
+                      fullWidth
                     />
                   </Box>
                   <Box mt="1em" display="flex" flexDirection="column">
-                    <Field
-                      component={TextField}
-                      type="password"
+                    <TextField
+                      type={passwordVisible ? "text" : "password"}
                       name="passwordRepeat"
+                      autoComplete="new-password"
                       label="Repeat Password"
                       variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.passwordRepeat}
+                      error={errors.passwordRepeat ? true : false}
+                      helperText={errors.passwordRepeat}
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
                             <Lock />
                           </InputAdornment>
                         ),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {passwordVisible ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
                       }}
+                      fullWidth
                     />
                   </Box>
                   <Box mt="1em" display="flex" flexDirection="column">

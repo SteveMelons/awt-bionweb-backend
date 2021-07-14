@@ -244,11 +244,11 @@ export const getRouter = (
     return res.send(response);
   });
 
-  router.get("/students/matches", (req, res) => {
+  router.get("/students/matches", (_req, res) => {
     res.send("matches");
   });
 
-  router.get("/students/:filters", (req, res) => {
+  router.get("/students/:filters", (_req, res) => {
     //TODO to specify which filters do we need
     res.send("filterd students");
   });
@@ -303,29 +303,39 @@ export const getRouter = (
     return res.send(true);
   });
 
-  router.get("/courses", async (req, res) => {
+  router.get("/courses", async (_req, res) => {
     const courses = await em.find(Course, {});
     return res.send(courses);
   });
 
-  router.get("/languages", async (req, res) => {
+  router.get("/languages", async (_req, res) => {
     const courses = await em.find(Language, {});
     return res.send(courses);
   });
 
-  router.get("/preferences", async (req, res) => {
+  router.get("/preferences", async (_req, res) => {
     const courses = await em.find(Preference, {});
     return res.send(courses);
   });
 
-  router.get("/studyprograms", async (req, res) => {
+  router.get("/studyprograms", async (_req, res) => {
     const courses = await em.find(StudyProgram, {});
     return res.send(courses);
   });
 
-  router.get("/universities", async (req, res) => {
+  router.get("/universities", async (_req, res) => {
     const courses = await em.find(University, {});
     return res.send(courses);
+  });
+
+  router.get("/filters", async (_req, res) => {
+    const response: any = {};
+    response.courses = await em.find(Course, {});
+    response.languages = await em.find(Language, {});
+    response.preferences = await em.find(Preference, {});
+    response.studyprograms = await em.find(StudyProgram, {});
+    response.universities = await em.find(University, {});
+    return res.send(response);
   });
 
   return router;

@@ -1,24 +1,26 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/styles";
 import logo from "../img/logo-white.png";
 import { logout, useMe } from "../api";
-import { AppBar, Toolbar, Button, Box } from "@material-ui/core";
+import { AppBar, Toolbar, Button, Box, Theme } from "@material-ui/core";
 
 interface HeaderProps {}
 
-const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  text: {
-    fontSize: "1em",
-    margin: "0 1em",
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+    text: {
+      fontSize: "1em",
+      margin: "0 1em",
+    },
+  })
+);
 
 const Header: React.FC<HeaderProps> = ({}) => {
   const [{ data, loading }] = useMe();

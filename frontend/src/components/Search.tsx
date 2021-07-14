@@ -1,7 +1,5 @@
 import {
-  makeStyles,
   Theme,
-  createStyles,
   FormControl,
   InputLabel,
   MenuItem,
@@ -12,6 +10,7 @@ import {
   Select,
   Checkbox,
 } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/styles";
 import React from "react";
 
 const useStyles = makeStyles((theme: Theme) =>

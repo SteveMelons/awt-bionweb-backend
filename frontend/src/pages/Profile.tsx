@@ -3,12 +3,10 @@ import {
   Card,
   CardActions,
   CardContent,
-  createStyles,
   Grid,
   IconButton,
   List,
   ListItem,
-  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -20,6 +18,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Favorite, Mail, Share } from "@material-ui/icons";
+import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Container } from "reactstrap";

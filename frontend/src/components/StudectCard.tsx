@@ -2,17 +2,16 @@ import {
   Avatar,
   Card,
   CardContent,
-  createStyles,
   Divider,
   Grid,
   IconButton,
   List,
   ListItem,
   ListItemText,
-  makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/styles";
 import { StarBorderSharp } from "@material-ui/icons";
 import React from "react";
 import { User } from "../types/User";
@@ -139,7 +138,7 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
             item
             xs={6}
             container
-            justify="center"
+            justifyContent="center"
           >
             <Avatar
               src={user.avatar}
