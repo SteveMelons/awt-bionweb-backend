@@ -1,25 +1,34 @@
 import {
-  makeStyles,
-  Theme,
-  createStyles,
+  Avatar,
   Card,
   CardContent,
-  Grid,
-  Typography,
+  createStyles,
   Divider,
+  Grid,
+  IconButton,
   List,
   ListItem,
   ListItemText,
-  Avatar,
-  Box,
-  IconButton,
+  makeStyles,
+  Theme,
+  Typography,
 } from "@material-ui/core";
-import { Star, StarBorderSharp } from "@material-ui/icons";
-import React, { useState } from "react";
+import { StarBorderSharp } from "@material-ui/icons";
+import React from "react";
 import { User } from "../types/User";
 
-var colors = Array("#00a717", "#1e78c8",  "#9300a7", " #a7003f"," #d76c00", " #009b8b" );
- 
+var colors = Array(
+  // "#00a717",
+  "radial-gradient(ellipse at top, #e66465, transparent), radial-gradient(ellipse at bottom, #9300a7, transparent)",
+  `radial-gradient(
+    at center, #3498db, #9b59b6
+   )`,
+  "radial-gradient(ellipse at top, #009b8b, transparent), radial-gradient(ellipse at bottom, #a7003f, transparent)"
+  // "#9300a7",
+  // "#a7003f",
+  // "#d76c00",
+  // "#009b8b"
+);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,8 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       margin: theme.spacing(1),
       padding: theme.spacing(1),
-      //random color picker
-      backgroundColor: colors[Math.floor(Math.random()*colors.length)],
       borderRadius: "15px",
     },
     title: {
@@ -52,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
     },
     gridAvatar: {
-      backgroundColor: "white",
+      // backgroundColor: "white",
       display: "flex",
       alignItems: "center",
     },
@@ -83,29 +90,43 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card
+      className={classes.root}
+      style={{
+        background: colors[Math.floor(Math.random() * colors.length)],
+      }}
+    >
       <CardContent>
         <Grid container spacing={3}>
           {/* Left Column */}
           <Grid item xs={6}>
             <Typography className={classes.subtitle}>
-              <span style={{ fontWeight: 500, color: "white"}}>Study Program: </span>
+              <span style={{ fontWeight: 500, color: "white" }}>
+                Study Program:{" "}
+              </span>
             </Typography>
 
             <Typography className={classes.title}>
-              <span style={{ fontWeight: 600, color: "white"}}>{user.studyProgram}</span>
+              <span style={{ fontWeight: 600, color: "white" }}>
+                {user.studyProgram}
+              </span>
             </Typography>
 
-            <Divider style={{ backgroundColor: "white"}}/>
+            <Divider style={{ backgroundColor: "white" }} />
 
             <Typography className={classes.subtitle}>
-              <span style={{ fontWeight: 500, color: "white"}}>Looking for students in: </span>
+              <span style={{ fontWeight: 500, color: "white" }}>
+                Looking for students in:{" "}
+              </span>
             </Typography>
 
             <List>
               {user.preferences?.map((preference) => (
                 <ListItem button key={preference}>
-                  <ListItemText className={classes.listItemText} style={{ fontWeight: 600, color: "#f1c40f"}}>
+                  <ListItemText
+                    className={classes.listItemText}
+                    style={{ fontWeight: 600, color: "#f1c40f" }}
+                  >
                     {preference}
                   </ListItemText>
                 </ListItem>
@@ -123,17 +144,26 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
             <Avatar
               src={user.avatar}
               className={classes.avatar}
-              alt="Osman Tasdelen"
+              alt={user.username}
             />
           </Grid>
 
           {/* Footer */}
           <Grid item xs={12}>
-            <Typography className={classes.subtitle} style={{ color: "white", fontWeight: 500}}>
-              <span style={{ color: "white", fontWeight: "bold", display: "inline" }}>
+            <Typography
+              className={classes.subtitle}
+              style={{ color: "white", fontWeight: 500 }}
+            >
+              <span
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  display: "inline",
+                }}
+              >
                 {user.username}{" "}
-              </span >
-              - {user.email}
+              </span>{" "}
+              - {user.name} - {user.email}
             </Typography>
           </Grid>
           <IconButton

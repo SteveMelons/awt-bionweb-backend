@@ -32,7 +32,7 @@ export class User {
   name: string;
 
   @Property()
-  avatar: string;
+  avatar?: string;
 
   @Property()
   password: string;

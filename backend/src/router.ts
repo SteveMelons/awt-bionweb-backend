@@ -16,6 +16,11 @@ import {
   filterNullInput,
 } from "./utils/filterEntity";
 import { UpdateUserArgs } from "./types/args";
+import { Course } from "./entities/Course";
+import { Language } from "./entities/Language";
+import { Preference } from "./entities/Preference";
+import { StudyProgram } from "./entities/StudyProgram";
+import { University } from "./entities/University";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -296,6 +301,31 @@ export const getRouter = (
     user.favorites.remove(favorite);
     em.persistAndFlush(user);
     return res.send(true);
+  });
+
+  router.get("/courses", async (req, res) => {
+    const courses = await em.find(Course, {});
+    return res.send(courses);
+  });
+
+  router.get("/languages", async (req, res) => {
+    const courses = await em.find(Language, {});
+    return res.send(courses);
+  });
+
+  router.get("/preferences", async (req, res) => {
+    const courses = await em.find(Preference, {});
+    return res.send(courses);
+  });
+
+  router.get("/studyprograms", async (req, res) => {
+    const courses = await em.find(StudyProgram, {});
+    return res.send(courses);
+  });
+
+  router.get("/universities", async (req, res) => {
+    const courses = await em.find(University, {});
+    return res.send(courses);
   });
 
   return router;
