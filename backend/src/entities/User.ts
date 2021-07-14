@@ -58,6 +58,9 @@ export class User {
   @ManyToMany(() => Course)
   courses = new Collection<Course>(this);
 
+  @ManyToMany(() => User)
+  seen = new Collection<User>(this);
+
   @Property()
   bio?: string;
 
