@@ -229,17 +229,45 @@ export const getRouter = (
     return res.send(response);
   });
 
-  router.get("/user/:id", async (req, res) => {
-    const id = req.params.id;
+  router.get("/user/seen", async (req, res) => {
+    const userId = req.session.userId;
 
-    const user = await em.findOne(User, { id });
+    let user = await em.findOne(User, { id: userId });
 
     if (!user) {
       return res.send();
     }
 
     // filter user
-    const response = filterUser(user);
+    await user.seen.init();
+
+    let response = [];
+    for (let obj of user.seen) {
+      response.push(filterUserFavorite(obj));
+    }
+    
+
+    return res.send(response);
+  });
+
+
+  router.get("/user/:id", async (req, res) => {
+    const requiredId = req.params.id;
+    const userId = req.session.userId;
+
+    const requiredUser = await em.findOne(User, { id: requiredId });
+    const user = await em.findOne(User, { id: userId });
+
+    if (!user || !requiredUser) {
+      return res.send();
+    }
+
+    // filter user
+    const response = filterUser(requiredUser);
+
+    // update seen users
+    user.seen.add(requiredUser);
+    em.persistAndFlush(user);
 
     return res.send(response);
   });
