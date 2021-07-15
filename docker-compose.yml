@@ -18,6 +18,7 @@ services:
       - MONGO_URL=mongodb://mongo:27017
       - DB_NAME=awt_project
       - REDIS_URL=redis:6379
+      - CORS_ORIGIN=*
     volumes:
       - ./backend:/home/node/app
     command: sh -c "npm i && npm run dev"

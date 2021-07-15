@@ -18,8 +18,9 @@ const Filters: React.FC<FiltersProps> = ({}) => {
       courses: [],
       languages: [],
       preferences: [],
-      studyprograms: [],
-      universities: [],
+      skills: [],
+      studyprogram: [],
+      university: [],
     });
 
   const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
@@ -27,11 +28,11 @@ const Filters: React.FC<FiltersProps> = ({}) => {
   const handleChange = (
     event: React.ChangeEvent<{ value: unknown }>,
     filter:
-      | "universities"
+      | "university"
       | "courses"
       | "languages"
       | "preferences"
-      | "studyprograms"
+      | "studyprogram"
   ) => {
     setSelectedFilters((prevState) => {
       let newState = Object.assign({}, prevState);
@@ -42,16 +43,16 @@ const Filters: React.FC<FiltersProps> = ({}) => {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="universities-label">Universities</InputLabel>
+        <InputLabel id="university-label">Universities</InputLabel>
         <Select
-          labelId="universities-label"
-          id="universities"
+          labelId="university-label"
+          id="university"
           multiple
-          value={selectedFilters.universities}
-          onChange={(e) => handleChange(e, "universities")}
+          value={selectedFilters.university}
+          onChange={(e) => handleChange(e, "university")}
           input={
             <OutlinedInput
-              id="select-multiple-universities"
+              id="select-multiple-university"
               label="Universities"
             />
           }
@@ -63,7 +64,7 @@ const Filters: React.FC<FiltersProps> = ({}) => {
             </Box>
           )}
         >
-          {filtersData?.universities.map((value) => (
+          {filtersData?.university.map((value) => (
             <MenuItem key={value.id} value={value}>
               {value.name}
             </MenuItem>
@@ -72,16 +73,16 @@ const Filters: React.FC<FiltersProps> = ({}) => {
       </FormControl>
 
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="studyprograms-label">Study Programs</InputLabel>
+        <InputLabel id="studyprogram-label">Study Programs</InputLabel>
         <Select
-          labelId="studyprograms-label"
-          id="studyprograms"
+          labelId="studyprogram-label"
+          id="studyprogram"
           multiple
-          value={selectedFilters.studyprograms}
-          onChange={(e) => handleChange(e, "studyprograms")}
+          value={selectedFilters.studyprogram}
+          onChange={(e) => handleChange(e, "studyprogram")}
           input={
             <OutlinedInput
-              id="select-multiple-studyprograms"
+              id="select-multiple-studyprogram"
               label="Study Programs"
             />
           }
@@ -93,7 +94,7 @@ const Filters: React.FC<FiltersProps> = ({}) => {
             </Box>
           )}
         >
-          {filtersData?.studyprograms.map((value) => (
+          {filtersData?.studyprogram.map((value) => (
             <MenuItem key={value.id} value={value}>
               {value.name}
             </MenuItem>

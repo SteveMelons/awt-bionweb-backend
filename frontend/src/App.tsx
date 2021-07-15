@@ -1,13 +1,14 @@
-import React from "react";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Register from "./pages/Register";
-import Favorite from "./pages/Favorite";
 import { Box, ThemeProvider } from "@material-ui/core";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Chat from "./components/Chat";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Dashboard from "./pages/Dashboard";
+import Favorite from "./pages/Favorite";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 import { theme } from "./theme";
 
 interface AppProps {}
@@ -32,6 +33,7 @@ const App: React.FC<AppProps> = ({}) => {
               <Route exact path="/favorites" component={Favorite} />
             </Switch>
           </Box>
+          <Chat />
           <Footer></Footer>
         </BrowserRouter>
       </ThemeProvider>

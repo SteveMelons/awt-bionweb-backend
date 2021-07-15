@@ -18,24 +18,10 @@ const PaginatingGrid: React.FC<PaginatingGridProps> = ({
   initialLimit,
   loadLimit,
 }) => {
-  let paginationState: [
-    {
-      limit: number;
-      offset: number;
-    },
-    React.Dispatch<
-      React.SetStateAction<{
-        limit: number;
-        offset: number;
-      }>
-    >
-  ];
-  if (onLoadMore && initialLimit && loadLimit) {
-    paginationState = useState({
-      limit: initialLimit,
-      offset: 0,
-    });
-  }
+  const [pagination, setPagination] = useState({
+    limit: initialLimit || 0,
+    offset: 0,
+  });
 
   return (
     <Box
@@ -60,7 +46,6 @@ const PaginatingGrid: React.FC<PaginatingGridProps> = ({
       {onLoadMore && initialLimit && loadLimit && (
         <Button
           onClick={async () => {
-            const [pagination, setPagination] = paginationState;
             const newPagination = {
               limit: loadLimit,
               offset: pagination.offset + pagination.limit,
