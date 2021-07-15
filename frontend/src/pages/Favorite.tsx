@@ -1,26 +1,8 @@
-import { Theme, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { removeFavorite, useGetFavorites, useMe } from "../api";
-import { makeStyles, createStyles } from "@material-ui/styles";
-import StudectCard from "../components/StudectCard";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    grid: {
-      width: "90%",
-      margin: "2em auto",
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(25em, 1fr))",
-      gap: "1em",
-    },
-    head: {
-      position: "relative",
-      right: "9.5%",
-      bottom: "-20px",
-    },
-  })
-);
+import PaginatingGrid from "../components/PaginatingGrid";
 
 interface FavoriteProps {}
 
@@ -29,8 +11,6 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
   const [{ data: favoritesData, loading: favoritesLoading }] =
     useGetFavorites();
   const history = useHistory();
-
-  const classes = useStyles();
 
   return (
     <>
@@ -43,22 +23,18 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
         })()
       ) : (
         <>
-          <Typography variant="h4" className={classes.head}>
-            <span style={{ color: "#1e78c8" }}>Favorites</span>
-          </Typography>
-          <div className={classes.grid}>
-            {!favoritesLoading &&
-              favoritesData?.map((favorite, i) => (
-                <StudectCard
-                  key={favorite.id}
-                  user={favorite}
-                  onClickFavorite={async (id) => {
-                    const res = await removeFavorite({ favoriteId: id });
-                    history.go(0);
-                  }}
-                />
-              ))}
-          </div>
+          <Box mt="2em">
+            <Typography variant="h5">Favorites</Typography>
+          </Box>
+          {favoritesData && favoritesData.length !== 0 && (
+            <PaginatingGrid
+              users={favoritesData}
+              onClickFavorite={async (id) => {
+                const res = await removeFavorite({ favoriteId: id });
+                history.go(0);
+              }}
+            />
+          )}
         </>
       )}
     </>

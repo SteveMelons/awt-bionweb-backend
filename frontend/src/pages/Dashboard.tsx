@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from "@material-ui/core";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   addFavorite,
@@ -14,7 +13,7 @@ import {
   useMe,
 } from "../api";
 import MultiAutoComplete from "../components/MultiAutoComplete";
-import StudectCard from "../components/StudectCard";
+import PaginatingGrid from "../components/PaginatingGrid";
 import { User } from "../types/User";
 
 interface DashboardProps {}
@@ -24,14 +23,8 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
   // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
   // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
 
-  const initialLimit = 8;
-  const loadLimit = 4;
-
   const [users, setUsers] = useState<User[]>([]);
-  const [pagination, setPagination] = useState({
-    limit: initialLimit,
-    offset: 0,
-  });
+
   const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>({
     courses: [],
     languages: [],
@@ -42,6 +35,9 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
   });
 
   const history = useHistory();
+
+  const initialLimit = 8;
+  const loadLimit = 4;
 
   return (
     <>
@@ -162,7 +158,6 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                   limit: initialLimit,
                   offset: 0,
                 };
-                setPagination(newPagination);
                 setUsers(
                   (
                     await getUsers({
@@ -177,44 +172,23 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
             </Button>
           </Box>
           {users.length !== 0 && (
-            <Box
-              sx={{
-                width: "90%",
-                margin: "2em auto",
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(22em, 1fr))",
-                gap: "1.3em",
+            <PaginatingGrid
+              users={users}
+              initialLimit={initialLimit}
+              loadLimit={loadLimit}
+              onLoadMore={async (newPagination) => {
+                const newData = (
+                  await getUsers({
+                    params: newPagination,
+                    filters: selectedFilters,
+                  })
+                ).data;
+                setUsers((prev) => [...prev, ...newData]);
               }}
-            >
-              {users.map((user, i) => (
-                <StudectCard
-                  key={user.id}
-                  color={i % 3}
-                  user={user}
-                  onClickFavorite={(id) => {
-                    const res = addFavorite({ favoriteId: id });
-                  }}
-                />
-              ))}
-              <Button
-                onClick={async () => {
-                  const newPagination = {
-                    limit: loadLimit,
-                    offset: pagination.offset + pagination.limit,
-                  };
-                  setPagination(newPagination);
-                  const newData = (
-                    await getUsers({
-                      params: newPagination,
-                      filters: selectedFilters,
-                    })
-                  ).data;
-                  setUsers((prev) => [...prev, ...newData]);
-                }}
-              >
-                Load More
-              </Button>
-            </Box>
+              onClickFavorite={(id) => {
+                const res = addFavorite({ favoriteId: id });
+              }}
+            />
           )}
         </>
       )}

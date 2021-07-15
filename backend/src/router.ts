@@ -168,11 +168,15 @@ export const getRouter = (
       }
     }
 
-    const users = await em.find(User, newFilters, {
-      limit,
-      offset,
-      orderBy: { creationDate: -1 },
-    });
+    const users = await em.find(
+      User,
+      { $and: [newFilters, { id: { $ne: req.session.userId } }] },
+      {
+        limit,
+        offset,
+        orderBy: { creationDate: -1 },
+      }
+    );
 
     // filter users
     const response = users.map((user) => filterUser(user));

@@ -17,16 +17,9 @@ import React from "react";
 import { User } from "../types/User";
 
 var colors = Array(
-  // "#00a717",
   "radial-gradient(ellipse at top, #e66465, transparent), radial-gradient(ellipse at bottom, #9300a7, transparent)",
-  `radial-gradient(
-    at center, #3498db, #9b59b6
-   )`,
+  "radial-gradient( at center, #3498db, #9b59b6 )",
   "radial-gradient(ellipse at top, #009b8b, transparent), radial-gradient(ellipse at bottom, #a7003f, transparent)"
-  // "#9300a7",
-  // "#a7003f",
-  // "#d76c00",
-  // "#009b8b"
 );
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,10 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // backgroundColor: "white",
       display: "flex",
       alignItems: "center",
-    },
-    avatar: {
-      width: theme.spacing(12),
-      height: theme.spacing(12),
     },
     listItemText: {
       fontSize: 14,
@@ -144,8 +133,8 @@ const StudectCard: React.FC<StudectCardProps> = ({
           >
             <Avatar
               src={user.avatar}
-              className={classes.avatar}
               alt={user.username}
+              sx={{ width: 120, height: 120 }}
             />
           </Grid>
 
