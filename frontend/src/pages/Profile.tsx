@@ -17,7 +17,7 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import { Favorite, Mail, Share } from "@material-ui/icons";
+import { Favorite, Mail, Share, WhatsApp } from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -48,14 +48,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     avatar: {
-      position: "absolute",
-      width: theme.spacing(22),
-      height: theme.spacing(23),
-
-      transform: "translateY(-25px)",
       background: "linear-gradient(60deg, #1e78c8, #07b39b)",
-      //border: "3px solid",
-      //borderColor: theme.palette.primary.light,
+      border: "3px solid",
+      borderColor: theme.palette.secondary.light,
     },
     gridTopTable: {
       alignItems: "left",
@@ -66,11 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "180px",
       marginBottom: "40px",
     },
-    toptable: {
-      position: "relative",
-      border: "2px solid",
-      borderColor: " #f1c40f",
-    },
 
     gridTable: {
       alignItems: "left",
@@ -80,8 +70,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     table: {
-      position: "relative",
-      //marginLeft: "35%",
       width: "100%",
       maxWidth: "40em",
       border: "2px solid linear-gradient()",
@@ -92,13 +80,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(0),
     },
     info: {
-      position: "relative",
       marginTop: theme.spacing(0),
       fontSize: 18,
       fontFamily: "sans-serif",
-
-      transform: "translateY(120px)",
-      //marginLeft: "35%",
     },
     general: {
       marginTop: "5px",
@@ -144,43 +128,21 @@ const Profile: React.FC<ProfileProps> = ({}) => {
           <Card className={classes.card}>
             <CardContent>
               {/* Header image */}
-              <Grid className={classes.gridAvatar} item xs={12}>
+              <Grid className={classes.gridAvatar} mb="2em" item xs={12}>
                 <Avatar
                   src={userData.avatar}
-                  className={classes.avatar}
                   alt={userData.username}
+                  className={classes.avatar}
+                  sx={{ width: 120, height: 120 }}
                 />
               </Grid>
 
               <Grid container spacing={0}>
                 <Grid className={classes.general} item xs={12} sm={6} md={4}>
                   <Container component={Paper} className={classes.info}>
-                    <span
-                      style={{
-                        fontWeight: 600,
-                        color: "#1e78c8",
-                        fontSize: 18,
-                      }}
-                    >
-                      {" "}
-                      Username:{" "}
-                    </span>{" "}
-                    {userData.username}
-                  </Container>
-                </Grid>
-
-                <Grid className={classes.general} item xs={12} sm={6} md={4}>
-                  <Container component={Paper} className={classes.info}>
-                    <span
-                      style={{
-                        fontWeight: 600,
-                        color: "#1e78c8",
-                        fontSize: 18,
-                      }}
-                    >
-                      {" "}
-                      Name:{" "}
-                    </span>
+                    @{userData.username}
+                    <br />
+                    <br />
                     {userData.name}
                   </Container>
                 </Grid>
@@ -194,7 +156,6 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                         fontSize: 18,
                       }}
                     >
-                      {" "}
                       Bio:{" "}
                     </span>
                     {userData.bio}
@@ -202,12 +163,9 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                 </Grid>
               </Grid>
 
-              <Grid container spacing={3}>
-                <Grid className={classes.gridTopTable} item xs={12}>
-                  <TableContainer
-                    component={Paper}
-                    className={classes.toptable}
-                  >
+              <Grid container mt="2em" spacing={3}>
+                {/* <Grid className={classes.gridTopTable} item xs={12}>
+                  <TableContainer component={Paper}>
                     <Table>
                       <TableHead>
                         <TableRow>
@@ -271,7 +229,7 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                </Grid>
+                </Grid> */}
 
                 {/* Details */}
 
@@ -426,21 +384,29 @@ const Profile: React.FC<ProfileProps> = ({}) => {
 
                 {/* Right column */}
                 <Grid className={classes.grid} item xs={12}>
-                  <Typography variant="h5">Skills</Typography>
+                  {userData.skills && userData.skills.length !== 0 && (
+                    <>
+                      <Typography variant="h5">Skills</Typography>
 
-                  <List>
-                    {userData.skills?.map((skill) => (
-                      <ListItem key={skill}>{skill}</ListItem>
-                    ))}
-                  </List>
+                      <List>
+                        {userData.skills.map((skill) => (
+                          <ListItem key={skill}>{skill}</ListItem>
+                        ))}
+                      </List>
+                    </>
+                  )}
 
-                  <Typography variant="h5">Preferences</Typography>
+                  {userData.skills && userData.skills.length !== 0 && (
+                    <>
+                      <Typography variant="h5">Preferences</Typography>
 
-                  <List>
-                    {userData.preferences?.map((preference) => (
-                      <ListItem key={preference}>{preference}</ListItem>
-                    ))}
-                  </List>
+                      <List>
+                        {userData.preferences?.map((preference) => (
+                          <ListItem key={preference}>{preference}</ListItem>
+                        ))}
+                      </List>
+                    </>
+                  )}
                 </Grid>
 
                 {/* Footer */}
@@ -450,12 +416,23 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                       <Favorite />
                     </IconButton>
 
-                    <IconButton aria-label="contact">
+                    <IconButton
+                      aria-label="contact"
+                      href={`mailto: ${userData.email}`}
+                    >
                       <Mail />
                     </IconButton>
 
-                    <IconButton aria-label="share">
-                      <Share />
+                    <IconButton
+                      aria-label="share"
+                      href={
+                        "https://wa.me/?text=" +
+                        encodeURI(
+                          `Check out ${userData.username} on Studect ${window.location.href}`
+                        )
+                      }
+                    >
+                      <WhatsApp />
                     </IconButton>
                   </CardActions>
                 </Grid>

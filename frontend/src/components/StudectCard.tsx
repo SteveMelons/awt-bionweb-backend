@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   Divider,
@@ -12,7 +13,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/styles";
-import { StarBorderSharp } from "@material-ui/icons";
+import { Favorite, StarBorderSharp } from "@material-ui/icons";
 import React from "react";
 import { User } from "../types/User";
 
@@ -155,14 +156,16 @@ const StudectCard: React.FC<StudectCardProps> = ({
               </span>{" "}
               - {user.name} - {user.email}
             </Typography>
+            <Box display="flex" justifyContent="flex-end">
+              <IconButton
+                onClick={() => {
+                  onClickFavorite(user.id);
+                }}
+              >
+                <Favorite style={{ color: "white" }} />
+              </IconButton>
+            </Box>
           </Grid>
-          <IconButton
-            onClick={() => {
-              onClickFavorite(user.id);
-            }}
-          >
-            <StarBorderSharp />
-          </IconButton>
         </Grid>
       </CardContent>
     </Card>
