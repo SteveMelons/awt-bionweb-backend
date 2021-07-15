@@ -6,8 +6,8 @@ import {
   InputAdornment,
   LinearProgress,
   TextField,
-  Theme,
   Typography,
+  useTheme,
 } from "@material-ui/core";
 import {
   AccountCircle,
@@ -18,8 +18,7 @@ import {
   Visibility,
   VisibilityOff,
 } from "@material-ui/icons";
-import { createStyles, makeStyles } from "@material-ui/styles";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
@@ -42,22 +41,11 @@ interface FormValues {
   passwordRepeat: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    avatar: {
-      margin: theme.spacing(1),
-      marginTop: "2em",
-      backgroundColor: theme.palette.secondary.main,
-    },
-  })
-);
-
 const Register: React.FC<RegisterProps> = ({}) => {
   const [{ data, loading }] = useMe();
   const history = useHistory();
 
-  const classes = useStyles();
-
+  const theme = useTheme();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -88,7 +76,13 @@ const Register: React.FC<RegisterProps> = ({}) => {
         })()
       ) : (
         <>
-          <Avatar className={classes.avatar}>
+          <Avatar
+            sx={{
+              margin: theme.spacing(1),
+              marginTop: "2em",
+              backgroundColor: theme.palette.secondary.main,
+            }}
+          >
             <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">

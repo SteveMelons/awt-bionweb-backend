@@ -32,10 +32,7 @@ var colors = Array(
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      minWidth: 333,
-      maxWidth: 444,
       flexGrow: 1,
-      margin: theme.spacing(1),
       padding: theme.spacing(1),
       borderRadius: "15px",
     },
@@ -83,16 +80,21 @@ const useStyles = makeStyles((theme: Theme) =>
 interface StudectCardProps {
   user: User;
   onClickFavorite: (id: string) => void;
+  color: number;
 }
 
-const StudectCard: React.FC<StudectCardProps> = ({ user, onClickFavorite }) => {
+const StudectCard: React.FC<StudectCardProps> = ({
+  user,
+  onClickFavorite,
+  color,
+}) => {
   const classes = useStyles();
 
   return (
     <Card
       className={classes.root}
       style={{
-        background: colors[Math.floor(Math.random() * colors.length)],
+        background: colors[color],
       }}
     >
       <CardContent>

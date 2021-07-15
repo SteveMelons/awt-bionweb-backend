@@ -1,35 +1,47 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import React from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   addFavorite,
+  FiltersInterface,
   getCourses,
   getLanguages,
   getPreferences,
   getStudyprograms,
   getUniversities,
-  useGetFilters,
-  useGetUsers,
+  getUsers,
   useMe,
 } from "../api";
-import Filters from "../components/Filters";
 import MultiAutoComplete from "../components/MultiAutoComplete";
 import StudectCard from "../components/StudectCard";
+import { User } from "../types/User";
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = ({}) => {
   const [{ data: meData, loading: meLoading }] = useMe();
-  const [{ data: usersData, loading: usersLoading }] = useGetUsers();
-  const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
+  // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
+  // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
+
+  const initialLimit = 8;
+  const loadLimit = 4;
+
+  const [users, setUsers] = useState<User[]>([]);
+  const [pagination, setPagination] = useState({
+    limit: initialLimit,
+    offset: 0,
+  });
+  const [selectedFilters, setSelectedFilters] = useState<FiltersInterface>({
+    courses: [],
+    languages: [],
+    preferences: [],
+    skills: [],
+    studyprogram: [],
+    university: [],
+  });
 
   const history = useHistory();
-
-  function sleep(delay = 0) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, delay);
-    });
-  }
 
   return (
     <>
@@ -59,6 +71,13 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 getOptions={async () => {
                   return (await getUniversities()).data;
                 }}
+                onChange={(newVal) =>
+                  setSelectedFilters((prev) => {
+                    let newState = Object.assign({}, prev);
+                    newState.university = newVal;
+                    return newState;
+                  })
+                }
                 label="Universities"
               />
             </Box>
@@ -67,6 +86,13 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 getOptions={async () => {
                   return (await getStudyprograms()).data;
                 }}
+                onChange={(newVal) =>
+                  setSelectedFilters((prev) => {
+                    let newState = Object.assign({}, prev);
+                    newState.studyprogram = newVal;
+                    return newState;
+                  })
+                }
                 label="Study Programs"
               />
             </Box>
@@ -75,6 +101,13 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 getOptions={async () => {
                   return (await getCourses()).data;
                 }}
+                onChange={(newVal) =>
+                  setSelectedFilters((prev) => {
+                    let newState = Object.assign({}, prev);
+                    newState.courses = newVal;
+                    return newState;
+                  })
+                }
                 label="Courses"
               />
             </Box>
@@ -83,6 +116,13 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 getOptions={async () => {
                   return (await getLanguages()).data;
                 }}
+                onChange={(newVal) =>
+                  setSelectedFilters((prev) => {
+                    let newState = Object.assign({}, prev);
+                    newState.languages = newVal;
+                    return newState;
+                  })
+                }
                 label="Languages"
               />
             </Box>
@@ -91,6 +131,13 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 getOptions={async () => {
                   return (await getPreferences()).data;
                 }}
+                onChange={(newVal) =>
+                  setSelectedFilters((prev) => {
+                    let newState = Object.assign({}, prev);
+                    newState.preferences = newVal;
+                    return newState;
+                  })
+                }
                 label="Preferences"
               />
             </Box>
@@ -99,30 +146,76 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 getOptions={async () => {
                   return (await getPreferences()).data;
                 }}
+                onChange={(newVal) =>
+                  setSelectedFilters((prev) => {
+                    let newState = Object.assign({}, prev);
+                    newState.skills = newVal;
+                    return newState;
+                  })
+                }
                 label="Skills"
               />
             </Box>
+            <Button
+              onClick={async () => {
+                const newPagination = {
+                  limit: initialLimit,
+                  offset: 0,
+                };
+                setPagination(newPagination);
+                setUsers(
+                  (
+                    await getUsers({
+                      params: newPagination,
+                      filters: selectedFilters,
+                    })
+                  ).data
+                );
+              }}
+            >
+              Search
+            </Button>
           </Box>
-          <Box
-            sx={{
-              width: "90%",
-              margin: "2em auto",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(25em, 1fr))",
-              gap: "1em",
-            }}
-          >
-            {!usersLoading &&
-              usersData?.map((user) => (
+          {users.length !== 0 && (
+            <Box
+              sx={{
+                width: "90%",
+                margin: "2em auto",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(22em, 1fr))",
+                gap: "1.3em",
+              }}
+            >
+              {users.map((user, i) => (
                 <StudectCard
                   key={user.id}
+                  color={i % 3}
                   user={user}
-                  onClickFavorite={async (id) => {
-                    const res = await addFavorite({ favoriteId: id });
+                  onClickFavorite={(id) => {
+                    const res = addFavorite({ favoriteId: id });
                   }}
                 />
               ))}
-          </Box>
+              <Button
+                onClick={async () => {
+                  const newPagination = {
+                    limit: loadLimit,
+                    offset: pagination.offset + pagination.limit,
+                  };
+                  setPagination(newPagination);
+                  const newData = (
+                    await getUsers({
+                      params: newPagination,
+                      filters: selectedFilters,
+                    })
+                  ).data;
+                  setUsers((prev) => [...prev, ...newData]);
+                }}
+              >
+                Load More
+              </Button>
+            </Box>
+          )}
         </>
       )}
     </>

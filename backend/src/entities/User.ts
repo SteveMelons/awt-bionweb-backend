@@ -44,7 +44,7 @@ export class User {
   university?: University;
 
   @ManyToOne()
-  studyProgram?: StudyProgram;
+  studyprogram?: StudyProgram;
 
   @ManyToMany(() => Preference)
   preferences = new Collection<Preference>(this);

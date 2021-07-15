@@ -39,12 +39,21 @@ interface AddFavoriteArgs {
   favoriteId: string;
 }
 
+interface GetUsersArgs {
+  params: {
+    limit?: number;
+    offset?: number;
+  };
+  filters?: FiltersInterface;
+}
+
 export interface FiltersInterface {
   courses: BasicEntity[];
   languages: BasicEntity[];
   preferences: BasicEntity[];
-  studyprograms: BasicEntity[];
-  universities: BasicEntity[];
+  skills: BasicEntity[];
+  studyprogram: BasicEntity[];
+  university: BasicEntity[];
 }
 
 export interface BasicEntity {
@@ -71,11 +80,19 @@ export const useGetUser = () => {
   return useApi<Me, void>({ method: "GET", url: "/user" });
 };
 
+export const getUsers = (args: GetUsersArgs) => {
+  return axiosApi.post<User[]>(
+    "/users",
+    { filters: args.filters },
+    { params: args.params }
+  );
+};
+
 export const useGetFavorites = () => {
   return useApi<User[], void>({ method: "GET", url: "/favorites" });
 };
 
-export const useGetUsers = () => {
+export const useGetUsers = (args?: GetUsersArgs) => {
   return useApi<User[], void>({ method: "GET", url: "/users" });
 };
 

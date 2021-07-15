@@ -5,11 +5,13 @@ import { BasicEntity } from "../api";
 interface MultiAutoCompleteProps {
   getOptions: () => Promise<BasicEntity[]>;
   label: string;
+  onChange: (newVal: BasicEntity[]) => void;
 }
 
 const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
   getOptions,
   label,
+  onChange,
 }) => {
   const [selected, setSelected] = useState<BasicEntity[]>([]);
 
@@ -35,6 +37,10 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
     };
   }, [loading]);
 
+  useEffect(() => {
+    onChange(selected);
+  }, [selected]);
+
   return (
     <Autocomplete
       sx={{ width: "100%" }}
@@ -53,6 +59,7 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
         setSelected((prevState) => {
           let newState = Object.assign({}, prevState);
           newState = newVal as any[];
+
           return newState;
         });
       }}

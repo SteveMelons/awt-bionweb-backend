@@ -21,6 +21,7 @@ import { Language } from "./entities/Language";
 import { Preference } from "./entities/Preference";
 import { StudyProgram } from "./entities/StudyProgram";
 import { University } from "./entities/University";
+import { BasicEntity, FiltersInterface } from "./types/types";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -154,8 +155,24 @@ export const getRouter = (
     return res.send(true);
   });
 
-  router.get("/users", async (_req, res) => {
-    const users = await em.find(User, {});
+  router.post("/users", async (req, res) => {
+    const limit = parseInt(req.query.limit as string) || 20;
+    const offset = parseInt(req.query.offset as string) || 0;
+    const filters = req.body.filters as FiltersInterface | undefined;
+
+    const newFilters: any = {};
+    for (const key in filters) {
+      if (Object.prototype.hasOwnProperty.call(filters, key)) {
+        const element = (filters as any)[key] as BasicEntity[];
+        if (element.length !== 0) newFilters[key] = element.map((el) => el.id);
+      }
+    }
+
+    const users = await em.find(User, newFilters, {
+      limit,
+      offset,
+      orderBy: { creationDate: -1 },
+    });
 
     // filter users
     const response = users.map((user) => filterUser(user));
@@ -245,11 +262,9 @@ export const getRouter = (
     for (let obj of user.seen) {
       response.push(filterUserFavorite(obj));
     }
-    
 
     return res.send(response);
   });
-
 
   router.get("/user/:id", async (req, res) => {
     const requiredId = req.params.id;
