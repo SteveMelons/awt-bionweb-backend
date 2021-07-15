@@ -1,19 +1,25 @@
 import {
-    Entity,
-    PrimaryKey,
-    Property,
-    SerializedPrimaryKey,
-  } from "@mikro-orm/core";
+  Entity,
+  PrimaryKey,
+  Property,
+  SerializedPrimaryKey,
+} from "@mikro-orm/core";
 import { ObjectId } from "@mikro-orm/mongodb";
 
 @Entity()
-export class StudyProgram{
-    @PrimaryKey()
-    _id: ObjectId;
-  
-    @SerializedPrimaryKey()
-    id: string;
+export class StudyProgram {
+  @PrimaryKey()
+  _id: ObjectId;
 
-    @Property({unique: true})
-    name: string;
+  @SerializedPrimaryKey()
+  id: string;
+
+  @Property({ unique: true })
+  name: string;
+
+  @Property()
+  createdAt: Date = new Date();
+
+  @Property({ onUpdate: () => new Date() })
+  updatedAt: Date = new Date();
 }

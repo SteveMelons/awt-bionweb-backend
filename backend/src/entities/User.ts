@@ -68,8 +68,8 @@ export class User {
   favorites = new Collection<User>(this);
 
   @Property()
-  creationDate: Date = new Date();
+  createdAt: Date = new Date();
 
   @Property({ onUpdate: () => new Date() })
-  updatedAt?: Date = new Date();
+  updatedAt: Date = new Date();
 }
