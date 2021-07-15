@@ -12,22 +12,14 @@ export const getEvents = (
   socket.on("sendMessage", (data) => {
     const message = em.create(Message, {
       from: session.userId,
-      to: data.to,
+      to: data.to.id,
       message: data.message,
     });
 
     em.persistAndFlush(message);
-  });
 
-  socket.on("openChat", async (data) => {
-    const otherMessages = await em.find(Message, {
-      $and: [{ from: data.to }, { to: session.userId }],
-    });
-    const myMessages = await em.find(Message, {
-      $and: [{ to: data.to }, { from: session.userId }],
-    });
-
-    socket.emit("openChatRes");
+    if (data.to.socketId)
+      socket.to(data.to.socketId).emit("privateMessage", message);
   });
 
   session.save();

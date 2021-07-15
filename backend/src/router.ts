@@ -22,6 +22,7 @@ import { Preference } from "./entities/Preference";
 import { StudyProgram } from "./entities/StudyProgram";
 import { University } from "./entities/University";
 import { BasicEntity, FiltersInterface } from "./types/types";
+import { Message } from "./entities/Message";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -174,7 +175,7 @@ export const getRouter = (
       {
         limit,
         offset,
-        orderBy: { creationDate: -1 },
+        orderBy: { creationDate: 1 },
       }
     );
 
@@ -383,6 +384,28 @@ export const getRouter = (
     response.studyprograms = await em.find(StudyProgram, {});
     response.universities = await em.find(University, {});
     return res.send(response);
+  });
+
+  router.get("/messages", async (req, res) => {
+    const profileId = req.query.profileId;
+
+    const messages = await em.find(
+      Message,
+      {
+        $or: [
+          {
+            $and: [{ from: profileId }, { to: req.session.userId }],
+          },
+          {
+            $and: [{ to: profileId }, { from: req.session.userId }],
+          },
+        ],
+      },
+      ["from", "to"],
+      { createdAt: -1 }
+    );
+
+    res.send(messages);
   });
 
   return router;

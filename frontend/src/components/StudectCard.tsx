@@ -16,6 +16,7 @@ import { makeStyles, createStyles } from "@material-ui/styles";
 import { Favorite, StarBorderSharp } from "@material-ui/icons";
 import React from "react";
 import { User } from "../types/User";
+import { useHistory } from "react-router-dom";
 
 var colors = Array(
   "radial-gradient(ellipse at top, #e66465, transparent), radial-gradient(ellipse at bottom, #9300a7, transparent)",
@@ -79,12 +80,20 @@ const StudectCard: React.FC<StudectCardProps> = ({
   color,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Card
+      onClick={() => history.push("/profile?id=" + user.id)}
       className={classes.root}
-      style={{
+      sx={{
         background: colors[color],
+        cursor: "pointer",
+        ":hover": {
+          // boxShadow:
+          //   "5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0)",
+          boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
+        },
       }}
     >
       <CardContent>

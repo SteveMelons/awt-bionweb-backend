@@ -1,6 +1,7 @@
 import axios from "axios";
 import useAxios, { Options } from "axios-hooks";
 import { FieldError } from "./types/errors";
+import { Message } from "./types/types";
 import { Me, User } from "./types/User";
 
 const axiosApi = axios.create({
@@ -72,8 +73,9 @@ const useApi = <TRes, TErr = any>({
 
 /* API ROUTES */
 
-export const useGetUserById = (id: string) => {
-  return useApi<Me, void>({ method: "GET", url: `/user/${id}` });
+export const useGetUserById = (id?: string) => {
+  if (id) return useApi<Me, void>({ method: "GET", url: `/user/${id}` });
+  return useApi<Me, void>({ method: "GET", url: "/user" });
 };
 
 export const useGetUser = () => {
@@ -122,6 +124,12 @@ export const getLanguages = () => {
 
 export const getCourses = () => {
   return axiosApi.get<BasicEntity[]>("/courses");
+};
+
+export const getMessages = ({ profileId }: { profileId: string }) => {
+  return axiosApi.get<Message[]>("/messages", {
+    params: { profileId },
+  });
 };
 
 export const getPreferences = () => {

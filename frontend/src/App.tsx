@@ -1,4 +1,4 @@
-import { Box, ThemeProvider } from "@material-ui/core";
+import { Box, Container, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Chat from "./components/Chat";
@@ -33,7 +33,6 @@ const App: React.FC<AppProps> = ({}) => {
               <Route exact path="/favorites" component={Favorite} />
             </Switch>
           </Box>
-          <Chat />
           <Footer></Footer>
         </BrowserRouter>
       </ThemeProvider>

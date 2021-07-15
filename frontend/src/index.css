@@ -18,14 +18,14 @@ code {
     monospace;
 }
 
-body::-webkit-scrollbar {
-  width: 4px !important;
+::-webkit-scrollbar {
+  width: 4px;
 }
 
-body::-webkit-scrollbar-track {
-  background: #ff716a !important;
+::-webkit-scrollbar-track {
+  background: #ff716a;
 }
 
-body::-webkit-scrollbar-thumb {
-  background: #e53b3f !important;
+::-webkit-scrollbar-thumb {
+  background: #e53b3f;
 }
