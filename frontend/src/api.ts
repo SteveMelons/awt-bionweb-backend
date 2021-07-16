@@ -158,3 +158,16 @@ export const addFavorite = (args: AddFavoriteArgs) => {
 export const removeFavorite = (args: AddFavoriteArgs) => {
   return axiosApi.delete<boolean>(`/favorites/remove/${args.favoriteId}`);
 };
+
+export const updateUser = (args: {
+  skills?: BasicEntity[];
+  studyprogram?: BasicEntity;
+  mobile?: string;
+  preferences?: BasicEntity[];
+  bio?: string;
+  languages?: BasicEntity[];
+  courses?: BasicEntity[];
+  university?: BasicEntity;
+}) => {
+  return axiosApi.post<boolean>("/user/update", args);
+};

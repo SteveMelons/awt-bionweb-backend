@@ -102,13 +102,13 @@ const StudectCard: React.FC<StudectCardProps> = ({
           <Grid item xs={6}>
             <Typography className={classes.subtitle}>
               <span style={{ fontWeight: 500, color: "white" }}>
-                Study Program:{" "}
+                Study Program:
               </span>
             </Typography>
 
             <Typography className={classes.title}>
               <span style={{ fontWeight: 600, color: "white" }}>
-                {user.studyProgram}
+                {user.studyprogram?.name}
               </span>
             </Typography>
 
@@ -116,18 +116,18 @@ const StudectCard: React.FC<StudectCardProps> = ({
 
             <Typography className={classes.subtitle}>
               <span style={{ fontWeight: 500, color: "white" }}>
-                Looking for students in:{" "}
+                Looking for students in:
               </span>
             </Typography>
 
             <List>
               {user.preferences?.map((preference) => (
-                <ListItem button key={preference}>
+                <ListItem button key={preference.id}>
                   <ListItemText
                     className={classes.listItemText}
                     style={{ fontWeight: 600, color: "#f1c40f" }}
                   >
-                    {preference}
+                    {preference.name}
                   </ListItemText>
                 </ListItem>
               ))}
@@ -161,11 +161,11 @@ const StudectCard: React.FC<StudectCardProps> = ({
                   display: "inline",
                 }}
               >
-                {user.username}{" "}
-              </span>{" "}
+                {user.username}
+              </span>
               - {user.name} - {user.email}
             </Typography>
-            <Box display="flex" justifyContent="flex-end">
+            {/* <Box display="flex" justifyContent="flex-end">
               <IconButton
                 onClick={() => {
                   onClickFavorite(user.id);
@@ -173,7 +173,7 @@ const StudectCard: React.FC<StudectCardProps> = ({
               >
                 <Favorite style={{ color: "white" }} />
               </IconButton>
-            </Box>
+            </Box> */}
           </Grid>
         </Grid>
       </CardContent>

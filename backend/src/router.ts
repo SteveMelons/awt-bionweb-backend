@@ -1,28 +1,24 @@
-import { EntityManager, IDatabaseDriver, Connection } from "@mikro-orm/core";
+import { Connection, EntityManager, IDatabaseDriver } from "@mikro-orm/core";
+import argon2 from "argon2";
 import express from "express";
 import { SESSION_COOKIE_NAME } from "./constants";
+import { Course } from "./entities/Course";
+import { Language } from "./entities/Language";
+import { Message } from "./entities/Message";
+import { Preference } from "./entities/Preference";
+import { StudyProgram } from "./entities/StudyProgram";
+import { University } from "./entities/University";
 import { User } from "./entities/User";
-import argon2 from "argon2";
+import { UpdateUserArgs } from "./types/args";
 import { IdFieldResponse, IdResponse } from "./types/responses";
+import { BasicEntity, FiltersInterface } from "./types/types";
+import { filterUser, filterUserFavorite } from "./utils/filterEntity";
 import {
   validateEmail,
   validateName,
   validatePassword,
   validateUsername,
 } from "./validation";
-import {
-  filterUser,
-  filterUserFavorite,
-  filterNullInput,
-} from "./utils/filterEntity";
-import { UpdateUserArgs } from "./types/args";
-import { Course } from "./entities/Course";
-import { Language } from "./entities/Language";
-import { Preference } from "./entities/Preference";
-import { StudyProgram } from "./entities/StudyProgram";
-import { University } from "./entities/University";
-import { BasicEntity, FiltersInterface } from "./types/types";
-import { Message } from "./entities/Message";
 
 export const getRouter = (
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>
@@ -199,21 +195,75 @@ export const getRouter = (
 
     // get data from body
     let userInput: UpdateUserArgs = {
+      avatar: req.body.avatar,
       skills: req.body.skills,
-      studyProgram: req.body.studyProgram,
+      studyprogram: req.body.studyprogram,
       mobile: req.body.mobile,
       preferences: req.body.preferences,
       bio: req.body.bio,
       languages: req.body.languages,
       courses: req.body.courses,
+      university: req.body.university,
     };
 
-    const notNullProps = filterNullInput(userInput);
+    if (userInput.skills) {
+      await user.skills.init();
+      let skills: Preference[] = [];
+      userInput.skills.forEach((el) => {
+        skills.push(em.getReference(Preference, el.id));
+      });
+      user.skills.set(skills);
+    }
 
-    // update user
-    notNullProps.foreach(
-      (prop: any) => ((user as any)[prop] = (userInput as any)[prop])
-    );
+    if (userInput.studyprogram && userInput.studyprogram.id !== "") {
+      user.studyprogram = em.getReference(
+        StudyProgram,
+        userInput.studyprogram.id
+      );
+    }
+
+    if (userInput.mobile) {
+      user.mobile = userInput.mobile;
+    }
+
+    if (userInput.preferences) {
+      await user.preferences.init();
+      let preferences: Preference[] = [];
+      userInput.preferences.forEach((el) => {
+        preferences.push(em.getReference(Preference, el.id));
+      });
+      user.preferences.set(preferences);
+    }
+
+    if (userInput.bio) {
+      user.bio = userInput.bio;
+    }
+
+    if (userInput.languages) {
+      await user.languages.init();
+      let languages: Language[] = [];
+      userInput.languages.forEach((el) => {
+        languages.push(em.getReference(Language, el.id));
+      });
+      user.languages.set(languages);
+    }
+
+    if (userInput.courses) {
+      await user.courses.init();
+      let courses: Course[] = [];
+      userInput.courses.forEach((el) => {
+        courses.push(em.getReference(Course, el.id));
+      });
+      user.courses.set(courses);
+    }
+
+    if (userInput.university && userInput.university.id !== "") {
+      user.university = em.getReference(University, userInput.university.id);
+    }
+
+    if (userInput.avatar) {
+      user.avatar = userInput.avatar;
+    }
 
     // update database
     em.persistAndFlush(user);
@@ -381,8 +431,8 @@ export const getRouter = (
     response.courses = await em.find(Course, {});
     response.languages = await em.find(Language, {});
     response.preferences = await em.find(Preference, {});
-    response.studyprograms = await em.find(StudyProgram, {});
-    response.universities = await em.find(University, {});
+    response.studyprogram = await em.find(StudyProgram, {});
+    response.university = await em.find(University, {});
     return res.send(response);
   });
 

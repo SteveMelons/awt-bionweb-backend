@@ -2,20 +2,20 @@ import { Autocomplete, CircularProgress, TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { BasicEntity } from "../api";
 
-interface MultiAutoCompleteProps {
+interface SingleAutoCompleteProps {
   getOptions: () => Promise<BasicEntity[]>;
   label: string;
-  onChange: (newVal: BasicEntity[]) => void;
-  preSelected?: BasicEntity[];
+  onChange: (newVal: BasicEntity) => void;
+  preSelected?: BasicEntity;
 }
 
-const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
+const SingleAutoComplete: React.FC<SingleAutoCompleteProps> = ({
   getOptions,
   label,
   onChange,
   preSelected,
 }) => {
-  const [selected, setSelected] = useState<BasicEntity[]>(preSelected || []);
+  const [selected, setSelected] = useState(preSelected || { id: "", name: "" });
 
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<readonly BasicEntity[]>([]);
@@ -30,7 +30,7 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
 
     (async () => {
       if (active) {
-        setOptions([...(await getOptions())]);
+        setOptions([{ id: "", name: "" }, ...(await getOptions())]);
       }
     })();
 
@@ -46,7 +46,6 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
   return (
     <Autocomplete
       sx={{ width: "100%" }}
-      multiple
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -58,16 +57,10 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
       options={options}
       value={selected}
       onChange={(e, newVal) => {
-        setSelected((prevState) => {
-          let newState = Object.assign({}, prevState);
-          newState = newVal as any[];
-
-          return newState;
-        });
+        setSelected(newVal as any);
       }}
       getOptionLabel={(option) => option.name}
       isOptionEqualToValue={(option, value) => option.id === value.id}
-      filterSelectedOptions
       renderInput={(params) => (
         <TextField
           {...params}
@@ -90,4 +83,4 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
   );
 };
 
-export default MultiAutoComplete;
+export default SingleAutoComplete;
