@@ -1,40 +1,44 @@
 services:
-  nginx:
-    image: nginx:1-alpine
-    restart: unless-stopped
-    volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./frontend/build:/data/www
-    ports:
-      - 80:80
-
   node-backend:
-    image: node:16-alpine
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+      target: base
     restart: unless-stopped
-    working_dir: /home/node/app
+    ports:
+      - 4000:4000
     environment:
+      - NODE_ENV=development
       - PORT=4000
       - SESSION_SECRET=uiyHB^&*Cg^&*F#^doy8bxyzGFC^
       - MONGO_URL=mongodb://mongo:27017
       - DB_NAME=awt_project
       - REDIS_URL=redis:6379
-      - CORS_ORIGIN=*
+      - CORS_ORIGIN=http://localhost:3000
     volumes:
       - ./backend:/home/node/app
-    command: sh -c "npm i && npm run dev"
+    command: npm run dev
     depends_on:
       - mongo
       - redis
 
   node-frontend:
-    image: node:16-alpine
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+      target: base
     restart: unless-stopped
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
     command: npm run dev
     ports:
-      - 35729:35729
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - REACT_APP_API_URL=http://localhost:4000/
+      - REACT_APP_SOCKET_PATH=/socket.io
     depends_on:
       - node-backend
 

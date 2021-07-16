@@ -1,11 +1,13 @@
 import axios from "axios";
 import useAxios, { Options } from "axios-hooks";
+import { __apiUrl__ } from "./constants";
 import { FieldError } from "./types/errors";
 import { Message } from "./types/types";
 import { Me, User } from "./types/User";
 
 const axiosApi = axios.create({
-  baseURL: "/api/",
+  baseURL: __apiUrl__,
+  withCredentials: true,
 });
 
 interface UseApiArgs {
@@ -68,14 +70,19 @@ const useApi = <TRes, TErr = any>({
   data,
   options,
 }: UseApiArgs) => {
-  return useAxios<TRes, TErr>({ baseURL: "/api/", method, url, data }, options);
+  return useAxios<TRes, TErr>(
+    { baseURL: __apiUrl__, method, url, data, withCredentials: true },
+    options
+  );
 };
 
 /* API ROUTES */
 
 export const useGetUserById = (id?: string) => {
-  if (id) return useApi<Me, void>({ method: "GET", url: `/user/${id}` });
-  return useApi<Me, void>({ method: "GET", url: "/user" });
+  return useApi<Me | User, void>({
+    method: "GET",
+    url: id ? `/user/${id}` : "/user",
+  });
 };
 
 export const useGetUser = () => {

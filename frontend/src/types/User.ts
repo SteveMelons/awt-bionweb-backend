@@ -11,7 +11,7 @@ export interface Me {
   skills?: string[];
   bio?: string;
   favorites: User[];
-  creationDate: Date;
+  createdAt: Date;
 }
 
 export interface User {
@@ -26,5 +26,5 @@ export interface User {
   preferences?: string[];
   skills?: string[];
   bio?: string;
-  creationDate: Date;
+  createdAt: Date;
 }

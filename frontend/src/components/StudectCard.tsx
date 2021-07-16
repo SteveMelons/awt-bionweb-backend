@@ -12,17 +12,17 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/styles";
-import { Favorite, StarBorderSharp } from "@material-ui/icons";
+import { Favorite } from "@material-ui/icons";
+import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
-import { User } from "../types/User";
 import { useHistory } from "react-router-dom";
+import { User } from "../types/User";
 
-var colors = Array(
+var colors = [
   "radial-gradient(ellipse at top, #e66465, transparent), radial-gradient(ellipse at bottom, #9300a7, transparent)",
   "radial-gradient( at center, #3498db, #9b59b6 )",
-  "radial-gradient(ellipse at top, #009b8b, transparent), radial-gradient(ellipse at bottom, #a7003f, transparent)"
-);
+  "radial-gradient(ellipse at top, #009b8b, transparent), radial-gradient(ellipse at bottom, #a7003f, transparent)",
+];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

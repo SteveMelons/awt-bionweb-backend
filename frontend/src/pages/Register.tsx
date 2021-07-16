@@ -41,7 +41,7 @@ interface FormValues {
   passwordRepeat: string;
 }
 
-const Register: React.FC<RegisterProps> = ({}) => {
+const Register: React.FC<RegisterProps> = () => {
   const [{ data, loading }] = useMe();
   const history = useHistory();
 

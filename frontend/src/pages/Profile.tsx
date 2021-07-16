@@ -1,9 +1,9 @@
 import {
   Avatar,
-  Box,
   Card,
   CardActions,
   CardContent,
+  Container,
   Grid,
   IconButton,
   List,
@@ -20,11 +20,9 @@ import {
 } from "@material-ui/core";
 import { Favorite, Mail, WhatsApp } from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/styles";
-import id from "date-fns/locale/id/index.js";
 import React, { useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
-import { Container } from "reactstrap";
-import { useGetUser, useGetUserById, useMe } from "../api";
+import { useHistory, useLocation } from "react-router-dom";
+import { useGetUserById, useMe } from "../api";
 import Chat from "../components/Chat";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,11 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "100%",
       flexDirection: "column",
     },
     card: {
-      width: "75%",
       alignItems: "center",
       borderRadius: theme.spacing(3),
     },
@@ -105,13 +101,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ProfileProps {}
 
-const Profile: React.FC<ProfileProps> = ({}) => {
+const Profile: React.FC<ProfileProps> = () => {
   const id = new URLSearchParams(useLocation().search).get("id") as any;
 
   const [{ data: meData, loading: meLoading }] = useMe();
-  const [{ data: userData, loading: userLoading }] = useGetUserById(
-    id ? id : undefined
-  );
+  const [{ data: userData, loading: userLoading }] = useGetUserById(id);
 
   const [openState, setOpenState] = useState(true);
 
@@ -140,7 +134,7 @@ const Profile: React.FC<ProfileProps> = ({}) => {
               elevation={3}
               sx={{
                 position: "fixed",
-                maxWidth: "20em",
+                maxWidth: "25em",
                 width: "100%",
                 maxHeight: openState ? "30em" : "3em",
                 height: "100%",
@@ -174,26 +168,19 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                 </Grid>
 
                 <Grid container spacing={0}>
-                  <Grid className={classes.general} item xs={12} sm={6} md={4}>
-                    <Container component={Paper} className={classes.info}>
-                      @{userData.username}
-                      <br />
-                      <br />
-                      {userData.name}
+                  <Grid className={classes.general} item xs={12} md={6}>
+                    <Container className={classes.info}>
+                      <Typography sx={{ marginBottom: "1em" }}>
+                        @{userData.username}
+                      </Typography>
+                      <Typography sx={{ marginBottom: "1em" }}>
+                        {userData.name}
+                      </Typography>
                     </Container>
                   </Grid>
 
-                  <Grid className={classes.general} item xs={12} md={4}>
-                    <Container component={Paper} className={classes.info}>
-                      <span
-                        style={{
-                          fontWeight: 600,
-                          color: "#1e78c8",
-                          fontSize: 18,
-                        }}
-                      >
-                        Bio:{" "}
-                      </span>
+                  <Grid className={classes.general} item xs={12} md={6}>
+                    <Container className={classes.info}>
                       {userData.bio}
                     </Container>
                   </Grid>
@@ -295,7 +282,7 @@ const Profile: React.FC<ProfileProps> = ({}) => {
                           <TableRow>
                             <TableCell align="center">
                               {new Date(
-                                userData.creationDate
+                                userData.createdAt
                               ).toLocaleDateString()}
                             </TableCell>
                           </TableRow>

@@ -35,7 +35,7 @@ const MultiAutoComplete: React.FC<MultiAutoCompleteProps> = ({
     return () => {
       active = false;
     };
-  }, [loading]);
+  }, [loading, getOptions]);
 
   useEffect(() => {
     onChange(selected);

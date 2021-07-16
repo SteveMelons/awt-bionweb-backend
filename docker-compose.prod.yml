@@ -21,22 +21,42 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   node-backend:
-    image: node:16-alpine
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+      target: production
     restart: unless-stopped
-    working_dir: /home/node/app
+    ports:
+      - 4000:4000
     environment:
+      - NODE_ENV=production
       - PORT=4000
       - SESSION_SECRET=uiyHB^&*Cg^&*F#^doy8bxyzGFC^
       - MONGO_URL=mongodb://mongo:27017
       - DB_NAME=awt_project
       - REDIS_URL=redis:6379
-      - NODE_ENV=production
+      - CORS_ORIGIN=https://awt-bionweb.ddns.net
     volumes:
       - ./backend:/home/node/app
-    command: "npm start"
+    command: npm run dev
     depends_on:
       - mongo
       - redis
+
+  node-frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+      target: production
+    restart: no
+    working_dir: /home/node/app
+    volumes:
+      - ./frontend:/home/node/app
+    command: npm run build
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - node-backend
 
   mongo:
     image: mongo:4

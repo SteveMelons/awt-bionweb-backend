@@ -6,10 +6,9 @@ import PaginatingGrid from "../components/PaginatingGrid";
 
 interface FavoriteProps {}
 
-const Favorite: React.FC<FavoriteProps> = ({}) => {
+const Favorite: React.FC<FavoriteProps> = () => {
   const [{ data: meData, loading: meLoading }] = useMe();
-  const [{ data: favoritesData, loading: favoritesLoading }] =
-    useGetFavorites();
+  const [{ data: favoritesData }] = useGetFavorites();
   const history = useHistory();
 
   return (
@@ -29,8 +28,8 @@ const Favorite: React.FC<FavoriteProps> = ({}) => {
           {favoritesData && favoritesData.length !== 0 && (
             <PaginatingGrid
               users={favoritesData}
-              onClickFavorite={async (id) => {
-                const res = await removeFavorite({ favoriteId: id });
+              onClickFavorite={(id) => {
+                removeFavorite({ favoriteId: id });
                 history.go(0);
               }}
             />

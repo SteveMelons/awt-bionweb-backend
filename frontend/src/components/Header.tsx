@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header: React.FC<HeaderProps> = ({}) => {
+const Header: React.FC<HeaderProps> = () => {
   const [{ data, loading }] = useMe();
 
   const history = useHistory();
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
       <Toolbar>
         <Box className={classes.title}>
           <Link to="/">
-            <img src={logo} height="80" />
+            <img src={logo} alt="Studect Logo" height="80" />
           </Link>
         </Box>
         {/* not logged in */}

@@ -30,7 +30,7 @@ interface FormValues {
   password: string;
 }
 
-const Login: React.FC<LoginProps> = ({}) => {
+const Login: React.FC<LoginProps> = () => {
   const initialFormValues: FormValues = { usernameOrEmail: "", password: "" };
   const [{ data, loading }] = useMe();
 

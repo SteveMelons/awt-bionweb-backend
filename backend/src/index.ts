@@ -66,7 +66,7 @@ import { IOSession } from "./types/session";
   const session = expressSession({
     name: SESSION_COOKIE_NAME,
     store: new RedisStore({ client: redis, disableTouch: true }),
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
     cookie: {

@@ -18,7 +18,7 @@ import { User } from "../types/User";
 
 interface DashboardProps {}
 
-const Dashboard: React.FC<DashboardProps> = ({}) => {
+const Dashboard: React.FC<DashboardProps> = () => {
   const [{ data: meData, loading: meLoading }] = useMe();
   // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
   // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
@@ -45,7 +45,6 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
         <h1>Loading...</h1>
       ) : !meData?.id ? (
         (() => {
-          console.log(meData);
           history.push("/login");
           history.go(0);
         })()
@@ -186,7 +185,7 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
                 setUsers((prev) => [...prev, ...newData]);
               }}
               onClickFavorite={(id) => {
-                const res = addFavorite({ favoriteId: id });
+                addFavorite({ favoriteId: id });
               }}
             />
           )}

@@ -1,20 +1,15 @@
 import {
   Box,
-  Button,
   IconButton,
   TextField,
   Typography,
   useTheme,
 } from "@material-ui/core";
-import {
-  ArrowUpwardRounded,
-  CancelRounded,
-  CloseRounded,
-  Send,
-} from "@material-ui/icons";
+import { ArrowUpwardRounded, CloseRounded, Send } from "@material-ui/icons";
 import React, { createRef, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { getMessages, useMe } from "../api";
+import { __apiUrl__, __socketPath__ } from "../constants";
 import { Message, SocketUser } from "../types/types";
 import ChatBubble from "./ChatBubble";
 
@@ -34,32 +29,43 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
   const scrollRef = createRef<HTMLInputElement>();
 
   useEffect(() => {
+    let mounted = true;
+
     getMessages({ profileId }).then((res) => {
       setMessagesState(res.data);
     });
 
-    const socket = io({ path: "/ws" });
+    const socket = io(__apiUrl__, {
+      path: __socketPath__,
+      withCredentials: true,
+    });
 
     setSocketState(socket);
 
     socket.on("users", (users) => {
-      setOnlineUsersState(users);
+      if (mounted) setOnlineUsersState(users);
     });
 
     socket.on("user connected", (user: SocketUser) => {
-      setOnlineUsersState((prev) => [user, ...prev]);
+      if (mounted) setOnlineUsersState((prev) => [user, ...prev]);
     });
 
     socket.on("privateMessage", (data: Message) => {
-      setMessagesState((prev) => [data, ...prev]);
+      if (mounted) setMessagesState((prev) => [data, ...prev]);
     });
 
     socket.on("user disconnected", (user: SocketUser) => {
-      setOnlineUsersState((prev) =>
-        prev.filter((el) => el.userId !== user.userId)
-      );
+      if (mounted)
+        setOnlineUsersState((prev) =>
+          prev.filter((el) => el.userId !== user.userId)
+        );
     });
-  }, []);
+
+    return () => {
+      mounted = false;
+      socket.offAny();
+    };
+  }, [profileId]);
 
   useEffect(() => {
     if (scrollRef.current)
@@ -118,7 +124,7 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
                   const self = message.from.id === meData.id;
                   return (
                     <Box
-                      key={message.createdAt as any as string}
+                      key={JSON.stringify(message)}
                       sx={{ alignSelf: self ? "flex-end" : "flex-start" }}
                     >
                       <ChatBubble message={message} self={self} />
@@ -143,7 +149,7 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
                   setMessagesState((prev) => [
                     {
                       message: inputState,
-                      createdAt: new Date(),
+                      createdAt: new Date().getUTCMilliseconds(),
                       from: { id: meData.id },
                     } as any,
                     ...prev,
