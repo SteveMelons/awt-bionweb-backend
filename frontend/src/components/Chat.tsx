@@ -9,7 +9,7 @@ import { ArrowUpwardRounded, CloseRounded, Send } from "@material-ui/icons";
 import React, { createRef, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { getMessages, useMe } from "../api";
-import { __apiUrl__, __socketPath__ } from "../constants";
+import { __apiUrl__, __prod__, __socketPath__ } from "../constants";
 import { Message, SocketUser } from "../types/types";
 import ChatBubble from "./ChatBubble";
 
@@ -35,7 +35,7 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
       setMessagesState(res.data);
     });
 
-    const socket = io(__apiUrl__, {
+    const socket = io(__prod__ ? "/" : __apiUrl__, {
       path: __socketPath__,
       withCredentials: true,
     });

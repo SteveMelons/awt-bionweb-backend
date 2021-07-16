@@ -16,6 +16,8 @@ export const getEvents = (
       message: data.message,
     });
 
+    console.log("Send Message: ", data);
+
     em.persistAndFlush(message);
 
     if (data.to.socketId)

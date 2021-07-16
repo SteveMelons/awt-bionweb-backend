@@ -48,7 +48,7 @@ services:
       context: ./frontend/
       dockerfile: Dockerfile
       target: production
-    restart: no
+    restart: "no"
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
