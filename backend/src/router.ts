@@ -175,7 +175,7 @@ export const getRouter = (
       {
         limit,
         offset,
-        orderBy: { createdAt: 1 },
+        orderBy: { createdAt: -1 },
       }
     );
 

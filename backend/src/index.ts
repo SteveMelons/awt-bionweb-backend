@@ -121,6 +121,7 @@ import { IOSession } from "./types/session";
         userId: (userSocket.request as any as IOSession).session.userId,
       });
     }
+
     socket.emit("users", users);
     socket.broadcast.emit("user connected", {
       socketId: socket.id,

@@ -56,16 +56,17 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
 
     socket.on("user disconnected", (user: SocketUser) => {
       if (mounted)
-        setOnlineUsersState((prev) =>
-          prev.filter((el) => el.userId !== user.userId)
-        );
+        setOnlineUsersState((prev) => {
+          return [...prev.filter((el) => el.userId !== user.userId)];
+        });
     });
 
     return () => {
       mounted = false;
       socket.offAny();
+      socket.disconnect();
     };
-  }, [profileId]);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current)

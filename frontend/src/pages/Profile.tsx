@@ -113,6 +113,13 @@ const Profile: React.FC<ProfileProps> = () => {
 
   const classes = useStyles();
 
+  const self = () => {
+    if (meData?.id && userData?.id) {
+      return meData.id === userData.id;
+    }
+    return false;
+  };
+
   return (
     <>
       {meLoading ? (
@@ -129,7 +136,7 @@ const Profile: React.FC<ProfileProps> = () => {
       ) : (
         <>
           {/* CHAT */}
-          {meData.id !== userData.id && (
+          {!self() && (
             <Paper
               elevation={3}
               sx={{
