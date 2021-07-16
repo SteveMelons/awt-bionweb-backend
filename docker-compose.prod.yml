@@ -38,7 +38,7 @@ services:
       - CORS_ORIGIN=https://awt-bionweb.ddns.net
     volumes:
       - ./backend:/home/node/app
-    command: npm run dev
+    command: npm run start
     depends_on:
       - mongo
       - redis
