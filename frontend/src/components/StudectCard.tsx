@@ -76,6 +76,7 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, color }) => {
   const history = useHistory();
 
   const theme = useTheme();
+  const maxItems = 3;
 
   return (
     <Card
@@ -145,19 +146,21 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, color }) => {
             )}
 
             <List>
-              {user.preferences?.map((preference) => (
-                <ListItem key={preference.id + "pref"} sx={{ padding: "0" }}>
-                  <ListItemText
-                    className={classes.listItemText}
-                    style={{
-                      fontWeight: 500,
-                      color: "white",
-                    }}
-                  >
-                    {preference.name}
-                  </ListItemText>
-                </ListItem>
-              ))}
+              {user.preferences
+                ?.map((preference) => (
+                  <ListItem key={preference.id + "pref"} sx={{ padding: "0" }}>
+                    <ListItemText
+                      className={classes.listItemText}
+                      style={{
+                        fontWeight: 500,
+                        color: "white",
+                      }}
+                    >
+                      {preference.name}
+                    </ListItemText>
+                  </ListItem>
+                ))
+                .slice(0, maxItems)}
             </List>
           </Grid>
 
@@ -177,19 +180,21 @@ const StudectCard: React.FC<StudectCardProps> = ({ user, color }) => {
             )}
 
             <List>
-              {user.skills?.map((skill) => (
-                <ListItem key={skill.id} sx={{ padding: "0" }}>
-                  <ListItemText
-                    className={classes.listItemText}
-                    style={{
-                      fontWeight: 500,
-                      color: "white",
-                    }}
-                  >
-                    {skill.name}
-                  </ListItemText>
-                </ListItem>
-              ))}
+              {user.skills
+                ?.map((skill) => (
+                  <ListItem key={skill.id} sx={{ padding: "0" }}>
+                    <ListItemText
+                      className={classes.listItemText}
+                      style={{
+                        fontWeight: 500,
+                        color: "white",
+                      }}
+                    >
+                      {skill.name}
+                    </ListItemText>
+                  </ListItem>
+                ))
+                .slice(0, maxItems)}
             </List>
           </Grid>
 

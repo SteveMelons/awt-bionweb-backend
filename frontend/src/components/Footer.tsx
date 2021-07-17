@@ -36,6 +36,9 @@ const Footer: React.FC<FooterProps> = () => {
           {"."}
         </Typography>
       </Container>
+      <Link color="inherit" href="/imprint">
+        Imprint
+      </Link>{" "}
     </footer>
   );
 };

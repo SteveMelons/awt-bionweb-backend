@@ -28,6 +28,7 @@ const PaginatingGrid: React.FC<PaginatingGridProps> = ({
         margin: "2em auto",
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(22em, 1fr))",
+        gridAutoRows: "22em",
         gap: "1.3em",
       }}
     >
