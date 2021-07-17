@@ -105,6 +105,10 @@ export const useGetUsers = (args?: GetUsersArgs) => {
   return useApi<User[], void>({ method: "GET", url: "/users" });
 };
 
+export const useGetRecommendations = () => {
+  return useApi<User[], void>({ method: "GET", url: "/recommendations" });
+};
+
 export const useGetFilters = () => {
   return useApi<FiltersInterface, void>({ method: "GET", url: "/filters" });
 };

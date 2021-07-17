@@ -170,6 +170,16 @@ export const getRouter = (
       { $and: [newFilters, { id: { $ne: req.session.userId } }] },
       {
         limit,
+        populate: [
+          "university",
+          "studyprogram",
+          "preferences",
+          "skills",
+          "languages",
+          "courses",
+          "seen",
+          "favorites",
+        ],
         offset,
         orderBy: { createdAt: -1 },
       }
@@ -342,13 +352,57 @@ export const getRouter = (
     return res.send(response);
   });
 
-  router.get("/students/matches", (_req, res) => {
-    res.send("matches");
-  });
-
-  router.get("/students/:filters", (_req, res) => {
-    //TODO to specify which filters do we need
-    res.send("filterd students");
+  router.get("/recommendations", async (req, res) => {
+    // TODO: implement better recommendation algorithm
+    const length = 9;
+    const self = await em.findOne(User, { id: req.session.userId });
+    self!.preferences.init();
+    const preferenceIds: string[] = [];
+    for (const el in self!.preferences) {
+      if (Object.prototype.hasOwnProperty.call(self!.preferences, el)) {
+        const element = self!.preferences[el];
+        preferenceIds.push(element.id);
+      }
+    }
+    const usersSkills = await em.find(
+      User,
+      { skills: preferenceIds },
+      {
+        orderBy: { createdAt: -1 },
+        populate: [
+          "university",
+          "studyprogram",
+          "preferences",
+          "skills",
+          "languages",
+          "courses",
+          "seen",
+          "favorites",
+        ],
+      }
+    );
+    if (usersSkills.length < length) {
+      const usersSkillsIds = usersSkills.map((el) => el.id);
+      const usersAll = await em.find(
+        User,
+        { id: { $nin: usersSkillsIds } },
+        {
+          orderBy: { createdAt: -1 },
+          populate: [
+            "university",
+            "studyprogram",
+            "preferences",
+            "skills",
+            "languages",
+            "courses",
+            "seen",
+            "favorites",
+          ],
+        }
+      );
+      usersSkills.push(...usersAll.slice(0, length - usersSkills.length));
+    }
+    res.send(usersSkills);
   });
 
   router.get("/favorites", async (req, res) => {

@@ -28,6 +28,7 @@ import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import {
+  addFavorite,
   BasicEntity,
   updateUser,
   useGetFilters,
@@ -721,16 +722,25 @@ const Profile: React.FC<ProfileProps> = () => {
                       {/* Footer */}
                       <Grid className={classes.grid} item xs={12}>
                         <CardActions disableSpacing>
-                          <IconButton aria-label="add to favorites">
-                            <Favorite />
-                          </IconButton>
+                          {id && (
+                            <>
+                              <IconButton
+                                aria-label="add to favorites"
+                                onClick={() => {
+                                  addFavorite({ favoriteId: id });
+                                }}
+                              >
+                                <Favorite />
+                              </IconButton>
 
-                          <IconButton
-                            aria-label="contact"
-                            href={`mailto: ${userData.email}`}
-                          >
-                            <Mail />
-                          </IconButton>
+                              <IconButton
+                                aria-label="contact"
+                                href={`mailto: ${userData.email}`}
+                              >
+                                <Mail />
+                              </IconButton>
+                            </>
+                          )}
 
                           <IconButton
                             aria-label="share"

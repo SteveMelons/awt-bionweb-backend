@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  addFavorite,
   FiltersInterface,
   getCourses,
   getLanguages,
@@ -10,16 +9,20 @@ import {
   getStudyprograms,
   getUniversities,
   getUsers,
+  useGetRecommendations,
   useMe,
 } from "../api";
 import MultiAutoComplete from "../components/MultiAutoComplete";
 import PaginatingGrid from "../components/PaginatingGrid";
+import StudectCarousel from "../components/StudectCarousel";
 import { User } from "../types/User";
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const [{ data: meData, loading: meLoading }] = useMe();
+  const [{ data: recommendationData }] = useGetRecommendations();
+
   // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
   // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
 
@@ -33,6 +36,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
     studyprogram: [],
     university: [],
   });
+
+  const [initialState, setInitialState] = useState(true);
 
   const history = useHistory();
 
@@ -50,15 +55,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
         })()
       ) : (
         <>
-          {/* <Search /> */}
-          {/* <Filters /> */}
-
           <Box
             mt="2em"
             display="flex"
             flexDirection="column"
             gap="1em"
-            width="35em"
+            maxWidth="35em"
+            width="95%"
           >
             <Typography variant="h5">Filters</Typography>
             <Box>
@@ -157,20 +160,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   limit: initialLimit,
                   offset: 0,
                 };
-                setUsers(
-                  (
-                    await getUsers({
-                      params: newPagination,
-                      filters: selectedFilters,
-                    })
-                  ).data
-                );
+                const loadedUsers = (
+                  await getUsers({
+                    params: newPagination,
+                    filters: selectedFilters,
+                  })
+                ).data;
+                setUsers(loadedUsers);
+
+                setInitialState(false);
               }}
             >
               Search
             </Button>
           </Box>
-          {users.length !== 0 && (
+          {users.length !== 0 ? (
             <PaginatingGrid
               users={users}
               initialLimit={initialLimit}
@@ -184,10 +188,39 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 ).data;
                 setUsers((prev) => [...prev, ...newData]);
               }}
-              onClickFavorite={(id) => {
-                addFavorite({ favoriteId: id });
-              }}
             />
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                mt: "2em",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              {!initialState && (
+                <Box>
+                  <Typography textAlign="center" variant="body1">
+                    No users match your search...
+                    {recommendationData && (
+                      <>
+                        <br />
+                        but here are some
+                      </>
+                    )}
+                  </Typography>
+                </Box>
+              )}
+              {recommendationData && (
+                <>
+                  <Box>
+                    <Typography variant="h5">Recommendations</Typography>
+                  </Box>
+                  <StudectCarousel users={recommendationData} />
+                </>
+              )}
+            </Box>
           )}
         </>
       )}

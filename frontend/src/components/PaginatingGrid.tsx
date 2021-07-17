@@ -5,7 +5,6 @@ import StudectCard from "./StudectCard";
 
 interface PaginatingGridProps {
   users: User[];
-  onClickFavorite: (id: string) => void;
   onLoadMore?: (newPagination: { limit: number; offset: number }) => void;
   initialLimit?: number;
   loadLimit?: number;
@@ -13,7 +12,6 @@ interface PaginatingGridProps {
 
 const PaginatingGrid: React.FC<PaginatingGridProps> = ({
   users,
-  onClickFavorite,
   onLoadMore,
   initialLimit,
   loadLimit,
@@ -34,14 +32,7 @@ const PaginatingGrid: React.FC<PaginatingGridProps> = ({
       }}
     >
       {users.map((user, i) => (
-        <StudectCard
-          key={user.id}
-          color={i % 3}
-          user={user}
-          onClickFavorite={(id) => {
-            onClickFavorite(id);
-          }}
-        />
+        <StudectCard key={user.id} color={i % 3} user={user} />
       ))}
       {onLoadMore && initialLimit && loadLimit && (
         <Button

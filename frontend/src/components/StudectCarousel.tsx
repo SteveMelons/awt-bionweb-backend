@@ -1,48 +1,42 @@
-import { Theme } from "@material-ui/core/styles";
-import StudectCard from "./StudectCard";
-import { makeStyles, createStyles } from "@material-ui/styles";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Box, useTheme } from "@material-ui/core";
+import React from "react";
 import { Carousel } from "react-responsive-carousel";
-import "./StudectCarousel.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { User } from "../types/User";
+import StudectCard from "./StudectCard";
+import "../StudectCarousel.css";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-      margin: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  })
-);
+interface StudectCarouselProps {
+  users: User[];
+}
 
-export default function StudectCarousel() {
-  const classes = useStyles();
-
-  /*     function StudectList(props) {
-            const students = props.students;
-            const studentList = students.map((student) =>
-                <div key={student.id}>
-                    <StudectCard student={student} />
-                </div >
-            );
-            return (
-                <div>{studentList}</div>
-            );
-        } */
+const StudectCarousel: React.FC<StudectCarouselProps> = ({ users }) => {
+  const theme = useTheme();
 
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        marginX: theme.spacing(6),
+        alignItems: "stretch",
+        width: "100%",
+      }}
+    >
       <Carousel
         autoPlay
-        centerMode={true}
-        centerSlidePercentage={31}
-        showArrows={true}
+        centerMode
+        centerSlidePercentage={40}
+        showArrows
+        infiniteLoop
+        emulateTouch
+        showThumbs={false}
       >
-        {/**Here we need to map the Studectcards. The amount must be always > 1 */}
-        <div>{/* <StudectCard /> */}</div>
-        <div>{/* <StudectCard /> */}</div>
+        {users.map((user, i) => (
+          <StudectCard key={user.id} color={i % 3} user={user} />
+        ))}
       </Carousel>
-    </div>
-    //<StudectList students={students} />
+    </Box>
   );
-}
+};
+
+export default StudectCarousel;

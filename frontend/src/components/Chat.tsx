@@ -51,7 +51,8 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
     });
 
     socket.on("privateMessage", (data: Message) => {
-      if (mounted) setMessagesState((prev) => [data, ...prev]);
+      if (mounted && data.from.id === profileId)
+        setMessagesState((prev) => [data, ...prev]);
     });
 
     socket.on("user disconnected", (user: SocketUser) => {
@@ -126,7 +127,10 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
                   return (
                     <Box
                       key={JSON.stringify(message)}
-                      sx={{ alignSelf: self ? "flex-end" : "flex-start" }}
+                      sx={{
+                        alignSelf: self ? "flex-end" : "flex-start",
+                        maxWidth: "85%",
+                      }}
                     >
                       <ChatBubble message={message} self={self} />
                     </Box>

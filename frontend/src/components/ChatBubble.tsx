@@ -21,7 +21,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({ self, message }) => {
         color: "#fff",
         fontSize: "0.6em",
         margin: "0.4em 1em",
-        overflowWrap: "anywhere",
+        overflowWrap: "break-word",
       }}
     >
       <Typography>{message.message}</Typography>

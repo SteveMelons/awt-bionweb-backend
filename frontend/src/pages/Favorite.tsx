@@ -1,7 +1,7 @@
 import { Box, Typography } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { removeFavorite, useGetFavorites, useMe } from "../api";
+import { useGetFavorites, useMe } from "../api";
 import PaginatingGrid from "../components/PaginatingGrid";
 
 interface FavoriteProps {}
@@ -26,13 +26,7 @@ const Favorite: React.FC<FavoriteProps> = () => {
             <Typography variant="h5">Favorites</Typography>
           </Box>
           {favoritesData && favoritesData.length !== 0 && (
-            <PaginatingGrid
-              users={favoritesData}
-              onClickFavorite={(id) => {
-                removeFavorite({ favoriteId: id });
-                history.go(0);
-              }}
-            />
+            <PaginatingGrid users={favoritesData} />
           )}
         </>
       )}

@@ -1,24 +1,42 @@
 .carousel.carousel-slider .control-arrow {
-    background-color: darkblue;
+  /* background-color: #1e78c8; */
+  height: 2em;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 5px;
+}
 
+.carousel .control-prev.control-arrow:before {
+  /* border-right: 8px solid #1e78c8; */
+  /* border-color: #1e78c8; */
 }
 
 .carousel.carousel-slider .control-arrow:hover {
-    background-color: purple;
-
+  /* background-color: #004c95; */
 }
 
-@keyframes sliderWrapperAnimation {
-    from {
-        background-color: rgba(41, 41, 201, 0.514);
-    }
+/* @keyframes sliderWrapperAnimation {
+  from {
+    background-color: rgba(41, 41, 201, 0.514);
+  }
 
-    to {
-        background-color: rgba(174, 41, 201, 0.514);
-    }
-}
+  to {
+    background-color: rgba(174, 41, 201, 0.514);
+  }
+} */
 
 .slider-wrapper {
-    animation-name: sliderWrapperAnimation;
-    animation-duration: 11s;
+  /* animation-name: sliderWrapperAnimation;
+  animation-duration: 11s; */
+  padding: 4em 0;
+}
+
+.carousel.carousel-slider li {
+  display: flex;
+  align-items: stretch;
+  margin: 0 0.5em;
+}
+
+.carousel-status {
+  display: none;
 }
