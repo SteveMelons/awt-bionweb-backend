@@ -6,11 +6,12 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+      # - ./data/ssl:/etc/ssl/ #for testing
       - ./frontend/build:/data/www
     ports:
       - 80:80
       - 443:443
-    # command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
   certbot:
     image: certbot/certbot
@@ -33,7 +34,7 @@ services:
       - MONGO_URL=mongodb://mongo:27017
       - DB_NAME=awt_project
       - REDIS_URL=redis:6379
-      - CORS_ORIGIN=https://awt-bionweb.ddns.net
+      # - CORS_ORIGIN=https://awt-bionweb.ddns.net
     command: npm run start
     depends_on:
       - mongo

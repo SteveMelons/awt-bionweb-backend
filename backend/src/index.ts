@@ -49,7 +49,7 @@ import { IOSession } from "./types/session";
   const app = express();
   const server = createServer(app);
   const io = new Server(server, {
-    cors: { origin: process.env.CORS_ORIGIN, credentials: true },
+    cors: { credentials: true },
   });
 
   /* --- MIDDLEWARE --- */
@@ -57,7 +57,6 @@ import { IOSession } from "./types/session";
   // cors
   app.use(
     cors({
-      origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
