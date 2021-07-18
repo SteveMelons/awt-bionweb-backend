@@ -1,18 +1,20 @@
 [
-    {
-        "name":"Angewandte Informatik B.Sc."
-    },
-    {
-        "name":"Angewandte Informatik M.Sc."
-    },
-    {
-        "name":"ISE B.Sc. (Software Engineering)"
-    },
-    {
-        "name":"ISE B.Sc. (Communications)"
-    },
-    {
-        "name":"ISE Computer Engineering M.Sc."
-    }
-  
+  {
+    "name": "Angewandte Informatik B.Sc."
+  },
+  {
+    "name": "Angewandte Informatik M.Sc."
+  },
+  {
+    "name": "ISE B.Sc. (Software Engineering)"
+  },
+  {
+    "name": "ISE B.Sc. (Communications)"
+  },
+  {
+    "name": "ISE Computer Engineering M.Sc."
+  },
+  {
+    "name": "ISE M.Sc. Embedded Systems Engineering"
+  }
 ]
