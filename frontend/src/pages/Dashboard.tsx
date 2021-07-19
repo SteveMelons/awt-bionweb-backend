@@ -39,6 +39,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const [initialState, setInitialState] = useState(true);
 
+  const [reloadState, setReloadState] = useState<any>(null);
+
   const history = useHistory();
 
   const initialLimit = 8;
@@ -160,6 +162,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   limit: initialLimit,
                   offset: 0,
                 };
+                setReloadState(newPagination);
                 const loadedUsers = (
                   await getUsers({
                     params: newPagination,
@@ -179,6 +182,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
               users={users}
               initialLimit={initialLimit}
               loadLimit={loadLimit}
+              reload={reloadState}
               onLoadMore={async (newPagination) => {
                 const newData = (
                   await getUsers({

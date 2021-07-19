@@ -1,5 +1,5 @@
 import { Box, Button } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User } from "../types/User";
 import StudectCard from "./StudectCard";
 
@@ -8,6 +8,7 @@ interface PaginatingGridProps {
   onLoadMore?: (newPagination: { limit: number; offset: number }) => void;
   initialLimit?: number;
   loadLimit?: number;
+  reload?: any;
 }
 
 const PaginatingGrid: React.FC<PaginatingGridProps> = ({
@@ -15,11 +16,19 @@ const PaginatingGrid: React.FC<PaginatingGridProps> = ({
   onLoadMore,
   initialLimit,
   loadLimit,
+  reload,
 }) => {
   const [pagination, setPagination] = useState({
     limit: initialLimit || 0,
     offset: 0,
   });
+
+  useEffect(() => {
+    setPagination({
+      limit: initialLimit || 0,
+      offset: 0,
+    });
+  }, [reload]);
 
   return (
     <Box
