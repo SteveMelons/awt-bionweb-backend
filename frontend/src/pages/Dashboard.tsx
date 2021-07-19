@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   FiltersInterface,
@@ -10,6 +10,7 @@ import {
   getUniversities,
   getUsers,
   useGetRecommendations,
+  useGetSeen,
   useMe,
 } from "../api";
 import MultiAutoComplete from "../components/MultiAutoComplete";
@@ -22,6 +23,8 @@ interface DashboardProps {}
 const Dashboard: React.FC<DashboardProps> = () => {
   const [{ data: meData, loading: meLoading }] = useMe();
   const [{ data: recommendationData }] = useGetRecommendations();
+  let [{ data: seenData }] = useGetSeen();
+
 
   // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
   // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
@@ -222,6 +225,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     <Typography variant="h5">Recommendations</Typography>
                   </Box>
                   <StudectCarousel users={recommendationData} />
+                </>
+              )}
+             {seenData && (
+                <>
+                  <Box>
+                    <Typography variant="h5">You have already seen</Typography>
+                  </Box>
+                  <StudectCarousel users={seenData} />
                 </>
               )}
             </Box>

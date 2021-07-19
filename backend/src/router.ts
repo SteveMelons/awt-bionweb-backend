@@ -338,7 +338,7 @@ export const getRouter = (
     const requiredUser = await em.findOne(User, { id: requiredId });
     const user = await em.findOne(User, { id: userId });
 
-    if (!user || !requiredUser) {
+    if (!user || !requiredUser || requiredId == userId) {
       return res.send();
     }
 
@@ -354,14 +354,17 @@ export const getRouter = (
 
   router.get("/recommendations", async (req, res) => {
     // TODO: implement better recommendation algorithm
-    const length = 9;
+    const length = 10;
+    let response: User[] = []; 
     const self = await em.findOne(User, { id: req.session.userId });
-    self!.preferences.init();
     const preferenceIds: string[] = [];
-    for (const el in self!.preferences) {
-      if (Object.prototype.hasOwnProperty.call(self!.preferences, el)) {
-        const element = self!.preferences[el];
-        preferenceIds.push(element.id);
+    if (self?.preferences) {
+      self!.preferences.init();
+      for (const el in self!.preferences) {
+        if (Object.prototype.hasOwnProperty.call(self!.preferences, el)) {
+          const element = self!.preferences[el];
+          preferenceIds.push(element.id);
+        }
       }
     }
     const usersSkills = await em.find(
@@ -401,8 +404,9 @@ export const getRouter = (
         }
       );
       usersSkills.push(...usersAll.slice(0, length - usersSkills.length));
+      response = usersSkills.filter(obj => obj != self);
     }
-    res.send(usersSkills);
+    res.send(response);
   });
 
   router.get("/favorites", async (req, res) => {

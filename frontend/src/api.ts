@@ -109,6 +109,10 @@ export const useGetRecommendations = () => {
   return useApi<User[], void>({ method: "GET", url: "/recommendations" });
 };
 
+export const useGetSeen = () => {
+  return useApi<User[], void>({ method: "GET", url: "/user/seen" });
+};
+
 export const useGetFilters = () => {
   return useApi<FiltersInterface, void>({ method: "GET", url: "/filters" });
 };
