@@ -25,6 +25,9 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({ self, message }) => {
       }}
     >
       <Typography>{message.message}</Typography>
+      <Typography fontSize="1.1em">
+        {new Date(message.createdAt).toLocaleString()}
+      </Typography>
     </Box>
   );
 };

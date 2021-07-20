@@ -1,6 +1,5 @@
 import { Box, Typography } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Imprint: React.FC = () => {
   return (

@@ -10,6 +10,6 @@ export interface Message {
   from: User;
   to: User;
   message: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -1,6 +1,12 @@
-import { Typography, Container, Link, Theme } from "@material-ui/core";
+import {
+  Typography,
+  Container,
+  Link as MuiLink,
+  Theme,
+} from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/styles";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface FooterProps {}
 
@@ -29,16 +35,16 @@ const Footer: React.FC<FooterProps> = () => {
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {"Copyright © "}
-          <Link color="inherit" href="/">
+          <MuiLink component={Link} color="inherit" to="/">
             Studect
-          </Link>{" "}
+          </MuiLink>{" "}
           {new Date().getFullYear()}
           {"."}
         </Typography>
       </Container>
-      <Link color="inherit" href="/imprint">
+      <MuiLink component={Link} color="inherit" to="/imprint">
         Imprint
-      </Link>{" "}
+      </MuiLink>
     </footer>
   );
 };

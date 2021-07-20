@@ -141,26 +141,28 @@ const Chat: React.FC<ChatProps> = ({ profileId, open, setOpen }) => {
                 onSubmit={(e) => {
                   e.preventDefault();
 
-                  socketState?.emit("sendMessage", {
-                    to: {
-                      id: profileId,
-                      socketId: onlineUsersState.find(
-                        (user) => user.userId === profileId
-                      )?.socketId,
-                    },
-                    message: inputState,
-                  });
-
-                  setMessagesState((prev) => [
-                    {
+                  if (inputState !== "") {
+                    socketState?.emit("sendMessage", {
+                      to: {
+                        id: profileId,
+                        socketId: onlineUsersState.find(
+                          (user) => user.userId === profileId
+                        )?.socketId,
+                      },
                       message: inputState,
-                      createdAt: new Date().getUTCMilliseconds(),
-                      from: { id: meData.id },
-                    } as any,
-                    ...prev,
-                  ]);
+                    });
 
-                  setInputState("");
+                    setMessagesState((prev) => [
+                      {
+                        message: inputState,
+                        createdAt: new Date().toISOString(),
+                        from: { id: meData.id },
+                      } as any,
+                      ...prev,
+                    ]);
+
+                    setInputState("");
+                  }
                 }}
               >
                 <Box display="flex" gap="0.5em" padding="0.5em">
