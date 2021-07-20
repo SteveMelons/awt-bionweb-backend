@@ -23,8 +23,7 @@ interface DashboardProps {}
 const Dashboard: React.FC<DashboardProps> = () => {
   const [{ data: meData, loading: meLoading }] = useMe();
   const [{ data: recommendationData }] = useGetRecommendations();
-  let [{ data: seenData }] = useGetSeen();
-
+  const [{ data: seenData }] = useGetSeen();
 
   // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
   // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
@@ -210,7 +209,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <Box>
                   <Typography textAlign="center" variant="body1">
                     No users match your search...
-                    {recommendationData && (
+                    {((recommendationData && recommendationData.length !== 0) ||
+                      (seenData && seenData.length !== 0)) && (
                       <>
                         <br />
                         but here are some
@@ -219,7 +219,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </Typography>
                 </Box>
               )}
-              {recommendationData && (
+              {recommendationData && recommendationData.length !== 0 && (
                 <>
                   <Box>
                     <Typography variant="h5">Recommendations</Typography>
@@ -227,10 +227,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   <StudectCarousel users={recommendationData} />
                 </>
               )}
-             {seenData && (
+              {seenData && seenData.length !== 0 && (
                 <>
                   <Box>
-                    <Typography variant="h5">You have already seen</Typography>
+                    <Typography variant="h5">Visited Profiles</Typography>
                   </Box>
                   <StudectCarousel users={seenData} />
                 </>
