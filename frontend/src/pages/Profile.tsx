@@ -585,7 +585,6 @@ const Profile: React.FC<ProfileProps> = ({ loggedIn, userId }) => {
                           </Box>
                         </List>
                       </Grid>
-
                       <Grid
                         item
                         xs={12}
@@ -625,7 +624,6 @@ const Profile: React.FC<ProfileProps> = ({ loggedIn, userId }) => {
                           </Box>
                         </List>
                       </Grid>
-
                       <Grid
                         item
                         xs={12}
@@ -663,7 +661,6 @@ const Profile: React.FC<ProfileProps> = ({ loggedIn, userId }) => {
                           </Box>
                         </List>
                       </Grid>
-
                       <Grid
                         item
                         xs={12}
@@ -701,7 +698,6 @@ const Profile: React.FC<ProfileProps> = ({ loggedIn, userId }) => {
                           </Box>
                         </List>
                       </Grid>
-
                       {editState && (
                         <Box
                           display="flex"
@@ -718,43 +714,39 @@ const Profile: React.FC<ProfileProps> = ({ loggedIn, userId }) => {
                           </Button>
                         </Box>
                       )}
+                      {/* Footer */}{" "}
+                      {id && (
+                        <Grid className={classes.grid} item xs={12}>
+                          <CardActions disableSpacing>
+                            <IconButton
+                              aria-label="add to favorites"
+                              onClick={() => {
+                                addFavorite({ favoriteId: id });
+                              }}
+                            >
+                              <Favorite />
+                            </IconButton>
 
-                      {/* Footer */}
-                      <Grid className={classes.grid} item xs={12}>
-                        <CardActions disableSpacing>
-                          {id && (
-                            <>
-                              <IconButton
-                                aria-label="add to favorites"
-                                onClick={() => {
-                                  addFavorite({ favoriteId: id });
-                                }}
-                              >
-                                <Favorite />
-                              </IconButton>
-
-                              <IconButton
-                                aria-label="contact"
-                                href={`mailto: ${userData.email}`}
-                              >
-                                <Mail />
-                              </IconButton>
-                            </>
-                          )}
-
-                          <IconButton
-                            aria-label="share"
-                            href={
-                              "https://wa.me/?text=" +
-                              encodeURI(
-                                `Check out ${userData.username} on Studect ${window.location.href}`
-                              )
-                            }
-                          >
-                            <WhatsApp />
-                          </IconButton>
-                        </CardActions>
-                      </Grid>
+                            <IconButton
+                              aria-label="contact"
+                              href={`mailto: ${userData.email}`}
+                            >
+                              <Mail />
+                            </IconButton>
+                            <IconButton
+                              aria-label="share"
+                              href={
+                                "https://wa.me/?text=" +
+                                encodeURI(
+                                  `Check out ${userData.username} on Studect ${window.location.href}`
+                                )
+                              }
+                            >
+                              <WhatsApp />
+                            </IconButton>
+                          </CardActions>
+                        </Grid>
+                      )}
                     </Grid>
                   </CardContent>
                 </Card>

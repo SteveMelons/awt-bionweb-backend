@@ -346,7 +346,7 @@ export const getRouter = (
     const response = filterUser(requiredUser);
 
     // update seen users
-    user.seen.add(requiredUser);
+    if (requiredUser.id !== userId) user.seen.add(requiredUser);
     em.persistAndFlush(user);
 
     return res.send(response);
@@ -368,7 +368,7 @@ export const getRouter = (
     }
     const usersSkills = await em.find(
       User,
-      { skills: preferenceIds },
+      { skills: preferenceIds, id: { $ne: self!.id } },
       {
         orderBy: { createdAt: -1 },
         populate: [

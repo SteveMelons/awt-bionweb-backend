@@ -181,7 +181,7 @@ const NavBar: React.FC = () => {
           history.go(0);
         }}
       >
-        Log Out
+        Logout
       </MenuItem>
     </Menu>
   );
