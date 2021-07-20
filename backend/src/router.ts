@@ -387,7 +387,7 @@ export const getRouter = (
       const usersSkillsIds = usersSkills.map((el) => el.id);
       const usersAll = await em.find(
         User,
-        { id: { $and: [{ $not: self!.id }, { $nin: usersSkillsIds }] } },
+        { id: { $nin: usersSkillsIds, $ne: self!.id } },
         {
           orderBy: { createdAt: -1 },
           populate: [

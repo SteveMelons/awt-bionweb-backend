@@ -1,23 +1,25 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useGetFavorites, useMe } from "../api";
+import { useGetFavorites } from "../api";
 import PaginatingGrid from "../components/PaginatingGrid";
 
-interface FavoriteProps {}
+interface FavoriteProps {
+  loggedIn: boolean;
+}
 
-const Favorite: React.FC<FavoriteProps> = () => {
-  const [{ data: meData, loading: meLoading }] = useMe();
-  const [{ data: favoritesData }] = useGetFavorites();
+const Favorite: React.FC<FavoriteProps> = ({ loggedIn }) => {
+  const [{ data: favoritesData, loading: favoritesLoading }] =
+    useGetFavorites();
   const history = useHistory();
 
   return (
     <>
-      {meLoading ? (
-        <h1>Loading...</h1>
-      ) : !meData?.id ? (
+      {favoritesLoading ? (
+        <CircularProgress color="secondary" />
+      ) : !loggedIn ? (
         (() => {
-          history.push("/");
+          history.push("/login");
           history.go(0);
         })()
       ) : (

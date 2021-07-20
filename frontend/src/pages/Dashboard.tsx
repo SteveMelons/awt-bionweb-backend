@@ -1,5 +1,5 @@
-import { Box, Button, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import { Box, Button, CircularProgress, Typography } from "@material-ui/core";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   FiltersInterface,
@@ -11,22 +11,20 @@ import {
   getUsers,
   useGetRecommendations,
   useGetSeen,
-  useMe,
 } from "../api";
 import MultiAutoComplete from "../components/MultiAutoComplete";
 import PaginatingGrid from "../components/PaginatingGrid";
 import StudectCarousel from "../components/StudectCarousel";
 import { User } from "../types/User";
 
-interface DashboardProps {}
+interface DashboardProps {
+  loggedIn: boolean;
+}
 
-const Dashboard: React.FC<DashboardProps> = () => {
-  const [{ data: meData, loading: meLoading }] = useMe();
-  const [{ data: recommendationData }] = useGetRecommendations();
-  const [{ data: seenData }] = useGetSeen();
-
-  // const [{ data: usersData, loading: usersLoading }] = useGetUsers();
-  // const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
+const Dashboard: React.FC<DashboardProps> = ({ loggedIn }) => {
+  const [{ data: recommendationData, loading: recommendationLoading }] =
+    useGetRecommendations();
+  const [{ data: seenData, loading: seenLoading }] = useGetSeen();
 
   const [users, setUsers] = useState<User[]>([]);
 
@@ -50,9 +48,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   return (
     <>
-      {meLoading ? (
-        <h1>Loading...</h1>
-      ) : !meData?.id ? (
+      {recommendationLoading || seenLoading ? (
+        <CircularProgress color="secondary" />
+      ) : !loggedIn ? (
         (() => {
           history.push("/login");
           history.go(0);

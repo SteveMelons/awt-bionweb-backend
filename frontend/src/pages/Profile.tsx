@@ -5,6 +5,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
   Container,
   Grid,
   IconButton,
@@ -33,7 +34,6 @@ import {
   updateUser,
   useGetFilters,
   useGetUserById,
-  useMe,
 } from "../api";
 import Chat from "../components/Chat";
 import MultiAutoComplete from "../components/MultiAutoComplete";
@@ -125,14 +125,16 @@ interface FormValues {
   bio: string;
 }
 
-interface ProfileProps {}
+interface ProfileProps {
+  loggedIn: boolean;
+  userId: string;
+}
 
-const Profile: React.FC<ProfileProps> = () => {
+const Profile: React.FC<ProfileProps> = ({ loggedIn, userId }) => {
   const id = new URLSearchParams(useLocation().search).get("id") as any;
 
-  const [{ data: meData, loading: meLoading }] = useMe();
   const [{ data: userData, loading: userLoading }] = useGetUserById(id);
-  const [{ data: filtersData }] = useGetFilters();
+  const [{ data: filtersData, loading: filtersLoading }] = useGetFilters();
 
   const [editState, setEditState] = useState(false);
 
@@ -143,23 +145,21 @@ const Profile: React.FC<ProfileProps> = () => {
   const classes = useStyles();
 
   const self = () => {
-    if (meData?.id && userData?.id) {
-      return meData.id === userData.id;
+    if (userData?.id) {
+      return userId === userData.id;
     }
     return false;
   };
 
   return (
     <>
-      {meLoading ? (
-        <h1>Loading...</h1>
-      ) : !meData?.id ? (
+      {filtersLoading || userLoading ? (
+        <CircularProgress color="secondary" />
+      ) : !loggedIn ? (
         (() => {
-          history.push("/");
+          history.push("/login");
           history.go(0);
         })()
-      ) : userLoading ? (
-        <h1>Loading</h1>
       ) : !userData ? (
         <h1>Error</h1>
       ) : (
